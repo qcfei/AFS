@@ -1,0 +1,867 @@
+{
+  "changable": {
+    "strategy": [
+      {
+        "name": "\u7ea2\u5361 \u5251\u5446",
+        "skill1": "110 120 130 321 331 231 221 410",
+        "order1": "a/1/2",
+        "skill2": "211 311 530 310 110",
+        "order2": "a/1/2",
+        "skill3": "130 120 321 331",
+        "order3": "a/1/2"
+      },
+      {
+        "name": "\u7ea2\u5361 \u5f13\u51db",
+        "skill1": "110 120 130 231 331",
+        "order1": "a/1/2",
+        "skill2": "211 130 311 321 110 530 310 221 410",
+        "order2": "a/1/2",
+        "skill3": "120 321 331",
+        "order3": "a/1/2"
+      },
+      {
+        "name": "\u7ea2\u5361 \u9b54\u603b\u53f8",
+        "skill1": "110 120 231 331 321 410",
+        "order1": "a/1/2",
+        "skill2": "130 211 311 221",
+        "order2": "a/1/2",
+        "skill3": "530 110 120 130 310 321 331",
+        "order3": "a/1/2"
+      },
+      {
+        "name": "\u7ea2\u5361 \u516c\u4e3b",
+        "skill1": "120 231 331 321",
+        "order1": "a/1/2",
+        "skill2": "110 130 211 311",
+        "order2": "a/1/2",
+        "skill3": "431 221 110 120 130",
+        "order3": "a/1/2"
+      },
+      {
+        "name": "\u84dd\u5361 \u5927\u516c",
+        "skill1": "120 130 231 331 321 221 310 210",
+        "order1": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill2": "530 110 310 321 331 410",
+        "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill3": "110",
+        "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
+      }
+    ],
+    "currentStrategyIndex": 4,
+    "isCloth": true,
+    "again": {
+      "appleIndex": 3,
+      "fightCount": 3,
+      "isAgain": true
+    },
+    "fightCurrentCount": 2,
+    "assistIndex": 3,
+    "isCheckServantIconFirstTime": false,
+    "simulatorIndex": 3,
+    "simulator": [
+      {
+        "name": "mumu6",
+        "ip": "127.0.0.1:7555",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "nox",
+        "ip": "127.0.0.1:62001",
+        "captureMethod": 0,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu12ARKNIGHTS",
+        "ip": "127.0.0.1:16448",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu12BGO\u3001BA",
+        "ip": "127.0.0.1:16384",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu1",
+        "ip": "127.0.0.1:88143288",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu666",
+        "ip": "127.0.0.1:88143288",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu11",
+        "ip": "127.0.0.1:88143288",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      },
+      {
+        "name": "mumu1145",
+        "ip": "127.0.0.1:88143288",
+        "captureMethod": 1,
+        "windowsTitle": "BGO\u3001BA",
+        "captureRect": [
+          65,
+          45,
+          1145,
+          640
+        ]
+      }
+    ]
+  },
+  "fixed": {
+    "appleNameList": [
+      "\u91d1\u82f9\u679c",
+      "\u94f6\u82f9\u679c",
+      "\u84dd\u82f9\u679c",
+      "\u94dc\u82f9\u679c",
+      "\u4e0d\u5403\u82f9\u679c"
+    ],
+    "WindowGeometry": [
+      1219,
+      62,
+      1278,
+      651
+    ],
+    "parameters": {
+      "general": {
+        "init": {
+          "idx": 0,
+          "neighborState": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "confidenceThreshold": 1,
+              "featureImagePath": "mask/0initMask.png",
+              "maskImgPath": "mask/0initMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "before": {
+          "idx": 1,
+          "neighborState": [
+            2,
+            3
+          ],
+          "checkMode": "or",
+          "featureInfoList": [
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before1.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before2.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before3.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before4.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before5.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/before/before6.png",
+              "maskImgPath": "mask/before/mask.png"
+            }
+          ],
+          "actionList": [
+            [
+              {
+                "type": "tap",
+                "x": 390,
+                "y": 100
+              }
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "drug": {
+          "idx": 2,
+          "neighborState": [
+            3,
+            4
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                10,
+                55,
+                255,
+                400
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/2drugMask.png",
+              "maskImgPath": "mask/2drugMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              {
+                "type": "tap",
+                "x": 290,
+                "y": 130
+              },
+              {
+                "type": "tap",
+                "x": 350,
+                "y": 230
+              }
+            ],
+            [
+              {
+                "type": "tap",
+                "x": 290,
+                "y": 190
+              },
+              {
+                "type": "tap",
+                "x": 350,
+                "y": 230
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 221,
+                "y0": 183,
+                "x1": 221,
+                "y1": 33,
+                "duration": 100
+              },
+              {
+                "type": "tap",
+                "x": 290,
+                "y": 130
+              },
+              {
+                "type": "tap",
+                "x": 350,
+                "y": 230
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 221,
+                "y0": 183,
+                "x1": 221,
+                "y1": 33,
+                "duration": 100
+              },
+              {
+                "type": "tap",
+                "x": 290,
+                "y": 190
+              },
+              {
+                "type": "tap",
+                "x": 350,
+                "y": 230
+              }
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "assistChoose": {
+          "idx": 3,
+          "neighborState": [
+            4,
+            5
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                0,
+                0,
+                70,
+                510
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/3assistChooseMask.png",
+              "maskImgPath": "mask/3assistChooseMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "prepare": {
+          "idx": 4,
+          "neighborState": [
+            3,
+            5
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                0,
+                90,
+                510
+              ],
+              "confidenceThreshold": 0.65,
+              "featureImagePath": "mask/4prepareMask.png",
+              "maskImgPath": "mask/4prepareMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              {
+                "type": "tap",
+                "x": 460,
+                "y": 270
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 221,
+                "y0": 233,
+                "x1": 221,
+                "y1": 113,
+                "duration": 50
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 41,
+                "y0": 133,
+                "x1": 41,
+                "y1": 133,
+                "duration": 200
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 111,
+                "y0": 133,
+                "x1": 111,
+                "y1": 133,
+                "duration": 200
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 211,
+                "y0": 133,
+                "x1": 211,
+                "y1": 133,
+                "duration": 200
+              }
+            ],
+            [
+              {
+                "type": "swipe",
+                "x0": 281,
+                "y0": 133,
+                "x1": 281,
+                "y1": 133,
+                "duration": 200
+              }
+            ],
+            [
+              {
+                "type": "tap",
+                "x": 10,
+                "y": 10
+              }
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "fight": {
+          "idx": 5,
+          "neighborState": [
+            6
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                415,
+                65,
+                75
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/5fightMask.png",
+              "maskImgPath": "mask/5fightMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "result": {
+          "idx": 6,
+          "neighborState": [
+            7
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                80,
+                20,
+                110,
+                470
+              ],
+              "confidenceThreshold": 0.6,
+              "featureImagePath": "mask/6resultMask.png",
+              "maskImgPath": "mask/6resultMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              {
+                "type": "tap",
+                "x": 460,
+                "y": 270
+              }
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "fightAgain": {
+          "idx": 7,
+          "neighborState": [
+            1,
+            2,
+            3
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                55,
+                55,
+                405
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/7fightAgainMask.png",
+              "maskImgPath": "mask/7fightAgainMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              {
+                "type": "tap",
+                "x": 350,
+                "y": 230
+              }
+            ],
+            [
+              {
+                "type": "tap",
+                "x": 40,
+                "y": 20
+              }
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        }
+      },
+      "assist": {
+        "assistServantFeatureInfoList": [
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_1.png"
+          },
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_2.png"
+          },
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_3.png"
+          }
+        ],
+        "assistClothFeatureInfoList": [
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_1.png"
+          },
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_2.png"
+          },
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_3.png"
+          }
+        ],
+        "failActionList": [
+          [
+            {
+              "type": "swipe",
+              "x0": 213,
+              "y0": 251,
+              "x1": 213,
+              "y1": 107,
+              "duration": 100
+            }
+          ],
+          [
+            {
+              "type": "tap",
+              "x": 380,
+              "y": 60
+            },
+            {
+              "type": "tap",
+              "x": 350,
+              "y": 230
+            }
+          ]
+        ]
+      },
+      "fight": {
+        "skill": 0,
+        "order": {
+          "colorMaskImgPathList": [
+            "mask/orderRed.png",
+            "mask/orderGreen.png",
+            "mask/orderBlue.png"
+          ],
+          "servantMaskImgPathList": [
+            "mask/preServant4.png",
+            "mask/preServant3.png",
+            "mask/preServant2.png",
+            "mask/preServant1.png"
+          ]
+        }
+      }
+    },
+    "order_pas": {
+      "i": [
+        420,
+        215
+      ],
+      "z": [
+        170,
+        80
+      ],
+      "x": [
+        260,
+        80
+      ],
+      "c": [
+        350,
+        80
+      ],
+      "1": [
+        60,
+        220
+      ],
+      "2": [
+        160,
+        220
+      ],
+      "3": [
+        260,
+        220
+      ],
+      "4": [
+        360,
+        220
+      ],
+      "5": [
+        460,
+        220
+      ]
+    },
+    "skill_pas": {
+      "1_1": [
+        [
+          30,
+          240
+        ]
+      ],
+      "1_2": [
+        [
+          70,
+          240
+        ]
+      ],
+      "1_3": [
+        [
+          100,
+          240
+        ]
+      ],
+      "2_1": [
+        [
+          160,
+          240
+        ]
+      ],
+      "2_2": [
+        [
+          200,
+          240
+        ]
+      ],
+      "2_3": [
+        [
+          230,
+          240
+        ]
+      ],
+      "3_1": [
+        [
+          290,
+          240
+        ]
+      ],
+      "3_2": [
+        [
+          320,
+          240
+        ]
+      ],
+      "3_3": [
+        [
+          360,
+          240
+        ]
+      ],
+      "4_1": [
+        [
+          480,
+          130
+        ],
+        [
+          365,
+          130
+        ]
+      ],
+      "4_2": [
+        [
+          480,
+          130
+        ],
+        [
+          400,
+          130
+        ]
+      ],
+      "4_3": [
+        [
+          480,
+          130
+        ],
+        [
+          440,
+          130
+        ]
+      ],
+      "5_3": [
+        [
+          480,
+          130
+        ],
+        [
+          440,
+          130
+        ],
+        [
+          220,
+          150
+        ],
+        [
+          310,
+          150
+        ],
+        [
+          260,
+          250
+        ],
+        [
+          370,
+          30
+        ],
+        [
+          370,
+          30
+        ]
+      ],
+      "0": [
+        [
+          370,
+          30
+        ]
+      ],
+      "1": [
+        [
+          140,
+          180
+        ]
+      ],
+      "2": [
+        [
+          260,
+          180
+        ]
+      ],
+      "3": [
+        [
+          390,
+          180
+        ]
+      ]
+    }
+  }
+}
