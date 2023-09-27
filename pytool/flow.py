@@ -511,6 +511,7 @@ class Flow_Fight(Flow):
                 time.sleep(0.3)
                 self.strategyGenerate()
                 self.la_log.log_add(f'orderResult: {list2str(self.originalStrategy)}')
+                self.originalStrategy=[]
                 time.sleep(0.3)
                 self.simulatorOperator.actionByDictList(self.orderAction,self.pause)
                 self.la_log.log_add(f'finish order {self.idx//2+1}')

@@ -62,7 +62,7 @@ def neighborStateNameGet()->dict[str,list[int]]:
 
 def sysInput(text:str):
     if 'adb' in text:
-        text=text.replace('adb','platform-tools_r33.0.3-windows/platform-tools/adb.exe')
+        text=text.replace('adb',r'platform-tools_r33.0.3-windows\platform-tools\adb.exe')
     subprocess.run(text,shell=True)
 
 def pause():

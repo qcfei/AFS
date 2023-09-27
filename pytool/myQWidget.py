@@ -227,22 +227,27 @@ class Widget_run(QWidget):
 
         def initialAction(self):
             self.la_log.log_add('flow/minitouch loading')
-            self.flowGeneral=Flow_General()
-            self.flowAssist=self.flowGeneral.state3_assistChoose.flow_assist
-            self.flowFight=self.flowGeneral.state5_fight.flow_fight
-            self.flow_lst:list[Flow]=[self.flowGeneral,self.flowAssist,self.flowFight]
-            self.flowImgBind()
+            try:
+                self.flowGeneral=Flow_General()
+                self.flowAssist=self.flowGeneral.state3_assistChoose.flow_assist
+                self.flowFight=self.flowGeneral.state5_fight.flow_fight
+                self.flow_lst:list[Flow]=[self.flowGeneral,self.flowAssist,self.flowFight]
+                self.flowImgBind()
+            except Exception as e:
+                # self.la_log.log_add(f'flow/minitouch load failed: {e}')
+                open('log.txt','+w').write(str(e))
+            self.la_log.log_add('flow loaded')
             if self.device == None:
                 self.simulatorOperator=SimulatorOperator()
                 _DEVICE_ID=ipGet()
                 self.device=MNTDevice(_DEVICE_ID)
                 self.simulatorOperator.deviceBind(self.device)
+            self.la_log.log_add('minitouch loaded')
 
             for flow in self.flow_lst:
                 flow.simulatorOperatorBind(self.simulatorOperator)
                 flow.logBind(self.la_log)
                 
-            self.la_log.log_add('flow/minitouch loaded')
 
         def action(self):
             self.currentImg=imgResize2512(qImg2Mat(self.th_graphicCapture.qImg))

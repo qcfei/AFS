@@ -51,10 +51,10 @@
     "isCloth": true,
     "again": {
       "appleIndex": 3,
-      "fightCount": 3,
+      "fightCount": 1,
       "isAgain": true
     },
-    "fightCurrentCount": 2,
+    "fightCurrentCount": 1,
     "assistIndex": 3,
     "isCheckServantIconFirstTime": false,
     "simulatorIndex": 3,
