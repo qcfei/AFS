@@ -695,10 +695,10 @@
             "mask/orderBlue.png"
           ],
           "servantMaskImgPathList": [
-            "mask/preServant4.png",
-            "mask/preServant3.png",
-            "mask/preServant2.png",
-            "mask/preServant1.png"
+            "fgoMaterial/preServant4.png",
+            "fgoMaterial/preServant3.png",
+            "fgoMaterial/preServant2.png",
+            "fgoMaterial/preServant1.png"
           ]
         }
       }

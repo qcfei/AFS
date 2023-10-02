@@ -204,7 +204,7 @@ class Flow_General(Flow):
                                                 ((imgCut[yi,xi,0]<60 and imgCut[yi,xi,1]<60 and imgCut[yi,xi,2]<60) and
                                                     (imgCut[yi,xi,0]>37 and imgCut[yi,xi,1]>37 and imgCut[yi,xi,2]>37)))
                                                 else imgCut[yi,xi] for xi in range(w)]for yi in range(h)],np.uint8)
-                cv2.imwrite(f'mask/preServant{str(idx+1)}.png',imgMasked)
+                cv2.imwrite(f'fgoMaterial/preServant{str(idx+1)}.png',imgMasked)
                 self.la_log.log_add(f'r{list2str([str(i+1) for i in range(idx+1)])} found',min(idx,1))
                 print(idx,'found')
                 return True
