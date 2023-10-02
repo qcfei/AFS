@@ -487,6 +487,7 @@ class Flow_Fight(Flow):
             strategySplited=self.strategy.split('/')
 
             self.originalStrategy:list[str]=[]
+            self.orderAction=[]
 
             for singleStep in strategySplited:
                 step_list=singleStep.split()
@@ -526,7 +527,6 @@ class Flow_Fight(Flow):
                 self.strategyGenerate()
                 print(self.originalStrategy)
                 self.la_log.log_add(f'orderResult: {list2str(self.originalStrategy)}')
-                self.originalStrategy=[]
                 time.sleep(0.3)
                 self.simulatorOperator.actionByDictList(self.orderAction,self.pause)
                 self.progress=0
