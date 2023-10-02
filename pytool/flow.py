@@ -334,6 +334,7 @@ class Flow_Assist(Flow):
     def findTargetServant(self)->list[int]:
         servantX_lst:list[int]=[]
         servantY_lst:list[int]=[]
+        h,w=self.assistServantFeatureInfo_lst[0]['Rect'][2:4]
         print('assist servant')
         for assistServantFeatureInfo in self.assistServantFeatureInfo_lst:
             print('single step',end=' ')
@@ -352,7 +353,6 @@ class Flow_Assist(Flow):
                 clothY_lst+=cloth_lst[0]
                 clothX_lst+=cloth_lst[1]
             radio=6
-            h,w=assistServantFeatureInfo['Rect'][2:4]
             dyx=[assistClothFeatureInfo['Rect'][dxyi]-assistServantFeatureInfo['Rect'][dxyi] for dxyi in range(2)]
             flag=False
             for servantI in range(len(servantX_lst)):
@@ -366,7 +366,7 @@ class Flow_Assist(Flow):
             if len(servantX_lst)==0:
                 return None
             else:
-                return [servantX_lst[servantI]+w//2,servantY_lst[servantI]+h//2]
+                return [servantX_lst[0]+w//2,servantY_lst[0]+h//2]
         
     def pause(self):
         time.sleep(0.6)

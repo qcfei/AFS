@@ -1,21 +1,29 @@
-14:00:31	finished 2 fights
-14:00:25	result
-14:00:03	orderResult: z 3 4 
-14:00:02	orderCard: b2 g4 b1 b1 b4 
-13:59:58	skill: 530 110 310 321 331 410 
-13:59:27	orderResult: z 3 5 
-13:59:27	orderCard: b2 b2 r1 r2 g1 
-13:59:22	skill: 120 130 231 331 321 221 310 210 
-13:59:02	success in 0-0 times
-13:58:53	drug: À¶Æ»¹û
-13:58:51	fightAgain
-13:58:45	result
-13:58:21	orderResult: z 1 4 
-13:58:21	orderCard: r1 b2 b2 g1 g4 
-13:58:16	skill: 530 110 310 321 331 410 
-13:57:45	orderResult: z 1 4 
-13:57:45	orderCard: b1 g2 r2 b1 r1 
-13:57:41	skill: 120 130 231 331 321 221 310 210 
-13:57:26	minitouch loaded
-13:57:19	flow loaded
-13:57:14	flow/minitouch loading
+14:44:02	finished 2 fights
+14:43:56	result
+14:43:43	orderResult: 4 5 2 
+14:43:42	orderCard: r1 r2 g1 b2 b2 
+14:43:38	skill: 210 410 
+14:43:14	orderResult: z 5 3 
+14:43:13	orderCard: b2 g2 r1 g2 b1 
+14:43:09	skill: 310 
+14:42:47	orderResult: z 2 1 
+14:42:47	orderCard: b2 b1 b2 b2 r2 
+14:42:43	skill: 110 130 121 231 331 321 221 
+14:42:24	success in 0-0 times
+14:42:16	drug: À¶Æ»¹û
+14:42:14	fightAgain
+14:42:09	result
+14:41:57	orderResult: 1 2 3 
+14:41:57	orderCard: b2 b1 g2 b2 b2 
+14:41:42	orderResult: 1 2 4 
+14:41:41	orderCard: b2 b2 b1 g2 g2 
+14:41:37	skill: 210 410 
+14:41:13	orderResult: z 1 2 
+14:41:13	orderCard: r1 r1 b2 g1 r2 
+14:41:09	skill: 310 
+14:40:46	orderResult: z 3 1 
+14:40:46	orderCard: b2 b2 b1 b2 r2 
+14:40:42	skill: 110 130 121 231 331 321 221 
+14:40:30	minitouch loaded
+14:40:24	flow loaded
+14:40:21	flow/minitouch loading
