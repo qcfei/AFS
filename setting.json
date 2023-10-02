@@ -62,7 +62,7 @@
         "skill2": "310",
         "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
         "skill3": "210 410",
-        "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
+        "order3": "z/b2 r2 g2/b2 r2 g2"
       }
     ],
     "currentStrategyIndex": 6,
@@ -72,7 +72,7 @@
       "fightCount": 2,
       "isAgain": true
     },
-    "fightCurrentCount": 2,
+    "fightCurrentCount": 0,
     "assistIndex": 3,
     "isCheckServantIconFirstTime": true,
     "simulatorIndex": 3,

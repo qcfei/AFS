@@ -20,7 +20,7 @@ class TabWidgt_Total(QTabWidget):
         WindowGeometry=settingRead(['fixed','WindowGeometry'])
         wx,wy,ww,wh=WindowGeometry
         self.setGeometry(wx,wy,ww,wh)
-        self.setWindowTitle('fgoTTScript')
+        self.setWindowTitle('AFS ver1.0.2')
         self.setWindowIcon(QIcon('litShk.ico'))
 
         self.wi1_run = Widget_run()
@@ -53,6 +53,7 @@ class TabWidgt_Total(QTabWidget):
         servantIconSignal.connect(self.wi2_setting.scrollArea_setting.gb4_checkServantIcon.servantIconUpdate)
 
         print('TabWidgt_Total initializied')
+
     def vbDetailConnect(self,vbDetailI:int):
         gbStrategy2=self.wi2_setting.scrollArea_setting.gb1_strategy
         cbStrategy1=self.wi1_run.cb23_strategyChoose
