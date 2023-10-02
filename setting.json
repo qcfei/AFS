@@ -45,16 +45,25 @@
         "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
         "skill3": "110",
         "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
+      },
+      {
+        "name": "order only",
+        "skill1": "110",
+        "order1": "b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill2": "110",
+        "order2": "b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill3": "110",
+        "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
       }
     ],
     "currentStrategyIndex": 4,
     "isCloth": true,
     "again": {
-      "appleIndex": 3,
-      "fightCount": 1,
+      "appleIndex": 2,
+      "fightCount": 2,
       "isAgain": true
     },
-    "fightCurrentCount": 1,
+    "fightCurrentCount": 2,
     "assistIndex": 3,
     "isCheckServantIconFirstTime": false,
     "simulatorIndex": 3,
@@ -166,8 +175,8 @@
       "\u4e0d\u5403\u82f9\u679c"
     ],
     "WindowGeometry": [
-      1219,
-      62,
+      1281,
+      728,
       1278,
       651
     ],

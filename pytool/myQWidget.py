@@ -14,6 +14,7 @@ from pytool.minicap import *
 
 class TabWidgt_Total(QTabWidget):
     def __init__(self) -> None:
+        print('TabWidgt_Total initializing')
         super(QTabWidget,self).__init__()
         self.setStyleSheet('font-size: 13pt;style=line-height:200%;color:white;')
         WindowGeometry=settingRead(['fixed','WindowGeometry'])
@@ -51,6 +52,7 @@ class TabWidgt_Total(QTabWidget):
         servantIconSignal=self.wi1_run.th_operate.servantIconChanged
         servantIconSignal.connect(self.wi2_setting.scrollArea_setting.gb4_checkServantIcon.servantIconUpdate)
 
+        print('TabWidgt_Total initializied')
     def vbDetailConnect(self,vbDetailI:int):
         gbStrategy2=self.wi2_setting.scrollArea_setting.gb1_strategy
         cbStrategy1=self.wi1_run.cb23_strategyChoose
@@ -126,7 +128,7 @@ class Widget_run(QWidget):
             super(Widget_run.Thread_GraphicCapture,self).__init__() 
             self.th_minicapSocket=Widget_run.Thread_MinicapSocket()
             self.captureMethod:int=None
-            self.la_log:Label_Log=None
+            self.la_log:Signal_log=None
             self.qImg=QImage('screen.jpeg')
 
         def methodUpdate(self):
@@ -134,10 +136,11 @@ class Widget_run(QWidget):
             self.captureMethod:int=settingRead(['changable','simulator',self.simulatorIndex,'captureMethod'])
             self.captureRect:list[int]=settingRead(['changable','simulator',self.simulatorIndex,'captureRect'])
 
-        def logBind(self,la_log:Label_Log):
+        def logBind(self,la_log:Signal_log):
             self.la_log=la_log
 
         def initialAction(self):
+            print('starting graphic capture')
             self.methodUpdate()
             if self.captureMethod==0:
                 self.la_log.log_add(f'minicap loading')
@@ -211,13 +214,13 @@ class Widget_run(QWidget):
 
             self.simulatorOperator=None
             self.device=None
-            self.la_log:Label_Log=None
+            self.la_log:Signal_log=None
             self.currentImg:np.ndarray=imgResize2512(cv2.imread('screen.jpeg'))
             
         def threadBind(self,th_graphicCapture:PauseableThread):
             self.th_graphicCapture=th_graphicCapture
 
-        def logBind(self,la_log:Label_Log):
+        def logBind(self,la_log:Signal_log):
             self.la_log=la_log
 
         def flowImgBind(self):
@@ -226,6 +229,7 @@ class Widget_run(QWidget):
             self.flowAssist.currentImgBind(self.currentImg)
 
         def initialAction(self):
+            print('starting script')
             self.la_log.log_add('flow/minitouch loading')
             try:
                 self.flowGeneral=Flow_General()
@@ -248,7 +252,6 @@ class Widget_run(QWidget):
                 flow.simulatorOperatorBind(self.simulatorOperator)
                 flow.logBind(self.la_log)
                 
-
         def action(self):
             self.currentImg=imgResize2512(qImg2Mat(self.th_graphicCapture.qImg))
             self.flowImgBind()
@@ -262,6 +265,7 @@ class Widget_run(QWidget):
 
         def finishAction(self):
             self.la_log.log_add(f'finished {self.flowGeneral.fightCurrentCount} fights')
+            print('totally finished')
             self.quitSignal.emit()
             time.sleep(0.3)
 
@@ -330,6 +334,7 @@ class Widget_run(QWidget):
         #     [thread.resume() for thread in self.thread_lst]
 
     def __init__(self) -> None:
+        print('Widget_run initializing')
         super(Widget_run,self).__init__()
         self.th_graphicCapture=Widget_run.Thread_GraphicCapture()
         self.th_operate=Widget_run.Thread_Operate()
@@ -351,8 +356,10 @@ class Widget_run(QWidget):
         self.vb1_general      .addLayout(self.hb4_switch      )
         self.vb1_general      .addLayout(self.hb5_screen      )
         self.th_laScreenImgUpdate.laScreenBind(self.hb5_screen.la1_screen)
-        self.th_operate.logBind(self.hb5_screen.la22_log)
-        self.th_graphicCapture.logBind(self.hb5_screen.la22_log)
+        self.sgn_log=Signal_log()
+        self.sgn_log.sgn.connect(self.hb5_screen.la22_log.log_add)
+        self.th_operate.logBind(self.sgn_log)
+        self.th_graphicCapture.logBind(self.sgn_log)
 
         self.la11_simulator     =Widget_run.Label_SimulatorSelect()
         self.la12_fightCount    =QLabel()
@@ -403,6 +410,8 @@ class Widget_run(QWidget):
         self.th_operate.quitSignal.connect(self.btnc43_script.initialize)
         self.btn42_stateReset.clicked.connect(self.th_operate.stateReset)
         self.btn44_logReset.clicked.connect(self.hb5_screen.la22_log.log_reset)
+
+        print('Widget_run initializied')
         
     # def test(self):
     #     self.hb5_screen.la22_log.log_add('aaa')
@@ -438,6 +447,7 @@ class Widget_set(QWidget):
                 self.setStyleSheet("background:transparent;")
     
     def __init__(self):
+        print('Widget_set initializing')
         super(Widget_set, self).__init__()
         self.hbox = QHBoxLayout()
         self.setLayout(self.hbox)
@@ -481,6 +491,8 @@ class Widget_set(QWidget):
                 la.labelClicked.connect(self.scrollArea_setting.setScrollBarValue)
                 self.scrollArea_setting.scrolled.connect(la.select_change)
                 
+        print('Widget_set initializied')
+
 class ScrollArea_setting(QScrollArea):
     scrolled=pyqtSignal(int,int)
     def __init__(self,):
@@ -658,11 +670,16 @@ class GroupBox_Assist(QGroupBox):
         self.setLayout(self.vb_assist)
 
         self.cb1_isCloth=QCheckBox('是否关心礼装')
+        self.cb1_isCloth.setChecked(settingRead(['changable','isCloth']))
+        self.cb1_isCloth.stateChanged.connect(self.isClothChangeEmit)
         self.hb2_assistChoose_lst=[]
         for i in range(3):
             self.hb2_assistChoose_lst.append(HBoxLayout_AssistChoose(i+1))
             self.vb_assist.addLayout(self.hb2_assistChoose_lst[i])
         self.vb_assist.addWidget(self.cb1_isCloth)
+
+    def isClothChangeEmit(self):
+        settingWrite(self.cb1_isCloth.isChecked(),['changable','isCloth'])
 
 class GroupBox_Repeat(QGroupBox):
 

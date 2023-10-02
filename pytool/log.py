@@ -1,7 +1,10 @@
 
+import typing
 from PyQt5.QtWidgets import *
 import time
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt,pyqtSignal,QRect
+from pytool.pauseableThread import *
 
 class Label_Log(QPlainTextEdit):
     def __init__(self) -> None:
@@ -24,8 +27,18 @@ class Label_Log(QPlainTextEdit):
             pass
         else:
             self.verticalScrollBar().setValue(oldValue)
+        with open('./runningRecord.txt','w') as f:
+            f.write(new_text)
 
     def log_reset(self):
         self.setPlainText('')
         self.text=''
 
+class Signal_log(PauseableThread):
+    sgn=pyqtSignal(str,int)
+    def __init__(self) -> None:
+        super(Signal_log,self).__init__()
+
+    def log_add(self,text:str,sub_line_num:int=0):
+        self.sgn.emit(text,sub_line_num)
+        

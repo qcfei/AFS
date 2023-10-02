@@ -33,11 +33,14 @@ def maskMake(maskImg:np.ndarray):
     return np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImg],np.float32)
 
 def simulatorIndexGet()->int:
-    return settingRead(['changable','simulatorIndex'])
+    simulatorIndex=settingRead(['changable','simulatorIndex'])
+    print('simulatorIndexGet->simulatorIndex: '+str(simulatorIndex))
+    return simulatorIndex
 
 def ipGet()->str:
     simulatorIndex=simulatorIndexGet()
     simulator:dict=settingRead(['changable','simulator',simulatorIndex])
+    print('ipGet->simulatorInfo: '+simulator['name']+' '+simulator['ip'])
     return simulator['ip']
 
 def bsGet()->float:
@@ -114,6 +117,7 @@ class SimulatorOperator():
                 self.simulatorSwipe(dictionary['x0'],dictionary['y0'],dictionary['x1'],dictionary['y1'],dictionary['duration'],self.bs)
 
     def actionByDictList(self,dictionary_lst:list[dict],pause=pause):
+        print(dictionary_lst,sep='\n')
         for dictionary in dictionary_lst:
             self.actionByDict(dictionary)
             pause()
@@ -196,7 +200,6 @@ def findWhereMatched(featureInfo:dict,sceneImg:np.ndarray,mask:np.ndarray[np.flo
     featureImg:np.ndarray=featureInfo['featureImg']
     confidenceThreshold:float=featureInfo['confidenceThreshold']
     res=cv2.matchTemplate(sceneImg,featureImg,cv2.TM_CCOEFF_NORMED,mask=mask)
-    print(np.max(res))
     res_bool:np.ndarray=np.array([[(resPix>confidenceThreshold) for resPix in resLine] for resLine in res])
     h,w=res_bool.shape[:2]
     radio=8
@@ -208,7 +211,7 @@ def findWhereMatched(featureInfo:dict,sceneImg:np.ndarray,mask:np.ndarray[np.flo
                 res_bool[yi,xi]=True
 
     pos=np.where(res_bool==True)
-
+    print(list(pos[0]),list(pos[1]),end=' ')
     return [list(pos[0]),list(pos[1])]
 
 def list2str(lst:list):

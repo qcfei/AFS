@@ -9,14 +9,14 @@ import time
 class State():
     def __init__(self):
         self.simulatorOperator:SimulatorOperator=None
-        self.la_log:Label_Log=None
+        self.la_log:Signal_log=None
 
         self.isFinished=False
         
     def simulatorOperatorBind(self,simulatorOperator:SimulatorOperator):
         self.simulatorOperator=simulatorOperator
 
-    def logBind(self,la_log:Label_Log):
+    def logBind(self,la_log:Signal_log):
         self.la_log=la_log
 
     def act(self):
@@ -68,7 +68,7 @@ class Flow():
         self.isRunning:bool=False
 
         self.simulatorOperator:SimulatorOperator=None
-        self.la_log:Label_Log=None
+        self.la_log:Signal_log=None
 
         self.currentImg:np.ndarray=None
 
@@ -77,7 +77,7 @@ class Flow():
         for state in self.state_lst:
             state.simulatorOperatorBind(simulatorOperator)
 
-    def logBind(self,la_log:Label_Log):
+    def logBind(self,la_log:Signal_log):
         self.la_log=la_log
         for state in self.state_lst:
             state.logBind(la_log)
@@ -206,6 +206,7 @@ class Flow_General(Flow):
                                                 else imgCut[yi,xi] for xi in range(w)]for yi in range(h)],np.uint8)
                 cv2.imwrite(f'mask/preServant{str(idx+1)}.png',imgMasked)
                 self.la_log.log_add(f'r{list2str([str(i+1) for i in range(idx+1)])} found',min(idx,1))
+                print(idx,'found')
                 return True
             else:
                 return False
@@ -272,8 +273,10 @@ class Flow_General(Flow):
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
         state=self.state_lst[self.state_idx]
+        print('checking neighbor states')
         for neighborStateI in state.neighborState:
             neighborState=self.state_lst[neighborStateI]
+            print(str(neighborStateI)+' -> ',end=' ')
             flag=checkIsFeatureScene(neighborState.featureInfo_lst,self.currentImg,neighborState.checkMode,isPrint=True)
             if flag:
                 self.state_idx=neighborStateI
@@ -282,6 +285,7 @@ class Flow_General(Flow):
             
         if self.state_idx==7 and not self.isLock:
             self.fightCurrentCount+=1
+            print('finished'+str(self.fightCurrentCount)+'/'+str(self.fightCount))
             settingWrite(self.fightCurrentCount,['changable','fightCurrentCount'])
             self.isLock=True
             if self.fightCurrentCount>=self.fightCount:
@@ -291,18 +295,17 @@ class Flow_General(Flow):
             self.isLock=False
         
         if not self.isQuit:
+            print('checking current state')
+            print(str(self.state_idx)+' -> ',end=' ')
             flag=checkIsFeatureScene(state.featureInfo_lst,self.currentImg,state.checkMode)
             if (flag or 
                 (self.state_idx==4 and self.state4_prepare.progress!=0) or
-                (self.state_idx==5 and (self.state5_fight.flow_fight.state_lst[1].progress!=0 or self.state5_fight.flow_fight.state_lst[3].progress!=0 or self.state5_fight.flow_fight.state_lst[5].progress!=0))):
+                (self.state_idx==5 and np.max([self.state5_fight.flow_fight.state_lst[i].progress!=0 for i in [1,3,5,6]])==True)):
                 state.act()
 
-        if self.state_idx==6:
-            self.state5_fight.flow_fight.state_idx=0
-            for state in self.state5_fight.flow_fight.state_lst:
-                state.isFinished=False
-                state.progress=0
-                state.strategyText=''
+        if self.state_idx==6:   
+            self.state5_fight.flow_fight.refresh()
+
         time.sleep(0.2)
 
     def currentImgBind(self, img: np.ndarray):
@@ -311,12 +314,11 @@ class Flow_General(Flow):
 
 class Flow_Assist(Flow):
     def __init__(self, ):
-        self.state_assist=State()
         state_lst=[]
 
         self.failNum=0
         self.refreshNum=0
-
+        self.isConcernCloth=settingRead(['changable','isCloth'])
         super().__init__(state_lst)
         
         self.parameter:dict=settingRead(['fixed','parameters','assist'])
@@ -332,27 +334,39 @@ class Flow_Assist(Flow):
     def findTargetServant(self)->list[int]:
         servantX_lst:list[int]=[]
         servantY_lst:list[int]=[]
+        print('assist servant')
         for assistServantFeatureInfo in self.assistServantFeatureInfo_lst:
+            print('single step',end=' ')
             servant_lst=findWhereMatched(assistServantFeatureInfo,self.currentImg)
+            print('')
             servantY_lst+=servant_lst[0]
             servantX_lst+=servant_lst[1]
-        clothX_lst:list[int]=[]
-        clothY_lst:list[int]=[]
-        for assistClothFeatureInfo in self.assistClothFeatureInfo_lst:
-            cloth_lst=findWhereMatched(assistClothFeatureInfo,self.currentImg)
-            clothY_lst+=cloth_lst[0]
-            clothX_lst+=cloth_lst[1]
-        radio=6
-        h,w=assistServantFeatureInfo['Rect'][2:4]
-        dyx=[assistClothFeatureInfo['Rect'][dxyi]-assistServantFeatureInfo['Rect'][dxyi] for dxyi in range(2)]
-        flag=False
-        for servantI in range(len(servantX_lst)):
-            for clothI in range(len(clothX_lst)):
-                if abs(clothY_lst[clothI]-servantY_lst[servantI]-dyx[0])<radio and abs(clothX_lst[clothI]-servantX_lst[servantI]-dyx[1])<radio:
-                    flag=True
-                    return [servantX_lst[servantI]+w//2,servantY_lst[servantI]+h//2]
-        if not flag:
-            return None
+        if self.isConcernCloth:
+            clothX_lst:list[int]=[]
+            clothY_lst:list[int]=[]
+            print('assist cloth')
+            for assistClothFeatureInfo in self.assistClothFeatureInfo_lst:
+                print('single step',end=' ')
+                cloth_lst=findWhereMatched(assistClothFeatureInfo,self.currentImg)
+                print('')
+                clothY_lst+=cloth_lst[0]
+                clothX_lst+=cloth_lst[1]
+            radio=6
+            h,w=assistServantFeatureInfo['Rect'][2:4]
+            dyx=[assistClothFeatureInfo['Rect'][dxyi]-assistServantFeatureInfo['Rect'][dxyi] for dxyi in range(2)]
+            flag=False
+            for servantI in range(len(servantX_lst)):
+                for clothI in range(len(clothX_lst)):
+                    if abs(clothY_lst[clothI]-servantY_lst[servantI]-dyx[0])<radio and abs(clothX_lst[clothI]-servantX_lst[servantI]-dyx[1])<radio:
+                        flag=True
+                        return [servantX_lst[servantI]+w//2,servantY_lst[servantI]+h//2]
+            if not flag:
+                return None
+        else:
+            if len(servantX_lst)==0:
+                return None
+            else:
+                return [servantX_lst[servantI]+w//2,servantY_lst[servantI]+h//2]
         
     def pause(self):
         time.sleep(0.6)
@@ -410,7 +424,6 @@ class Flow_Fight(Flow):
             time.sleep(0.2)
             if self.progress==len(self.action_lst):
                 self.isFinished=True
-                self.la_log.log_add('finish skill')
                     
     class State_Order(State_InFight):
         def __init__(self,idx:int,strategy:str):
@@ -507,14 +520,15 @@ class Flow_Fight(Flow):
                 time.sleep(1)
             elif self.progress==1:
                 self.orderCardRecognize()
+                print(self.orderIndex_lst)
                 self.la_log.log_add(f'orderCard: {list2str(self.orderIndex_lst)}')
                 time.sleep(0.3)
                 self.strategyGenerate()
+                print(self.originalStrategy)
                 self.la_log.log_add(f'orderResult: {list2str(self.originalStrategy)}')
                 self.originalStrategy=[]
                 time.sleep(0.3)
                 self.simulatorOperator.actionByDictList(self.orderAction,self.pause)
-                self.la_log.log_add(f'finish order {self.idx//2+1}')
                 self.progress=0
                 self.isFinished=True
                 time.sleep(10)
@@ -527,17 +541,24 @@ class Flow_Fight(Flow):
         self.state_lst:list[State_InFight]=[]
         for idx in range(3):
             self.state_lst.append(Flow_Fight.State_Skill(2*idx,self.strategy_lst[f'skill{str(idx+1)}']))
-            self.state_lst.append(Flow_Fight.State_Order(2*idx,self.strategy_lst[f'order{str(idx+1)}']))
-
+            self.state_lst.append(Flow_Fight.State_Order(2*idx+1,self.strategy_lst[f'order{str(idx+1)}']))
+        self.state_lst.append(Flow_Fight.State_Order(6,'1/2/3'))
         super(Flow_Fight,self).__init__(self.state_lst)
+
+    def refresh(self):
+        self.state_idx=0
+        for state in self.state_lst:
+            state.progress=0
+            state.isFinished=False
+            state.strategyText=''
 
     def run(self):
         self.state_lst[self.state_idx].act()
         if self.state_lst[self.state_idx].isFinished:
             self.state_idx+=1
-        if self.state_idx>=len(self.state_lst):
-            self.state_idx=0
-            self.isRunning=False
+        if self.state_idx>6:
+            self.state_idx=6
+            self.state_lst[6].isFinished=False
 
     def currentImgBind(self,img: np.ndarray):
         super(Flow_Fight,self).currentImgBind(img)
