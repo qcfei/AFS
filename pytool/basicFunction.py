@@ -7,8 +7,130 @@ import os
 import numpy as np
 from pyminitouch import MNTDevice
 import cv2
+from pytool.pauseableThread import *
 
 outputX,outputY=512,288
+
+def imgLstShow(img_lst:list[np.ndarray]):
+    for i in range(len(img_lst)):
+        cv2.imshow(str(i),img_lst[i])
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+def matchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
+    res=cv2.matchTemplate(img,template,cv2.TM_CCOEFF_NORMED,mask=mask)
+    _,max_val,_,max_loc=cv2.minMaxLoc(res)
+    return max_val,max_loc
+
+def resizedReduceMatch(scene:np.ndarray,temp:np.ndarray,mask:np.ndarray=None,w_min:int=40,w_max:int=90,step:int=5):
+    w_lst=range(w_min,min(w_max,whOfImg(scene)[0]),step)
+    maxInfo={'val':0,'loc':None,'wh':None}
+    val_lst=[]
+    for w in w_lst:
+        h=temp.shape[0]*w//temp.shape[1]
+        tempwh=np.array((w,h))
+        resizedtemp=cv2.resize(temp,tempwh)
+        if mask is not None:
+            resizedMask=cv2.resize(mask,tempwh)
+        else:
+            resizedMask=None
+        # val,loc=reduceToMatchTemplate(scene,resizedtemp,resizedMask)
+        val,loc=matchTemplate(scene,resizedtemp,resizedMask)
+        val_lst.append(val)
+        if val>maxInfo['val'] and val<1:
+            maxInfo={'val':val,'loc':loc,'wh':tempwh}
+    val,loc,wh=maxInfo.values()
+    return val,loc,wh
+
+class cplCount():
+    def __init__(self) -> None:
+        self.count=0
+
+    def countAdd(self):
+        self.count+=1
+
+def pixCheck(pix:np.ndarray):
+    return  (not (min(pix==[0,0,255])==False) or
+             
+            (not (min(pix<[30,30,255])==False) and
+            not (min(pix>[0,0,100]))==False) or
+
+            (not (min(pix<[60,255,60])==False) and
+            not (min(pix>[0,100,0]))==False) or
+            
+            (not (min(pix<[255,70,70])==False) and
+            not (min(pix>[80,0,0]))==False)
+            )
+
+def cutImg(img:np.ndarray,loc:np.ndarray,wh:np.ndarray):
+    x0,y0=loc
+    x1,y1=loc+wh
+    return img[y0:y1,x0:x1]
+
+def locwh2xy(loc:np.ndarray,wh:np.ndarray):
+    x0,y0=loc
+    x1,y1=loc+wh
+    return x0,y0,x1,y1
+
+def getCNPathImg(path:str):
+    fn=path[(path.index(re.findall(r'/[^/]*.png',path)[0]))+1:]
+    dir=path[:(path.index(re.findall(r'/[^/]*.png',path)[0]))]
+    img:np.ndarray = cv2.imdecode(np.fromfile(os.path.join(f'{dir}', fn), dtype=np.uint8), -1)
+    return img
+
+def dumImg2CNPath(img:np.ndarray,path:str):
+    cv2.imencode('.png', img )[1].tofile(path)
+
+def findServantInFolder(temp:np.ndarray,mask:np.ndarray,fdir:str):
+    maxVal=0
+    wh=0
+    '''get dir'''
+    dir_lst:list[str]=[]
+    for root, dirs, _ in os.walk(fdir):
+        for dir in dirs:
+            dir_lst.append(dir)
+    max_info={'val':0,'loc':np.ndarray((0,0)),'wh':np.ndarray((0,0)),'path':''}
+    for dir in dir_lst:
+        fn_lst=os.listdir(f'{fdir}/{dir}')
+        for fn in fn_lst:
+            img=getCNPathImg(f'{fdir}/{dir}/{fn}')
+            val,loc=reduceToMatchTemplate(img,temp,mask)
+            if val>max_info['val']:
+                max_info={'val':val,'loc':loc,'wh':wh,'path':f'{fdir}/{dir}/{fn}'}
+                maxVal=val
+            # print(f'{dir_lst.index(dir)}-{len(dir_lst)}/{fn_lst.index(fn)}-{len(fn_lst)} val: {str(maxVal)} fn: {max_info["path"]} cfn:{fdir}/{dir}/{fn}',end='\r')
+    val,loc,wh,path=max_info.values()
+    return val,loc,wh,path
+
+def whOfImg(img:np.ndarray)->np.ndarray[int]:
+    return np.array(list(img.shape[:2])[::-1]).astype(int)
+
+def cutForLeastMask(temp:np.ndarray,mask:np.ndarray):
+    wh=whOfImg(temp)
+    print(wh)
+    bool_lst=[list(mask[yi,:]).count(0)>wh[0]//2 for yi in range(wh[1])]
+    if False in bool_lst:
+        Ystart_idx=bool_lst.index(False)
+        bool_lst.reverse()
+        Yend_idx=bool_lst.index(False)
+    else:
+        Ystart_idx=1
+        Yend_idx=1
+    temp=temp[Ystart_idx:-1-Yend_idx,:]
+    mask=mask[Ystart_idx:-1-Yend_idx,:]
+    wh=whOfImg(temp)
+    bool_lst=[list(mask[:,xi]).count(0)>wh[1]//2 for xi in range(wh[0])]+[True]
+    if False in bool_lst:
+        Xstart_idx=bool_lst.index(False)
+        Xstart_idx=Xstart_idx+6+bool_lst[Xstart_idx+6:].index(False)
+        bool_lst.reverse()
+        Xend_idx=bool_lst.index(False)
+    else:
+        Xstart_idx=1
+        Xend_idx=1
+    temp=temp[:,Xstart_idx:-1-Xend_idx,:]
+    mask=mask[:,Xstart_idx:-1-Xend_idx]
+    return temp,mask,np.array((Xstart_idx,Ystart_idx)),np.array((wh[0]-Xend_idx-Xstart_idx,wh[1]-Yend_idx-Ystart_idx))
 
 def settingWrite(obj,key_lst:list):
     obj_lst=[]
@@ -25,6 +147,12 @@ def settingWrite(obj,key_lst:list):
 
 def settingRead(key_lst:list):
     obj=json.load(open('./setting.json','r',encoding='utf-8'))
+    for key in key_lst:
+        obj=obj[key]
+    return obj
+
+def fixedSettingRead(key_lst:list):
+    obj=json.load(open('settingFixed.json','r',encoding='utf-8'))
     for key in key_lst:
         obj=obj[key]
     return obj
@@ -56,11 +184,11 @@ def bsGet()->float:
     return bs
 
 def stateNameGet()->list[str]:
-    stateInfo_lst:dict[str,dict[str,int|list[int]|list[list[dict[str,str|int]]]|str]]=settingRead(['fixed','parameters','general'])
+    stateInfo_lst:dict[str,dict[str,int|list[int]|list[list[dict[str,str|int]]]|str]]=fixedSettingRead(['fixed','parameters','general'])
     return list(stateInfo_lst.keys())
 
 def neighborStateNameGet()->dict[str,list[int]]:
-    stateInfo_lst:dict[str,dict[str,int|list[int]|list[list[dict[str,str|int]]]|str]]=settingRead(['fixed','parameters','general'])
+    stateInfo_lst:dict[str,dict[str,int|list[int]|list[list[dict[str,str|int]]]|str]]=fixedSettingRead(['fixed','parameters','general'])
     return {stateName:stateInfo_lst[stateName]['neighborState'] for stateName in stateInfo_lst.keys()}
 
 def sysInput(text:str):
@@ -162,6 +290,39 @@ def img2pixmap(image:np.ndarray):
         pixmap = QPixmap.fromImage(qimage)
         return pixmap
 
+def reduce50percent(img:np.ndarray):
+    return cv2.resize(img,(img.shape[1]//2,img.shape[0]//2))
+
+def reduceToMatchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
+    rdc_num=2
+    rdc_temp:list[np.ndarray]=[template]
+    rdc_img:list[np.ndarray]=[img]
+    rdc_mask:list[np.ndarray]=[mask]
+    if mask is None:
+        rdc_mask+=[None]*5
+        rdc_lst=[rdc_temp,rdc_img]
+    else:
+        rdc_lst=[rdc_temp,rdc_img,rdc_mask]
+    for i in range(rdc_num):
+        for rdc in rdc_lst:
+            rdc.append(reduce50percent(rdc[-1]))
+    for rdc in rdc_lst:
+        rdc.reverse()
+    acc_max,app_loc_lu=0,np.array((0,0))
+    radio_err=0.1
+    for i in range(len(rdc_temp)):
+        temp=rdc_temp[i]
+        img=rdc_img[i]
+        mask=rdc_mask[i]
+        imgwh,tempwh=np.array(list(img.shape)[::-1][-2:]),np.array(list(temp.shape)[::-1][-2:])
+        acc_loc_lu=np.maximum(np.array((0,0)),app_loc_lu-np.floor(radio_err*imgwh).astype(int))
+        acc_loc_rd=np.minimum(imgwh,app_loc_lu+tempwh+np.floor(radio_err*imgwh).astype(int))
+        res=cv2.matchTemplate(img if i==0 else img[acc_loc_lu[1]:acc_loc_rd[1],acc_loc_lu[0]:acc_loc_rd[0]],temp,cv2.TM_CCOEFF_NORMED,mask=mask)
+        _,acc_max,_,temp_app_loc_lu=cv2.minMaxLoc(res)
+        app_loc_lu=acc_loc_lu+temp_app_loc_lu
+        app_loc_lu=app_loc_lu*2
+    return acc_max,app_loc_lu//2
+
 def checkIsFeatureScene(featureInfo_lst:list[dict],sceneImg:np.ndarray,checkMode:str,isPrint:bool=False)->bool:
     radio=8
     if checkMode=='and':
@@ -171,8 +332,7 @@ def checkIsFeatureScene(featureInfo_lst:list[dict],sceneImg:np.ndarray,checkMode
             featureRect:list[int]=featureInfo['Rect']
             confidenceThreshold:float=featureInfo['confidenceThreshold']
             mask:np.ndarray[np.float32]=featureInfo['mask']
-            res=cv2.matchTemplate(sceneImg,featureImg,cv2.TM_CCOEFF_NORMED,mask=mask)
-            _,maxVal,_,maxLoc=cv2.minMaxLoc(res)
+            maxVal,maxLoc=reduceToMatchTemplate(sceneImg,featureImg,mask=mask)
             if isPrint:
                 print(maxVal,confidenceThreshold,maxLoc,checkMode,sceneImg.shape,featureImg.shape)
             pos_bool=[abs(maxLoc[i]-featureRect[1-i])<radio for i in range(2)]
@@ -186,8 +346,7 @@ def checkIsFeatureScene(featureInfo_lst:list[dict],sceneImg:np.ndarray,checkMode
             featureRect:list[int]=featureInfo['Rect']
             confidenceThreshold:float=featureInfo['confidenceThreshold']
             mask:np.ndarray[np.float32]=featureInfo['mask']
-            res=cv2.matchTemplate(sceneImg,featureImg,cv2.TM_CCOEFF_NORMED,mask=mask)
-            _,maxVal,_,maxLoc=cv2.minMaxLoc(res)
+            maxVal,maxLoc=reduceToMatchTemplate(sceneImg,featureImg,mask=mask)
             if isPrint:
                 print(maxVal,confidenceThreshold,maxLoc,checkMode,sceneImg.shape,featureImg.shape)
             pos_bool=[abs(maxLoc[i]-featureRect[1-i])<radio for i in range(2)]

@@ -27,7 +27,7 @@ class State_General(State):
     def __init__(self,name:str):
         super(State_General,self).__init__()
         self.name=name
-        self.parameter:dict=settingRead(['fixed','parameters','general',name])
+        self.parameter:dict=fixedSettingRead(['fixed','parameters','general',name])
 
         self.idx:int=self.parameter['idx']
         self.neighborState:list[int]=self.parameter['neighborState']
@@ -113,7 +113,7 @@ class Flow_General(Flow):
         def __init__(self):
             super(Flow_General.State_Drug,self).__init__('drug')
             self.appleIdx:int=settingRead(['changable','again','appleIndex']) #0,1,2,3代表金银蓝铜苹果
-            self.appleName_lst:list[str]=settingRead(['fixed','appleNameList'])
+            self.appleName_lst:list[str]=fixedSettingRead(['fixed','appleNameList'])
 
         def pause(self):
             time.sleep(1)
@@ -134,82 +134,10 @@ class Flow_General(Flow):
     class State_Prepare(State_General):
         def __init__(self,):
             super().__init__('prepare')
-            self.fightCurrentCount=0
-            self.progress:int=0
-            self.initF=False
-            self.currentImg:np.ndarray=None
-            self.isCheckServantIconFirstTime:bool=settingRead(['changable','isCheckServantIconFirstTime'])
 
         def act(self):
-            if self.progress==0:
-                self.la_log.log_add('prepare')
-                self.fightCurrentCount=settingRead(['changable','fightCurrentCount'])
-                if self.fightCurrentCount==0:
-                    if self.isCheckServantIconFirstTime:
-                        self.progress=1
-                    else:
-                        self.progress=5
-                else :
-                    self.progress=5
-            elif self.progress<5:
-                    if self.progress==settingRead(['changable','assistIndex']):
-                        self.progress+=1
-                    else:
-                        if not self.initF:
-                            self.simulatorOperator.actionByDictList(self.action_lst[1+self.progress])
-                            self.initF=True
-                            time.sleep(3)
-                        else:
-                            # cv2.imshow(',',self.currentImg)
-                            # cv2.waitKey(0)
-                            # cv2.destroyAllWindows()
-                            checkF=self.preServantGet(self.progress-1)
-                            if checkF:
-                                self.simulatorOperator.actionByDictList(self.action_lst[6])
-                                self.progress+=1
-                                self.initF=False
-                            else:
-                                self.simulatorOperator.actionByDictList(self.action_lst[1])
-                            time.sleep(0.8)
-            elif self.progress==5:
-                self.simulatorOperator.actionByDictList(self.action_lst[0])
-                self.progress=0
-                time.sleep(3)
-
-        def currentImgBind(self,img:np.ndarray):
-            self.currentImg=img
-
-        def preServantGet(self,idx:int):
-            w0=50
-            h1,w1=110,90
-            h0=h1*w0//w1
-            maskImgR=cv2.imread('mask/orderRed.png')
-            maskImgR=cv2.resize(maskImgR,(w0,h0))
-            mask=maskMake(maskImgR)
-            res=cv2.matchTemplate(self.currentImg,maskImgR,cv2.TM_CCOEFF_NORMED,mask=mask)
-            _,maxVal,_,maxLoc=cv2.minMaxLoc(res)
-            if maxVal>0.45:
-                x0,y0=maxLoc
-                imgCut=self.currentImg[y0:y0+h0,x0:x0+w0]
-                maskImgR=cv2.imread('mask/orderRed.png')
-                maskImgG=cv2.imread('mask/orderGreen.png')
-                maskImgB=cv2.imread('mask/orderBlue.png')
-                h,w=maskImgR.shape[:2]
-                imgCut=cv2.resize(imgCut,(w,h))
-                maskR=np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImgR],np.float32)
-                maskG=np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImgG],np.float32)
-                maskB=np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImgB],np.float32)
-                imgMasked=np.array([[[0,0,255] if (maskR[yi,xi]==255 or maskG[yi,xi]==255 or maskB[yi,xi]==255 or 
-                                                (imgCut[yi,xi,0]<30 and imgCut[yi,xi,1]<30 and imgCut[yi,xi,2]>100) or 
-                                                ((imgCut[yi,xi,0]<60 and imgCut[yi,xi,1]<60 and imgCut[yi,xi,2]<60) and
-                                                    (imgCut[yi,xi,0]>37 and imgCut[yi,xi,1]>37 and imgCut[yi,xi,2]>37)))
-                                                else imgCut[yi,xi] for xi in range(w)]for yi in range(h)],np.uint8)
-                cv2.imwrite(f'fgoMaterial/preServant{str(idx+1)}.png',imgMasked)
-                self.la_log.log_add(f'r{list2str([str(i+1) for i in range(idx+1)])} found',min(idx,1))
-                print(idx,'found')
-                return True
-            else:
-                return False
+            self.simulatorOperator.actionByDictList(self.action_lst[0])
+            time.sleep(3)
 
     class State_Fight(State_General):
         def __init__(self,):
@@ -299,8 +227,7 @@ class Flow_General(Flow):
             print(str(self.state_idx)+' -> ',end=' ')
             flag=checkIsFeatureScene(state.featureInfo_lst,self.currentImg,state.checkMode)
             if (flag or 
-                (self.state_idx==4 and self.state4_prepare.progress!=0) or
-                (self.state_idx==5 and np.max([self.state5_fight.flow_fight.state_lst[i].progress!=0 for i in [1,3,5,6]])==True)):
+                (self.state_idx==5 and np.max([state.progress!=0 for state in self.state5_fight.flow_fight.state_lst])==True)):
                 state.act()
 
         if self.state_idx==6:   
@@ -310,7 +237,6 @@ class Flow_General(Flow):
 
     def currentImgBind(self, img: np.ndarray):
         super().currentImgBind(img)
-        self.state4_prepare.currentImgBind(img)
 
 class Flow_Assist(Flow):
     def __init__(self, ):
@@ -321,7 +247,7 @@ class Flow_Assist(Flow):
         self.isConcernCloth=settingRead(['changable','isCloth'])
         super().__init__(state_lst)
         
-        self.parameter:dict=settingRead(['fixed','parameters','assist'])
+        self.parameter:dict=fixedSettingRead(['fixed','parameters','assist'])
         self.assistServantFeatureInfo_lst:list[dict]=self.parameter['assistServantFeatureInfoList']
         self.assistClothFeatureInfo_lst:list[dict]=self.parameter['assistClothFeatureInfoList']
         for assistServantFeatureInfo in self.assistServantFeatureInfo_lst:
@@ -391,7 +317,52 @@ class Flow_Assist(Flow):
         time.sleep(1)
            
 class Flow_Fight(Flow):
-                
+
+    class State_Check(State_InFight):
+
+        def __init__(self,):
+            super().__init__()
+            self.roleNum=6
+            
+            step=150
+            self.loc_lst=[np.array((50+step*i,175))for i in range(3)]
+            pos_lst:dict[str,list[list[int]]]=fixedSettingRead(['fixed','skill_pas'])
+            self.quitAction={"type": "tap","x": pos_lst['0'][0][0],"y": pos_lst['0'][0][1]}
+
+            self.checkAble=False
+
+            self.greatMask=cv2.imread('mask/greatMask.png',0)
+            self.maskwh=whOfImg(self.greatMask)
+            
+        def imgSave(self):
+            img=cutImg(self.currentImg,np.array((100,53)),np.array((63,63*80//60)))
+            imgre=cv2.resize(img,(60,80))
+            imgmskd=np.array([[(0,0,255) if self.greatMask[yi,xi]==0 else imgre[yi,xi] for xi in range(self.maskwh[0])]for yi in range(self.maskwh[1])],np.uint8)
+            cv2.imwrite(f'fgoMaterial/preServant{str(self.progress//2+1)}.png',imgmskd)
+
+        def pause(self):
+            time.sleep(0.2)
+
+        def act(self):
+            if self.progress<self.roleNum:
+                if not self.checkAble:
+                    self.simulatorOperator.actionByDict({"type": "tap","x": self.loc_lst[self.progress//2][0],"y": self.loc_lst[self.progress//2][1]})
+                    time.sleep(0.2)
+                    self.simulatorOperator.actionByDict({"type": "tap","x": 95,"y": 30})
+                    time.sleep(0.2)
+                    self.checkAble=True
+                else:
+                    self.imgSave()
+                    self.la_log.log_add('role checked')
+                    self.simulatorOperator.actionByDict(self.quitAction)
+                    time.sleep(0.4)
+                    self.checkAble=False
+                self.progress+=1
+            else :
+                self.progress=0
+                self.isFinished=True
+            
+
     class State_Skill(State_InFight):
         def __init__(self,idx:int,strategy:str):
             super(Flow_Fight.State_Skill,self).__init__()
@@ -400,7 +371,7 @@ class Flow_Fight(Flow):
             self.idx=idx
 
             self.strategySpilted=strategy.split(' ')
-            pos_lst:dict[str,list[list[int]]]=settingRead(['fixed','skill_pas'])
+            pos_lst:dict[str,list[list[int]]]=fixedSettingRead(['fixed','skill_pas'])
             self.action_lst:list[list[dict]]=[]
             self.strategyNum_lst:list[int]=[]
             for singleAction in self.strategySpilted:
@@ -424,8 +395,10 @@ class Flow_Fight(Flow):
             time.sleep(0.2)
             if self.progress==len(self.action_lst):
                 self.isFinished=True
+                self.progress=0
                     
     class State_Order(State_InFight):
+
         def __init__(self,idx:int,strategy:str):
             super(Flow_Fight.State_Order,self).__init__()
 
@@ -434,53 +407,62 @@ class Flow_Fight(Flow):
             self.strategy=strategy
             
             self.wNum=5
-            self.w_lst=[512*i//self.wNum for i in range(self.wNum)]
+            self.w_lst=[512*i//self.wNum for i in range(self.wNum)]+[512]
+            self.yMin=140
 
-            self.colorMaskImgFn_lst:list[str]=settingRead(['fixed','parameters','fight','order','colorMaskImgPathList'])
-            self.colorMaskImg_lst=[cv2.imread(fn) for fn in self.colorMaskImgFn_lst]
-            self.colorMask_lst=[maskMake(maskImg) for maskImg in self.colorMaskImg_lst]
+            self.colorImgFn_lst:list[str]=fixedSettingRead(['fixed','parameters','fight','order','colorImgPathList'])
+            self.colorImg_lst=[cv2.imread(fn) for fn in self.colorImgFn_lst]
             self.color_lst=['r','g','b']
-            self.colorOrderIndex_lst:list[str]=['n']*5
-            self.colorInfo:dict={'MaskImgList':self.colorMaskImg_lst,
-                            'MaskList':self.colorMask_lst,}
 
-            self.servantMaskImgFn_lst:list[str]=settingRead(['fixed','parameters','fight','order','servantMaskImgPathList'])
-            self.servantMaskImg_lst=[cv2.imread(fn) for fn in self.servantMaskImgFn_lst]
-            self.servantMask_lst=[maskMake(maskImg) for maskImg in self.servantMaskImg_lst]
-            self.servant_lst=[4,3,2,1]
-            self.servantOrderIndex_lst:list[int]=[0]*5
-            self.servantInfo:dict={'MaskImgList':self.servantMaskImg_lst,
-                            'MaskList':self.servantMask_lst,}
+            self.servantImgFn_lst:list[str]=fixedSettingRead(['fixed','parameters','fight','order','servantImgPathList'])
+            self.servant_lst=['3','2','1']
+            self.roleImgListLoad()
 
-            self.orderIndex_lst:list[str]=['n0']*5
-
-            self.pos_lst:dict[str,list[list[int]]]=settingRead(['fixed','order_pas'])
+            self.pos_lst:dict[str,list[list[int]]]=fixedSettingRead(['fixed','order_pas'])
             self.action:list[dict]=[{"type": "tap","x": self.pos_lst['i'][0],"y": self.pos_lst['i'][1]}]
             self.orderAction:list[dict]=[]
+            self.orderIndex_lst=['uc']*self.wNum
 
-        def cosRecognize(self,info:dict,list:list,orderIndex:list):
-            MaskImg_lst=info['MaskImgList']
-            Mask_lst=info['MaskList']
-            for i in range(len(Mask_lst)):
-                pt_lst=findWhereMatched(
-                {
-                    'featureImg':MaskImg_lst[i],
-                    'confidenceThreshold':0.47,
-                    },
-                self.currentImg,mask=Mask_lst[i])
-                for xi in range(len(pt_lst[0])):
-                    if pt_lst[0][xi]>140:
-                        in_bool=[pt_lst[1][xi]>self.w_lst[i] for i in range(self.wNum)]+[False]
-                        latestTrue=in_bool.index(False)-1
-                        orderIndex[latestTrue]=list[i]
-            return orderIndex
+        def roleImgListLoad(self):
+            self.servantImg_lst=[cv2.imread(fn) for fn in self.servantImgFn_lst]
 
         def orderCardRecognize(self):
-            self.colorOrderIndex_lst=self.cosRecognize(self.colorInfo,self.color_lst,self.colorOrderIndex_lst)
-            self.servantOrderIndex_lst=self.cosRecognize(self.servantInfo,self.servant_lst,self.servantOrderIndex_lst)
-            self.servantOrderIndex_lst=[settingRead(['changable','assistIndex'])+1 if i==0 else i for i in self.servantOrderIndex_lst]
+            crdImg_lst=[]
+            gtMask=cv2.imread('mask/greatMask.png',0).astype(np.float32)
+
+            clrRes=[0]*5
+            rleRes=[0]*5
+            clrInfo_lst=[cutForLeastMask(clrTmp,maskMake(clrTmp))for clrTmp in self.colorImg_lst]
+
+            for cardI in range(self.wNum):
+                cardAreaImg=cutImg(self.currentImg,np.array((self.w_lst[cardI],self.yMin)),np.array((self.w_lst[cardI+1]-self.w_lst[cardI],self.yMin+120)))
+                clrMaxIdx,clrMaxVal,clrMaxLoc=0,0,np.array((0,0))
+                for clrTmpI in range(len(self.colorImg_lst)):
+                    clrTmpLm,clrMskLm,clrLocLm,_=clrInfo_lst[clrTmpI]
+                    clrVal,clrLoc=reduceToMatchTemplate(cardAreaImg,clrTmpLm,clrMskLm)
+                    if clrVal>clrMaxVal:
+                        clrMaxVal=clrVal
+                        clrMaxIdx=clrTmpI
+                        clrMaxLoc=clrLoc
+                clrRes[cardI]=clrMaxIdx
+
+                crdImg=cutImg(cardAreaImg,clrMaxLoc-clrLocLm,whOfImg(self.colorImg_lst[0]))
+                crdImgMskd=np.array([[(0,0,255) if gtMask[yi,xi]==0 or pixCheck(crdImg[yi,xi]) else crdImg[yi,xi] for xi in range(crdImg.shape[1])]for yi in range(crdImg.shape[0])],np.uint8)
+                crdImg_lst.append(crdImgMskd)
                 
-            self.orderIndex_lst=[f'{self.colorOrderIndex_lst[i]}{self.servantOrderIndex_lst[i]}' for i in range(self.wNum)]
+                rleTmpLm,rleMskLm,_,_=cutForLeastMask(crdImgMskd,maskMake(crdImgMskd))
+
+                rleMaxIdx,rleMaxVal=0,0
+                for rleImgI in range(len(self.servantImg_lst)):
+                    rleImg=self.servantImg_lst[rleImgI]
+                    rleVal,_=reduceToMatchTemplate(rleImg,rleTmpLm,rleMskLm)
+                    if rleVal>rleMaxVal:
+                        rleMaxVal=rleVal
+                        rleMaxIdx=rleImgI
+                rleRes[cardI]=rleMaxIdx
+
+            self.orderIndex_lst=[self.color_lst[clrRes[i]]+self.servant_lst[rleRes[i]] for i in range(self.wNum)]
+                            
 
         def strategyGenerate(self):
             directStep:list[str]=['z','x','c','1','2','3','4','5']
@@ -517,6 +499,7 @@ class Flow_Fight(Flow):
         def act(self):
             if self.progress==0:
                 self.simulatorOperator.actionByDict(self.action[0])
+                self.roleImgListLoad()
                 self.progress=1
                 time.sleep(1)
             elif self.progress==1:
@@ -538,11 +521,16 @@ class Flow_Fight(Flow):
         self.state_idx=0    
         strategyIdx=settingRead(['changable','currentStrategyIndex'])
         self.strategy_lst=settingRead(['changable','strategy',strategyIdx])
-        self.state_lst:list[State_InFight]=[]
+            
+        self.state_lst:list[State_InFight]=[Flow_Fight.State_Check()]
+        self.checkNum=1
         for idx in range(3):
             self.state_lst.append(Flow_Fight.State_Skill(2*idx,self.strategy_lst[f'skill{str(idx+1)}']))
+            if '530' in self.strategy_lst[f'skill{str(idx+1)}']:
+                self.state_lst.append(Flow_Fight.State_Check())
+                self.checkNum+=1
             self.state_lst.append(Flow_Fight.State_Order(2*idx+1,self.strategy_lst[f'order{str(idx+1)}']))
-        self.state_lst.append(Flow_Fight.State_Order(6,'1/2/3'))
+        self.state_lst.append(Flow_Fight.State_Order(6+self.checkNum,'1/2/3'))
         super(Flow_Fight,self).__init__(self.state_lst)
 
     def refresh(self):
@@ -556,9 +544,9 @@ class Flow_Fight(Flow):
         self.state_lst[self.state_idx].act()
         if self.state_lst[self.state_idx].isFinished:
             self.state_idx+=1
-        if self.state_idx>6:
-            self.state_idx=6
-            self.state_lst[6].isFinished=False
+        if self.state_idx>6+self.checkNum:
+            self.state_idx=6+self.checkNum
+            self.state_lst[6+self.checkNum].isFinished=False
 
     def currentImgBind(self,img: np.ndarray):
         super(Flow_Fight,self).currentImgBind(img)

@@ -17,10 +17,10 @@ class TabWidgt_Total(QTabWidget):
         print('TabWidgt_Total initializing')
         super(QTabWidget,self).__init__()
         self.setStyleSheet('font-size: 13pt;style=line-height:200%;color:white;')
-        WindowGeometry=settingRead(['fixed','WindowGeometry'])
+        WindowGeometry=fixedSettingRead(['fixed','WindowGeometry'])
         wx,wy,ww,wh=WindowGeometry
         self.setGeometry(wx,wy,ww,wh)
-        self.setWindowTitle('AFS ver1.0.2')
+        self.setWindowTitle('AFS ver1.0.3')
         self.setWindowIcon(QIcon('litShk.ico'))
 
         self.wi1_run = Widget_run()
@@ -49,8 +49,6 @@ class TabWidgt_Total(QTabWidget):
         leFightCount1.numCountChanged.connect(leFightCount2.textUpdate)
         leFightCount2.numCountChanged.connect(leFightCount1.textUpdate)
 
-        servantIconSignal=self.wi1_run.th_operate.servantIconChanged
-        servantIconSignal.connect(self.wi2_setting.scrollArea_setting.gb4_checkServantIcon.servantIconUpdate)
 
         print('TabWidgt_Total initializied')
 
@@ -201,7 +199,6 @@ class Widget_run(QWidget):
         quitSignal=pyqtSignal()
         stateChanged=pyqtSignal(int)
         nowFightCountChanged=pyqtSignal(int)
-        servantIconChanged=pyqtSignal()
 
         def __init__(self):
             super(Widget_run.Thread_Operate,self).__init__()
@@ -261,8 +258,6 @@ class Widget_run(QWidget):
             if self.flowGeneral.isQuit:
                 self.stop()
             self.nowFightCountChanged.emit(self.flowGeneral.fightCurrentCount)
-            if self.flowGeneral.state4_prepare.progress==5:
-                self.servantIconChanged.emit()
 
         def finishAction(self):
             self.la_log.log_add(f'finished {self.flowGeneral.fightCurrentCount} fights')
@@ -460,7 +455,7 @@ class Widget_set(QWidget):
         
         self.laList_lst:list[list[Widget_set.setLabel]] =[]
         self.vbNm_lst:list[QVBoxLayout]=[]
-        self.nmLaList_lst:list[str]=[['策略','助战','多次战斗','指令卡形象'],['模拟器','窗口捕获'],['搓丸子']]
+        self.nmLaList_lst:list[str]=[['策略','助战','多次战斗'],['模拟器','窗口捕获'],['搓丸子']]
         count=0
         for nmLa_lstI in range(len(self.nmLaList_lst)):
             nmLa_lst=self.nmLaList_lst[nmLa_lstI]
@@ -509,14 +504,12 @@ class ScrollArea_setting(QScrollArea):
         self.gb1_strategy=GroupBox_Strategy()
         self.gb2_assist=GroupBox_Assist()
         self.gb3_repeat=GroupBox_Repeat()
-        self.gb4_checkServantIcon=GroupBox_CheckServantIcon()
         self.gb5_simulator=GroupBox_Simulator()
         self.gb6_captureMethod=GroupBox_CaptureMethod()
         self.gb7_clothExperienceFeeding=GroupBox_ClothExperienceFeeding()
         self.gb_lst.append(self.gb1_strategy)
         self.gb_lst.append(self.gb2_assist)
         self.gb_lst.append(self.gb3_repeat)
-        self.gb_lst.append(self.gb4_checkServantIcon)
         self.gb_lst.append(self.gb5_simulator)
         self.gb_lst.append(self.gb6_captureMethod)
         self.gb_lst.append(self.gb7_clothExperienceFeeding)
@@ -716,7 +709,7 @@ class GroupBox_Repeat(QGroupBox):
         appleTypeChanged=pyqtSignal()
         def __init__(self) -> None:
             super(GroupBox_Repeat.ComboBox_appleType, self).__init__()
-            self.appleName_lst=settingRead(['fixed','appleNameList'])
+            self.appleName_lst=fixedSettingRead(['fixed','appleNameList'])
             self.addItems(self.appleName_lst)
             self.currentIndexChanged.connect(self.appleTypeChangeEmit)
             index=int(settingRead(['changable','again','appleIndex']))
@@ -749,56 +742,6 @@ class GroupBox_Repeat(QGroupBox):
         self.hb3_appleType.addWidget(self.la31_appleType)
         self.hb3_appleType.addWidget(self.cbb32_appleType)
         self.hb3_appleType.addStretch(1)
-
-class GroupBox_CheckServantIcon(QGroupBox):
-
-    def __init__(self):
-        super(GroupBox_CheckServantIcon,self).__init__('指令卡形象')
-        self.vb_heckServantIcon=QVBoxLayout()
-        self.setLayout(self.vb_heckServantIcon)
-
-        self.orderImgNum=4
-        self.hb1_assistIndex=QHBoxLayout()
-        self.hb2_servantIcon=QHBoxLayout()
-        self.hb3_isCheckFirstTime=QHBoxLayout()
-        self.vb_heckServantIcon.addLayout(self.hb1_assistIndex)
-        self.vb_heckServantIcon.addLayout(self.hb2_servantIcon)
-        self.vb_heckServantIcon.addLayout(self.hb3_isCheckFirstTime)
-        
-        self.la11_assistIndex=QLabel('助战角色位置')
-        self.cbb12_assistIndex=QComboBox()
-        self.cbb12_assistIndex.addItems([str(i) for i in range(1,1+self.orderImgNum)])
-        self.cbb12_assistIndex.setCurrentIndex(int(settingRead(['changable','assistIndex']))-1)
-        self.cbb12_assistIndex.currentIndexChanged.connect(self.assistIndexChanged)
-        self.hb1_assistIndex.addWidget(self.la11_assistIndex)
-        self.hb1_assistIndex.addWidget(self.cbb12_assistIndex)
-        self.hb1_assistIndex.addStretch(1)
-        
-        self.la21_servantIcon=QLabel('指令卡形象: ')
-        self.laList22_servantIcon:list[QLabel]=[]
-        self.hb2_servantIcon.addWidget(self.la21_servantIcon)
-        for laI in range(self.orderImgNum):
-            self.laList22_servantIcon.append(QLabel())
-            self.hb2_servantIcon.addWidget(self.laList22_servantIcon[laI])
-        self.servantIconUpdate()
-
-        self.cb31_isCheckFirstTime=QCheckBox('首次战斗是否确认所有角色指令卡形象')
-        self.cb31_isCheckFirstTime.setChecked(settingRead(['changable','isCheckServantIconFirstTime']))
-        self.hb3_isCheckFirstTime.addWidget(self.cb31_isCheckFirstTime)
-        self.hb3_isCheckFirstTime.addStretch(1)
-        self.cb31_isCheckFirstTime.stateChanged.connect(self.isCheckFirstTimeChanged)
-
-    def servantIconUpdate(self):
-        self.servantIconPath_lst:list[str]=settingRead(['fixed','parameters','fight','order','servantMaskImgPathList'])
-        self.servantIconPath_lst.reverse()
-        for laI in range(self.orderImgNum):
-            self.laList22_servantIcon[laI].setPixmap(QPixmap(self.servantIconPath_lst[laI]))
-
-    def assistIndexChanged(self):
-        settingWrite(self.cbb12_assistIndex.currentIndex()+1,['changable','assistIndex'])
-
-    def isCheckFirstTimeChanged(self):
-        settingWrite(self.cb31_isCheckFirstTime.isChecked(),['changable','isCheckServantIconFirstTime'])
 
 class GroupBox_Simulator(QGroupBox):
     

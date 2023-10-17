@@ -94,8 +94,8 @@ class HBoxLayout_AssistChoose(QHBoxLayout):
     def __init__(self,idx:int):
         super(HBoxLayout_AssistChoose,self).__init__()
         self.idx=idx
-        self.servantFeatureInfo:dict=settingRead(['fixed','parameters','assist','assistServantFeatureInfoList',self.idx-1])
-        self.clothFeatureInfo:dict=settingRead(['fixed','parameters','assist','assistClothFeatureInfoList',self.idx-1])
+        self.servantFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistServantFeatureInfoList',self.idx-1])
+        self.clothFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistClothFeatureInfoList',self.idx-1])
 
         self.la1_name=QLabel('助战选择'+str(idx))
         self.btn2_update=QPushButton('更新')
