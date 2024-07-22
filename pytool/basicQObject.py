@@ -91,8 +91,8 @@ class HBoxLayout_AssistChoose(QHBoxLayout):
     def __init__(self,idx:int):
         super(HBoxLayout_AssistChoose,self).__init__()
         self.idx=idx
-        self.servantFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistServantFeatureInfoList',self.idx-1])
-        self.clothFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistClothFeatureInfoList',self.idx-1])
+        self.servantFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistServantFeatureInfoList',1])
+        self.clothFeatureInfo:dict=fixedSettingRead(['fixed','parameters','assist','assistClothFeatureInfoList',1])
         self.servantFeatureInfo['featureImagePath']=r'fgoMaterial\assistServantFeature'+str(idx)+'.png'
         self.clothFeatureInfo['featureImagePath']=r'fgoMaterial\assistClothFeature'+str(idx)+'.png'
 
@@ -132,6 +132,10 @@ class HBoxLayout_AssistChoose(QHBoxLayout):
     def laUpdate(self):
         self.la4_servantImg.setPixmap(QPixmap(f'fgoMaterial/assistServant_{self.idx}.png'))
         self.la6_clothImg.setPixmap(QPixmap(f'fgoMaterial/assistCloth_{self.idx}.png'))
+
+    def clear(self):
+        for i in range(self.count()):
+            self.itemAt(i).widget().deleteLater()
 
 
 class Vbox_StrategyAssistChoose(QVBoxLayout):

@@ -542,7 +542,6 @@ class GroupBox_Strategy(QGroupBox):
         self.vb31_detail_lst.append(VBoxLayout_Strategy(len(self.cpb3_detail_lst)-1))
         self.cpb3_detail_lst[-1].setContentLayout(self.vb31_detail_lst[-1])
         self.vb31_detail_lst[-1].objectChanged.connect(self.cpb3_detail_lst[-1].nameUpdate)
-        shutil.copy('hello.txt', r'C:\myweb\chapter02\hello_01.txt')
 
     def cpbListRemove(self):
         if len(self.cpb3_detail_lst)>0:
@@ -600,7 +599,8 @@ class GroupBox_Assist(QGroupBox):
         self.vb_assist.addLayout(self.hb2_addRemove_btn)
 
         self.hb2_assistChoose_lst:list[HBoxLayout_AssistChoose]=[]
-        for i in range(settingRead(['changable','assistIndex'])):
+        self.count=settingRead(['changable','assistIndex'])
+        for i in range(self.count):
             self.hb2_assistChoose_lst.append(HBoxLayout_AssistChoose(i+1))
             self.vb_assist.addLayout(self.hb2_assistChoose_lst[i])
 
@@ -608,15 +608,24 @@ class GroupBox_Assist(QGroupBox):
         settingWrite(self.cb1_isCloth.isChecked(),['changable','isCloth'])
         
     def cpbListAdd(self):
-        self.hb2_assistChoose_lst.append(HBoxLayout_AssistChoose(3))
+        self.count+=1
+        shutil.copy(f'fgoMaterial/assistServant_{self.count-1}.png', f'fgoMaterial/assistServant_{self.count}.png')
+        shutil.copy(f'fgoMaterial/assistCloth_{self.count-1}.png', f'fgoMaterial/assistCloth_{self.count}.png')
+        self.hb2_assistChoose_lst.append(HBoxLayout_AssistChoose(self.count))
         self.vb_assist.addLayout(self.hb2_assistChoose_lst[-1])
         settingWrite(len(self.hb2_assistChoose_lst),['changable','assistIndex'])
         
     def cpbListRemove(self):
+        print(self.vb_assist.count(),self.vb_assist.itemAt(0))
         if len(self.hb2_assistChoose_lst)>0:
-            self.hb2_assistChoose_lst[-1].deleteLater()
+            self.hb2_assistChoose_lst[-1].clear()
+            self.vb_assist.removeItem(self.hb2_assistChoose_lst[-1])
             del self.hb2_assistChoose_lst[-1]
             settingWrite(len(self.hb2_assistChoose_lst),['changable','assistIndex'])
+            os.remove(f'fgoMaterial/assistServant_{self.count}.png')
+            os.remove(f'fgoMaterial/assistCloth_{self.count}.png')
+            self.count-=1
+        print(self.vb_assist.count(),self.vb_assist.itemAt(0))
 
 #2 3
 class GroupBox_Repeat(QGroupBox):
