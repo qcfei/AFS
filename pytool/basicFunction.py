@@ -1,25 +1,24 @@
 import json
 import subprocess
 import re
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QImage,QPixmap
 import os
 import numpy as np
 from pyminitouch import MNTDevice
-import cv2
+from cv2 import imshow,waitKey,destroyAllWindows,matchTemplate,TM_CCOEFF_NORMED,minMaxLoc,resize,imdecode,imencode
 from pytool.pauseableThread import *
 
 outputX,outputY=512,288
 
 def imgLstShow(img_lst:list[np.ndarray]):
     for i in range(len(img_lst)):
-        cv2.imshow(str(i),img_lst[i])
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+        imshow(str(i),img_lst[i])
+    waitKey(0)
+    destroyAllWindows()
 
-def matchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
-    res=cv2.matchTemplate(img,template,cv2.TM_CCOEFF_NORMED,mask=mask)
-    _,max_val,_,max_loc=cv2.minMaxLoc(res)
+def selfmatchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
+    res=matchTemplate(img,template,TM_CCOEFF_NORMED,mask=mask)
+    _,max_val,_,max_loc=minMaxLoc(res)
     return max_val,max_loc
 
 def resizedReduceMatch(scene:np.ndarray,temp:np.ndarray,mask:np.ndarray=None,w_min:int=40,w_max:int=90,step:int=5):
@@ -29,13 +28,13 @@ def resizedReduceMatch(scene:np.ndarray,temp:np.ndarray,mask:np.ndarray=None,w_m
     for w in w_lst:
         h=temp.shape[0]*w//temp.shape[1]
         tempwh=np.array((w,h))
-        resizedtemp=cv2.resize(temp,tempwh)
+        resizedtemp=resize(temp,tempwh)
         if mask is not None:
-            resizedMask=cv2.resize(mask,tempwh)
+            resizedMask=resize(mask,tempwh)
         else:
             resizedMask=None
         # val,loc=reduceToMatchTemplate(scene,resizedtemp,resizedMask)
-        val,loc=matchTemplate(scene,resizedtemp,resizedMask)
+        val,loc=selfmatchTemplate(scene,resizedtemp,resizedMask)
         val_lst.append(val)
         if val>maxInfo['val'] and val<1:
             maxInfo={'val':val,'loc':loc,'wh':tempwh}
@@ -75,11 +74,11 @@ def locwh2xy(loc:np.ndarray,wh:np.ndarray):
 def getCNPathImg(path:str):
     fn=path[(path.index(re.findall(r'/[^/]*.png',path)[0]))+1:]
     dir=path[:(path.index(re.findall(r'/[^/]*.png',path)[0]))]
-    img:np.ndarray = cv2.imdecode(np.fromfile(os.path.join(f'{dir}', fn), dtype=np.uint8), -1)
+    img:np.ndarray = imdecode(np.fromfile(os.path.join(f'{dir}', fn), dtype=np.uint8), -1)
     return img
 
 def dumImg2CNPath(img:np.ndarray,path:str):
-    cv2.imencode('.png', img )[1].tofile(path)
+    imencode('.png', img )[1].tofile(path)
 
 def findServantInFolder(temp:np.ndarray,mask:np.ndarray,fdir:str):
     maxVal=0
@@ -157,6 +156,19 @@ def fixedSettingRead(key_lst:list):
         obj=obj[key]
     return obj
 
+def fixedsettingWrite(obj,key_lst:list):
+    obj_lst=[]
+    obj_lst.append(json.load(open('settingFixed.json','r',encoding='utf-8')))
+    for key in key_lst:
+        obj_lst.append(obj_lst[-1][key])
+    obj_lst[-1]=obj
+    obj_lst.reverse()
+    key_lst.reverse()
+    for obji in range(len(obj_lst)-1):
+        obj_lst[obji+1][key_lst[obji]]=obj_lst[obji]
+    key_lst.reverse()
+    json.dump(obj_lst[-1],open('settingFixed.json','w',encoding='utf-8'),ensure_ascii=True,indent=2)
+
 def maskMake(maskImg:np.ndarray):
     return np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImg],np.float32)
 
@@ -174,10 +186,10 @@ def ipGet()->str:
 def bsGet()->float:
     bs=3.75
     ip=ipGet()
-    devicesInfo=subprocess.getoutput('adb devices')
+    devicesInfo=subprocess.getoutput('platform-tools_r33.0.3-windows\platform-tools\\adb.exe devices')
     if ip not in devicesInfo:
         sysInput(f'adb connect {ip}')
-    dpi=subprocess.getoutput(f'adb -s {ip} shell wm size')
+    dpi=subprocess.getoutput(f'platform-tools_r33.0.3-windows\platform-tools\\adb.exe -s {ip} shell wm size')
     if not ('notfound' in dpi):
         dpiY,dpiX=[int(dpii) for dpii in re.findall(r'\d+',dpi)]
         bs=max(dpiX,dpiY)/outputX
@@ -204,8 +216,6 @@ class SimulatorOperator():
     def __init__(self):
         self.bs=bsGet()
         self.device:MNTDevice=None
-        simulatorIndex=simulatorIndexGet()
-        self.captureMode=settingRead(['changable','simulator',simulatorIndex,'captureMethod'])
 
     def deviceBind(self,device:MNTDevice):
         self.device=device
@@ -232,19 +242,17 @@ class SimulatorOperator():
             pos_lst.append((x_lst[i],y_lst[i]))
         self.device.swipe(pos_lst,duration=duration)
 
-    def actionByDict(self,dictionary:dict):
-        if self.captureMode==1:
-            if dictionary['type']=='tap':
-                self.simulatorTap(outputY-dictionary['y'],dictionary['x'],self.bs)
-            elif dictionary['type']=='swipe':
-                self.simulatorSwipe(outputY-dictionary['y0'],dictionary['x0'],outputY-dictionary['y1'],dictionary['x1'],dictionary['duration'],self.bs)
-        elif self.captureMode==0:
-            if dictionary['type']=='tap':
-                self.simulatorTap(dictionary['x'],dictionary['y'],self.bs)
-            elif dictionary['type']=='swipe':
-                self.simulatorSwipe(dictionary['x0'],dictionary['y0'],dictionary['x1'],dictionary['y1'],dictionary['duration'],self.bs)
+    def actionByDict(self,dictionary:list[int]):
+        if dictionary[0]==0:
+            self.simulatorTap(outputY-dictionary[2],dictionary[1],self.bs)
+        elif dictionary[0]==1:
+            self.simulatorSwipe(outputY-dictionary[2],dictionary[1],outputY-dictionary[4],dictionary[3],dictionary[5],self.bs)
+        # if dictionary['type']=='tap':
+        #     self.simulatorTap(dictionary['x'],dictionary['y'],self.bs)
+        # elif dictionary['type']=='swipe':
+        #     self.simulatorSwipe(dictionary['x0'],dictionary['y0'],dictionary['x1'],dictionary['y1'],dictionary['duration'],self.bs)
 
-    def actionByDictList(self,dictionary_lst:list[dict],pause=pause):
+    def actionByDictList(self,dictionary_lst:list[list[int]],pause=pause):
         print(dictionary_lst,sep='\n')
         for dictionary in dictionary_lst:
             self.actionByDict(dictionary)
@@ -257,7 +265,7 @@ def miniInstall(struc:str,sdk:str,ip:str):
     pn_lst=[minitouch_pn,minicap_pn,minicapso_pn]
     minicapso_fn,minicap_fn,minitouch_fn='minicap.so','minicap','minitouch'
     fn_lst=[minitouch_fn,minicap_fn,minicapso_fn]
-    adbInfo=subprocess.getoutput('adb shell ls -all data/local/tmp')
+    adbInfo=subprocess.getoutput('platform-tools_r33.0.3-windows\platform-tools\\adb.exe shell ls -all data/local/tmp')
     errorText=''
     f=True
     for fni in range(len(fn_lst)):
@@ -291,7 +299,7 @@ def img2pixmap(image:np.ndarray):
         return pixmap
 
 def reduce50percent(img:np.ndarray):
-    return cv2.resize(img,(img.shape[1]//2,img.shape[0]//2))
+    return resize(img,(img.shape[1]//2,img.shape[0]//2))
 
 def reduceToMatchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
     rdc_num=2
@@ -317,8 +325,8 @@ def reduceToMatchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=Non
         imgwh,tempwh=np.array(list(img.shape)[::-1][-2:]),np.array(list(temp.shape)[::-1][-2:])
         acc_loc_lu=np.maximum(np.array((0,0)),app_loc_lu-np.floor(radio_err*imgwh).astype(int))
         acc_loc_rd=np.minimum(imgwh,app_loc_lu+tempwh+np.floor(radio_err*imgwh).astype(int))
-        res=cv2.matchTemplate(img if i==0 else img[acc_loc_lu[1]:acc_loc_rd[1],acc_loc_lu[0]:acc_loc_rd[0]],temp,cv2.TM_CCOEFF_NORMED,mask=mask)
-        _,acc_max,_,temp_app_loc_lu=cv2.minMaxLoc(res)
+        res=matchTemplate(img if i==0 else img[acc_loc_lu[1]:acc_loc_rd[1],acc_loc_lu[0]:acc_loc_rd[0]],temp,TM_CCOEFF_NORMED,mask=mask)
+        _,acc_max,_,temp_app_loc_lu=minMaxLoc(res)
         app_loc_lu=acc_loc_lu+temp_app_loc_lu
         app_loc_lu=app_loc_lu*2
     return acc_max,app_loc_lu//2
@@ -358,7 +366,7 @@ def checkIsFeatureScene(featureInfo_lst:list[dict],sceneImg:np.ndarray,checkMode
 def findWhereMatched(featureInfo:dict,sceneImg:np.ndarray,mask:np.ndarray[np.float32]=None)->list[list[int]]:
     featureImg:np.ndarray=featureInfo['featureImg']
     confidenceThreshold:float=featureInfo['confidenceThreshold']
-    res=cv2.matchTemplate(sceneImg,featureImg,cv2.TM_CCOEFF_NORMED,mask=mask)
+    res=matchTemplate(sceneImg,featureImg,TM_CCOEFF_NORMED,mask=mask)
     res_bool:np.ndarray=np.array([[(resPix>confidenceThreshold) for resPix in resLine] for resLine in res])
     h,w=res_bool.shape[:2]
     radio=8
@@ -389,4 +397,4 @@ def is_valid_jpg(jpg_file):
         return True
 
 def imgResize2512(img:np.ndarray)->np.ndarray:
-    return cv2.resize(img,(512,288))
+    return resize(img,(512,288))

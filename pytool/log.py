@@ -1,9 +1,9 @@
 
-import typing
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 import time
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import Qt,pyqtSignal,QRect
+import os
+from PyQt5.QtCore import *
 from pytool.pauseableThread import *
 
 class Label_Log(QPlainTextEdit):

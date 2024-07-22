@@ -3,6 +3,7 @@ from PyQt5.QtCore import pyqtSignal
 
 class PauseableThread(QThread):
     quitSignal=pyqtSignal()
+    doneSignal=pyqtSignal()
     def __init__(self):
         super(PauseableThread,self).__init__()
         self._isPause = False
@@ -20,6 +21,7 @@ class PauseableThread(QThread):
             if self._isPause:
                 self.cond.wait(self.mutex)
             self.action()
+            self.doneSignal.emit()
             self.mutex.unlock()  # 解锁
         self.finishAction()
         self.quitSignal.emit()

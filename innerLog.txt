@@ -1,232 +1,153 @@
 TabWidgt_Total initializing
 Widget_run initializing
+['fgoMaterial/assistServant_1.png', 'fgoMaterial/assistServant_2.png', 'fgoMaterial/assistServant_3.png']
+simulatorIndexGet->simulatorIndex: 2
+ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
 Widget_run initializied
 Widget_set initializing
-simulatorIndexGet->simulatorIndex: 3
-simulatorIndexGet->simulatorIndex: 3
 Widget_set initializied
 TabWidgt_Total initializied
-starting graphic capture
 starting script
-simulatorIndexGet->simulatorIndex: 3
+simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
-simulatorIndexGet->simulatorIndex: 3
-simulatorIndexGet->simulatorIndex: 3
+['fgoMaterial/assistServant_1.png', 'fgoMaterial/assistServant_2.png', 'fgoMaterial/assistServant_3.png']
+simulatorIndexGet->simulatorIndex: 2
+ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
+simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
 checking neighbor states
-1 ->  0.9886377453804016 0.7 [  0 195] or (288, 512, 3) (93, 145, 3)
+1 ->  0.8664448857307434 0.7 [  0 193] or (288, 512, 3) (93, 145, 3)
 checking current state
-1 ->  [{'type': 'tap', 'x': 390, 'y': 100}]
+1 ->  [[0, 390, 100]]
 checking neighbor states
-2 ->  0.12420487403869629 0.7 [110  26] and (288, 512, 3) (255, 400, 3)
-3 ->  0.8793339729309082 0.7 [0 0] and (288, 512, 3) (70, 510, 3)
+2 ->  0.11913246661424637 0.7 [109  25] and (288, 512, 3) (255, 400, 3)
+3 ->  0.8891956210136414 0.65 [0 0] and (288, 512, 3) (70, 510, 3)
 checking current state
 3 ->  assist servant
-single step [155] [14] 
 single step [] [] 
-single step [74] [15] 
+single step [76] [14] 
+single step [] [] 
 checking neighbor states
-4 ->  0.71040940284729 0.65 [  0 210] and (288, 512, 3) (78, 510, 3)
+4 ->  0.03064909391105175 0.55 [ 0 33] and (288, 512, 3) (78, 510, 3)
+5 ->  -inf 0.7 [311  52] and (288, 512, 3) (65, 75, 3)
 checking current state
-4 ->  [{'type': 'tap', 'x': 460, 'y': 270}]
+3 ->  checking neighbor states
+4 ->  0.03968121111392975 0.55 [ 0 42] and (288, 512, 3) (78, 510, 3)
+5 ->  -inf 0.7 [159   0] and (288, 512, 3) (65, 75, 3)
+checking current state
+3 ->  checking neighbor states
+4 ->  0.8114185333251953 0.55 [  0 210] and (288, 512, 3) (78, 510, 3)
+checking current state
+4 ->  [[0, 460, 270]]
 checking neighbor states
-3 ->  0.28447115421295166 0.7 [2 5] and (288, 512, 3) (70, 510, 3)
-5 ->  0.27172282338142395 0.7 [23  3] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.28105399012565613 0.7 [0 7] and (288, 512, 3) (70, 510, 3)
-5 ->  0.26700663566589355 0.7 [36  4] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.47756466269493103 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787914454936981 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.4765889048576355 0.65 [  0 166] and (288, 512, 3) (70, 510, 3)
+5 ->  0.21733058989048004 0.7 [ 35 101] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.15535037219524384 0.65 [ 2 46] and (288, 512, 3) (70, 510, 3)
+5 ->  -inf 0.7 [63  0] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
+3 ->  0.20506270229816437 0.65 [  2 125] and (288, 512, 3) (70, 510, 3)
+5 ->  0.22335274517536163 0.7 [388  46] and (288, 512, 3) (65, 75, 3)
 checking current state
 4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.4787355363368988 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24324755370616913 0.7 [276 165] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.037762708961963654 0.7 [1 1] and (288, 512, 3) (70, 510, 3)
-5 ->  0.04554857686161995 0.7 [430 192] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.06343642622232437 0.7 [ 2 74] and (288, 512, 3) (70, 510, 3)
-5 ->  inf 0.7 [34  4] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.22775432467460632 0.7 [  0 122] and (288, 512, 3) (70, 510, 3)
-5 ->  0.29281026124954224 0.7 [173 125] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.2581048309803009 0.7 [  1 174] and (288, 512, 3) (70, 510, 3)
-5 ->  0.27040979266166687 0.7 [123 161] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.26624417304992676 0.7 [  2 181] and (288, 512, 3) (70, 510, 3)
-5 ->  0.2678603231906891 0.7 [ 76 149] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.276798814535141 0.7 [  2 121] and (288, 512, 3) (70, 510, 3)
-5 ->  0.2651952803134918 0.7 [58 99] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.265339732170105 0.7 [  2 121] and (288, 512, 3) (70, 510, 3)
-5 ->  0.7176636457443237 0.7 [415 211] and (288, 512, 3) (65, 75, 3)
+3 ->  0.2010263055562973 0.65 [  2 209] and (288, 512, 3) (70, 510, 3)
+5 ->  0.8952128887176514 0.7 [415 210] and (288, 512, 3) (65, 75, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.08785402774810791 0.6 [42  3] and (288, 512, 3) (110, 470, 3)
+6 ->  0.062444690614938736 0.57 [ 39 166] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.09123425930738449 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
+6 ->  0.06506627053022385 0.57 [ 22 148] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.08822218328714371 0.6 [42  2] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07189907133579254 0.57 [ 39 178] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.10323720425367355 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
+6 ->  0.06476109474897385 0.57 [ 22 148] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.08519425988197327 0.6 [42  2] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07733918726444244 0.57 [ 37 178] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.09098134934902191 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
+6 ->  0.1317780315876007 0.57 [ 21 144] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.09135080873966217 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
+6 ->  0.06906045973300934 0.57 [ 39 134] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 30, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 30, 240], [0, 370, 5], [0, 370, 5]]
 checking neighbor states
-6 ->  0.13566254079341888 0.6 [ 20 146] and (288, 512, 3) (110, 470, 3)
+6 ->  0.1589217483997345 0.57 [ 22 157] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 100, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 100, 240], [0, 370, 5], [0, 370, 5]]
 checking neighbor states
-6 ->  0.1364838033914566 0.6 [ 20 146] and (288, 512, 3) (110, 470, 3)
+6 ->  0.14359086751937866 0.57 [ 22 157] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 70, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 70, 240], [0, 140, 180], [0, 370, 5]]
 checking neighbor states
-6 ->  0.12859606742858887 0.6 [42 86] and (288, 512, 3) (110, 470, 3)
+6 ->  0.0748022198677063 0.57 [14  9] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 230, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 230, 240], [0, 140, 180], [0, 370, 5]]
 checking neighbor states
-6 ->  0.1052643284201622 0.6 [ 31 105] and (288, 512, 3) (110, 470, 3)
+6 ->  0.09102548658847809 0.57 [2 9] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 360, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 360, 240], [0, 140, 180], [0, 370, 5]]
 checking neighbor states
-6 ->  0.1271246075630188 0.6 [ 31 105] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07293710112571716 0.57 [ 30 169] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 320, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 320, 240], [0, 140, 180], [0, 370, 5]]
 checking neighbor states
-6 ->  0.15822315216064453 0.6 [29 25] and (288, 512, 3) (110, 470, 3)
+6 ->  0.09715203195810318 0.57 [1 9] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  [{'type': 'tap', 'x': 200, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
+5 ->  [[0, 200, 240], [0, 140, 180], [0, 370, 5]]
 checking neighbor states
-6 ->  0.18321830034255981 0.6 [ 32 104] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07752301543951035 0.57 [0 9] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.1140923798084259 0.6 [ 35 144] and (288, 512, 3) (110, 470, 3)
+6 ->  0.08608884364366531 0.57 [ 40 134] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.12401607632637024 0.6 [ 22 158] and (288, 512, 3) (110, 470, 3)
+6 ->  0.11984717845916748 0.57 [  9 157] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.11560573428869247 0.57 [15 95] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  [60 80]
 [60 80]
@@ -236,1361 +157,484 @@ checking current state
 [60 80]
 [60 80]
 [60 80]
-['b2', 'g2', 'b3', 'g1', 'r3']
+['b2', 'b3', 'g1', 'b2', 'b1']
+['z', '5', '3']
+[[0, 170, 80], [0, 460, 220], [0, 260, 220]]
+checking neighbor states
+6 ->  0.11319916695356369 0.57 [ 42 153] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.14720697700977325 0.57 [ 9 95] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  inf 0.57 [ 0 85] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  inf 0.57 [ 0 85] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.09491590410470963 0.57 [12 12] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.06686726212501526 0.57 [ 29 169] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.07239389419555664 0.57 [ 42 116] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.07518310099840164 0.57 [ 42 113] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.0772525817155838 0.57 [ 22 157] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.08937619626522064 0.57 [ 40 134] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  [[0, 290, 240], [0, 370, 5], [0, 370, 5]]
+checking neighbor states
+6 ->  0.0597471259534359 0.57 [ 42 143] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.10258603096008301 0.57 [ 34 122] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.10008963942527771 0.57 [ 34 123] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  [60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+['g1', 'r1', 'b2', 'r2', 'b3']
+['z', '2', '1']
+[[0, 170, 80], [0, 160, 220], [0, 60, 220]]
+checking neighbor states
+6 ->  0.1342497169971466 0.57 [ 2 63] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.17566022276878357 0.57 [ 23 178] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  inf 0.57 [ 0 85] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.12728393077850342 0.57 [12 11] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.053780458867549896 0.57 [33  0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.08469728380441666 0.57 [ 42 115] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -0.012104860506951809 0.57 [ 34 108] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -inf 0.57 [0 0] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.12760302424430847 0.57 [23 72] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  -0.003155849175527692 0.57 [ 0 81] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.0795365422964096 0.57 [ 39 169] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.03537563979625702 0.57 [39 29] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.06785964965820312 0.57 [ 40 134] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  [[0, 160, 240], [0, 370, 5], [0, 370, 5]]
+checking neighbor states
+6 ->  0.058891765773296356 0.57 [39 14] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  [[0, 480, 130], [0, 365, 130], [0, 370, 5], [0, 370, 5]]
+checking neighbor states
+6 ->  0.057641323655843735 0.57 [ 40 134] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.10018729418516159 0.57 [ 34 119] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  checking neighbor states
+6 ->  0.09822171926498413 0.57 [ 34 121] and (288, 512, 3) (110, 470, 3)
+checking current state
+5 ->  [60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+[60 80]
+['r1', 'g1', 'b3', 'b1', 'r3']
 ['z', '4', '1']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 360, 'y': 220}, {'type': 'tap', 'x': 60, 'y': 220}]
+[[0, 170, 80], [0, 360, 220], [0, 60, 220]]
 checking neighbor states
-6 ->  0.12001198530197144 0.6 [ 42 155] and (288, 512, 3) (110, 470, 3)
+6 ->  0.15869785845279694 0.57 [ 4 79] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.0928623154759407 0.6 [ 37 170] and (288, 512, 3) (110, 470, 3)
+6 ->  0.06397915631532669 0.57 [ 32 176] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.13364015519618988 0.6 [ 19 142] and (288, 512, 3) (110, 470, 3)
+6 ->  0.14142480492591858 0.57 [  0 122] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.17058846354484558 0.6 [ 17 178] and (288, 512, 3) (110, 470, 3)
+6 ->  inf 0.57 [ 0 85] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.12971940636634827 0.6 [ 5 58] and (288, 512, 3) (110, 470, 3)
+6 ->  0.09350290149450302 0.57 [12 15] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.16669578850269318 0.6 [  8 130] and (288, 512, 3) (110, 470, 3)
+6 ->  0.046362027525901794 0.57 [2 0] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.17237183451652527 0.6 [ 10 129] and (288, 512, 3) (110, 470, 3)
+6 ->  0.06839357316493988 0.57 [ 41 116] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.1414969563484192 0.6 [  4 123] and (288, 512, 3) (110, 470, 3)
+6 ->  0.1061730831861496 0.57 [34 60] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.0971543937921524 0.6 [ 35 111] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07613584399223328 0.57 [ 30 104] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.051037538796663284 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
+6 ->  0.07184205949306488 0.57 [ 28 104] and (288, 512, 3) (110, 470, 3)
 checking current state
 5 ->  checking neighbor states
-6 ->  0.051037538796663284 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
+6 ->  0.6840043663978577 0.57 [20 86] and (288, 512, 3) (110, 470, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.051037538796663284 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09674827754497528 0.6 [ 41 107] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08180061727762222 0.6 [ 41 106] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08344589173793793 0.6 [ 2 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08067409694194794 0.6 [12 84] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.0961432009935379 0.6 [42 98] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16115322709083557 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15002669394016266 0.6 [42 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1471927911043167 0.6 [ 7 58] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15462814271450043 0.6 [10 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11704209446907043 0.6 [ 7 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11374755203723907 0.6 [41 56] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1129058375954628 0.6 [19 56] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1154886782169342 0.6 [ 0 43] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10393978655338287 0.6 [ 0 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.039852507412433624 0.6 [28 48] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.6173842549324036 0.6 [39 47] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.6173842549324036 0.6 [39 47] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14001718163490295 0.6 [16 48] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12180570513010025 0.6 [ 5 46] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11811967939138412 0.6 [ 33 110] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11067107319831848 0.6 [22 46] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10544949024915695 0.6 [ 31 170] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13358306884765625 0.6 [36 28] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14809677004814148 0.6 [42 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11991602927446365 0.6 [ 31 105] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.17032042145729065 0.6 [13 60] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12621687352657318 0.6 [14 61] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10859786719083786 0.6 [16 53] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 290, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.11895623058080673 0.6 [ 32 142] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12694990634918213 0.6 [15 39] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-['b1', 'r2', 'b3', 'b3', 'r1']
-['z', '1', '5']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 60, 'y': 220}, {'type': 'tap', 'x': 460, 'y': 220}]
-checking neighbor states
-6 ->  0.1456068456172943 0.6 [ 0 31] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15323638916015625 0.6 [ 2 72] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1252775937318802 0.6 [  3 154] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10993120819330215 0.6 [ 42 154] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11594073474407196 0.6 [41 23] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1492297500371933 0.6 [ 30 117] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.18508227169513702 0.6 [ 21 178] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1083717793226242 0.6 [36 57] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15878871083259583 0.6 [  5 130] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16117525100708008 0.6 [ 15 130] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14041806757450104 0.6 [ 41 118] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051102329045534134 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051079124212265015 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051079124212265015 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16387757658958435 0.6 [27 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15058624744415283 0.6 [28 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14679265022277832 0.6 [ 21 104] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14750345051288605 0.6 [31 90] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1425858736038208 0.6 [17 14] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1470787078142166 0.6 [12  6] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13406966626644135 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15874846279621124 0.6 [ 29 115] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1539812982082367 0.6 [ 23 125] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1350865364074707 0.6 [ 35 171] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12960189580917358 0.6 [41 78] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11725963652133942 0.6 [18 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.0992005467414856 0.6 [37 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10138013958930969 0.6 [ 6 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.07201842218637466 0.6 [2 0] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [ 6 77] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [ 6 77] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [ 6 77] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [ 6 77] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [  6 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [  6 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [  6 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  3.309814691543579 0.6 [  6 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13756200671195984 0.6 [23 73] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13591133058071136 0.6 [23 73] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  2.3821571382143247e-09 0.6 [ 6 21] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.050648801028728485 0.6 [ 20 171] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09843546152114868 0.6 [30 47] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09285897761583328 0.6 [40 44] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09286987036466599 0.6 [42 40] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09288300573825836 0.6 [41 40] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09111861139535904 0.6 [42 39] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09371041506528854 0.6 [39 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09976015239953995 0.6 [39 40] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.155989870429039 0.6 [ 0 44] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.147640660405159 0.6 [ 0 43] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14140015840530396 0.6 [42 25] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15187789499759674 0.6 [42 25] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.0917365700006485 0.6 [ 6 34] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10993287712335587 0.6 [ 42 100] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10737567394971848 0.6 [13 97] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.06434564292430878 0.6 [42 86] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10102304816246033 0.6 [34 49] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08572954684495926 0.6 [ 0 60] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08790363371372223 0.6 [ 0 61] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09342624247074127 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 160, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.08868569135665894 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 480, 'y': 130}, {'type': 'tap', 'x': 365, 'y': 130}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.08542846143245697 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08192598819732666 0.6 [21 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-['r1', 'g1', 'b1', 'b2', 'b3']
-['z', '4', '1']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 360, 'y': 220}, {'type': 'tap', 'x': 60, 'y': 220}]
-checking neighbor states
-6 ->  0.11519832164049149 0.6 [ 42 155] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11057148873806 0.6 [ 38 155] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08965719491243362 0.6 [ 42 169] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13690055906772614 0.6 [ 26 119] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12109622359275818 0.6 [26 54] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13423287868499756 0.6 [  0 119] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.8401002883911133 0.7 [  8 211] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.16392602026462555 0.6 [  9 130] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  6.313071310160012e-08 0.7 [ 10 174] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1536010205745697 0.6 [ 21 129] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  6.313071310160012e-08 0.7 [ 10 174] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1352391093969345 0.6 [ 41 117] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [ 0 68] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.05109019577503204 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [ 0 68] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.05109019577503204 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [ 0 68] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.05106160789728165 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [0 0] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12026718258857727 0.6 [37 27] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [0 0] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.11112852394580841 0.6 [  3 105] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [0 0] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.115945965051651 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [0 0] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1136297807097435 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  -inf 0.7 [ 0 40] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13588981330394745 0.6 [16 58] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3081521987915039 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.14057819545269012 0.6 [ 0 69] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080802261829376 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.14155983924865723 0.6 [42 57] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30855706334114075 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1517229676246643 0.6 [20 86] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3095158636569977 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13635744154453278 0.6 [41 85] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3079182505607605 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.11733920127153397 0.6 [11 85] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080580532550812 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.11848341673612595 0.6 [42 56] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3085010349750519 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.06373165547847748 0.6 [42 47] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3085535168647766 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1295270174741745 0.6 [13 84] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30800294876098633 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13418300449848175 0.6 [ 8 82] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3081076741218567 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.14131607115268707 0.6 [ 5 82] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30808505415916443 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.15295380353927612 0.6 [42 89] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3085125684738159 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1420479565858841 0.6 [ 2 82] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30950820446014404 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.15504318475723267 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080066740512848 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13554492592811584 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30791521072387695 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13760605454444885 0.6 [ 0 82] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080483376979828 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.13720469176769257 0.6 [34 72] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30807867646217346 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.14287850260734558 0.6 [33 73] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3085549771785736 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12460771948099136 0.6 [26 96] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30951547622680664 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12460771948099136 0.6 [26 96] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30791255831718445 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12460771948099136 0.6 [26 96] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080434501171112 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12460771948099136 0.6 [26 96] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3080887496471405 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.12152901291847229 0.6 [29 98] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.30850622057914734 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.1262478083372116 0.6 [28 98] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3095082640647888 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
-5 ->  checking neighbor states
-6 ->  0.7975962162017822 0.6 [20 87] and (288, 512, 3) (110, 470, 3)
+6 ->  checking neighbor states
+7 ->  0.3079138398170471 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  1.134333848953247 0.7 [23  4] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3081079423427582 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  2.1390578746795654 0.7 [78  9] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30808570981025696 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  2.1390578746795654 0.7 [78  9] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3084920644760132 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  inf 0.7 [25  1] and (288, 512, 3) (55, 405, 3)
+7 ->  0.309517502784729 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.9722254276275635 0.7 [24  3] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080049753189087 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.9722254276275635 0.7 [24  3] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791640281677246 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.9722254276275635 0.7 [24  3] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080596625804901 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.01751977950334549 0.7 [88  0] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3084980547428131 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  inf 0.7 [50  1] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3085465729236603 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  1.8410732746124268 0.7 [45  6] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080073595046997 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  inf 0.7 [78  4] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079175651073456 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  inf 0.7 [9 8] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30805662274360657 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.40412628650665283 0.7 [107  86] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080782890319824 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.4302208423614502 0.7 [  0 104] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30850622057914734 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.31465187668800354 0.7 [107  82] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3095107674598694 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.41384103894233704 0.7 [107 155] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079995810985565 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.4700844883918762 0.7 [107 166] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3081115782260895 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.39217472076416016 0.7 [ 60 160] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30805695056915283 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3986590802669525 0.7 [107 177] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080812990665436 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3612974286079407 0.7 [107 160] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30850234627723694 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3905218243598938 0.7 [107  90] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3095100522041321 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.40677523612976074 0.7 [107  86] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079161047935486 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3823269009590149 0.7 [107  88] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3081066906452179 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3832794427871704 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080764710903168 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.37640875577926636 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3085516393184662 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3794156014919281 0.7 [107  83] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080058991909027 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3595476448535919 0.7 [107  73] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791372060775757 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.35839492082595825 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30805981159210205 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3839881420135498 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080821931362152 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3743308484554291 0.7 [107  73] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30855607986450195 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.36801445484161377 0.7 [107  83] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30951520800590515 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3602553606033325 0.7 [107  83] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791330337524414 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.35707658529281616 0.7 [107  73] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080589175224304 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3677431046962738 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3084939122200012 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3773556351661682 0.7 [107  83] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30855539441108704 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3567574620246887 0.7 [107  73] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080059885978699 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3044079542160034 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791640281677246 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3051519989967346 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080565929412842 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.37163373827934265 0.7 [107  86] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3084962069988251 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.38305431604385376 0.7 [107  86] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30854830145835876 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3575879633426666 0.7 [107  94] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079962730407715 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3622375428676605 0.7 [107  94] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30810967087745667 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.38836658000946045 0.7 [107  89] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080572485923767 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.40142545104026794 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3085079491138458 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3961377441883087 0.7 [107  83] and (288, 512, 3) (55, 405, 3)
+7 ->  0.309511661529541 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3545031249523163 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079962730407715 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.36075788736343384 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.308106929063797 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3543122112751007 0.7 [107  82] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080802261829376 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.30710628628730774 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30855053663253784 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3011836111545563 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30800125002861023 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.35687151551246643 0.7 [107  87] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791571736335754 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3756072223186493 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30805081129074097 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3688092827796936 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30808180570602417 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3672076165676117 0.7 [107  93] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30855852365493774 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.38273271918296814 0.7 [107  87] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080002963542938 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3669969439506531 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791422724723816 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.363133043050766 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080527186393738 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.35742947459220886 0.7 [107  85] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080828785896301 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.3604300022125244 0.7 [107  82] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3085537254810333 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.36355799436569214 0.7 [107  84] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30800312757492065 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.36044806241989136 0.7 [107  73] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3079141676425934 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.30413818359375 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080482482910156 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.30525925755500793 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080750107765198 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.29091158509254456 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3085571229457855 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.29091158509254456 0.7 [94 23] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080020546913147 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.1371702402830124 0.7 [ 99 123] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30791881680488586 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  0.1371702402830124 0.7 [ 99 123] and (288, 512, 3) (55, 405, 3)
+7 ->  0.3080579936504364 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  checking neighbor states
-7 ->  1.0951024087546557e-08 0.7 [78 59] and (288, 512, 3) (55, 405, 3)
+7 ->  0.30850309133529663 0.7 [ 21 110] and (288, 512, 3) (55, 405, 3)
 checking current state
 6 ->  totally finished
-starting script
-checking neighbor states
-1 ->  0.9886376261711121 0.7 [  0 195] or (288, 512, 3) (93, 145, 3)
-checking current state
-1 ->  [{'type': 'tap', 'x': 390, 'y': 100}]
-checking neighbor states
-2 ->  0.12467216700315475 0.7 [110  26] and (288, 512, 3) (255, 400, 3)
-3 ->  0.8778430819511414 0.7 [0 0] and (288, 512, 3) (70, 510, 3)
-checking current state
-3 ->  assist servant
-single step [74, 155] [15, 14] 
-single step [] [] 
-single step [] [] 
-checking neighbor states
-4 ->  0.7007210850715637 0.65 [  0 210] and (288, 512, 3) (78, 510, 3)
-checking current state
-4 ->  [{'type': 'tap', 'x': 460, 'y': 270}]
-checking neighbor states
-3 ->  0.19782796502113342 0.7 [  0 191] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24257376790046692 0.7 [ 97 131] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  [{'type': 'tap', 'x': 460, 'y': 270}]
-checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.47873592376708984 0.7 [  0 167] and (288, 512, 3) (70, 510, 3)
-5 ->  0.24785594642162323 0.7 [ 44 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.07234133034944534 0.7 [  1 162] and (288, 512, 3) (70, 510, 3)
-5 ->  0.10631536692380905 0.7 [386 127] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.1014009490609169 0.7 [  2 116] and (288, 512, 3) (70, 510, 3)
-5 ->  -inf 0.7 [75  0] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.22491908073425293 0.7 [  0 120] and (288, 512, 3) (70, 510, 3)
-5 ->  0.2936684787273407 0.7 [170 129] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.258319616317749 0.7 [  1 174] and (288, 512, 3) (70, 510, 3)
-5 ->  0.27110224962234497 0.7 [123 161] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.25979524850845337 0.7 [  2 180] and (288, 512, 3) (70, 510, 3)
-5 ->  0.2843777537345886 0.7 [132 167] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.2827422320842743 0.7 [  2 118] and (288, 512, 3) (70, 510, 3)
-5 ->  0.26593324542045593 0.7 [ 63 121] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.2708337604999542 0.7 [  2 121] and (288, 512, 3) (70, 510, 3)
-5 ->  0.48500490188598633 0.7 [415 211] and (288, 512, 3) (65, 75, 3)
-checking current state
-4 ->  checking neighbor states
-3 ->  0.22696882486343384 0.7 [  1 213] and (288, 512, 3) (70, 510, 3)
-5 ->  0.8699948787689209 0.7 [415 211] and (288, 512, 3) (65, 75, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08718153834342957 0.6 [42  3] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09731792658567429 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.07935909926891327 0.6 [42  3] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11837832629680634 0.6 [ 33 146] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08878075331449509 0.6 [42  2] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.0887330174446106 0.6 [42 34] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09285987913608551 0.6 [ 36 142] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 30, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.13743503391742706 0.6 [ 20 146] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 100, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.13590016961097717 0.6 [ 20 146] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 70, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.12675735354423523 0.6 [41 80] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 230, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.10810676217079163 0.6 [10 46] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 360, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.122868612408638 0.6 [ 31 105] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 320, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.15309013426303864 0.6 [25 41] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 200, 'y': 240}, {'type': 'tap', 'x': 140, 'y': 180}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.17087121307849884 0.6 [28 28] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11491075158119202 0.6 [ 35 144] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10237106680870056 0.6 [ 35 125] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-['b2', 'b1', 'b2', 'b3', 'r3']
-['z', '2', '1']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 160, 'y': 220}, {'type': 'tap', 'x': 60, 'y': 220}]
-checking neighbor states
-6 ->  0.1687343716621399 0.6 [ 6 84] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1048499271273613 0.6 [ 42 142] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10683655738830566 0.6 [ 42 155] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08042057603597641 0.6 [ 18 129] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13358549773693085 0.6 [ 25 116] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08084660023450851 0.6 [ 24 178] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09687869995832443 0.6 [ 3 48] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16269166767597198 0.6 [ 15 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16403628885746002 0.6 [ 14 129] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13774266839027405 0.6 [ 41 118] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051076408475637436 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051076408475637436 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051076408475637436 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10266098380088806 0.6 [14 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09062529355287552 0.6 [41 98] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08349644392728806 0.6 [41 98] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08144701272249222 0.6 [41 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08558763563632965 0.6 [42 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11377941817045212 0.6 [42 58] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1387207806110382 0.6 [ 0 69] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13908280432224274 0.6 [42 56] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16175337135791779 0.6 [ 42 139] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15351147949695587 0.6 [ 5 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12676380574703217 0.6 [ 2 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1167951449751854 0.6 [15 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11846178770065308 0.6 [42 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09171979129314423 0.6 [42 40] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1097622960805893 0.6 [ 5 41] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  inf 0.6 [ 8 53] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13765373826026917 0.6 [33 14] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1362854540348053 0.6 [ 5 47] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11262578517198563 0.6 [ 36 141] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11093883216381073 0.6 [21 46] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13710623979568481 0.6 [36 30] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13964644074440002 0.6 [33 30] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1445346474647522 0.6 [ 42 102] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12399427592754364 0.6 [40 91] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.16520045697689056 0.6 [11 48] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1560092568397522 0.6 [15 52] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1140502542257309 0.6 [16 54] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13266535103321075 0.6 [ 35 144] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 290, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.11255756765604019 0.6 [ 34 142] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.2006019502878189 0.6 [25  0] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-['b2', 'b2', 'b3', 'g1', 'r2']
-['z', '4', '1']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 360, 'y': 220}, {'type': 'tap', 'x': 60, 'y': 220}]
-checking neighbor states
-6 ->  0.1209106296300888 0.6 [ 42 154] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12334871292114258 0.6 [ 42 155] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08775832504034042 0.6 [ 18 171] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14922794699668884 0.6 [ 31 109] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11220570653676987 0.6 [26 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1452641636133194 0.6 [  1 118] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.17321784794330597 0.6 [  8 131] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15544918179512024 0.6 [  7 129] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12855522334575653 0.6 [  0 121] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.05112949386239052 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.05112949386239052 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.05112949386239052 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.17654085159301758 0.6 [29 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15762144327163696 0.6 [ 22 103] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1392107903957367 0.6 [31 86] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15206071734428406 0.6 [28 92] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13954582810401917 0.6 [23 14] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13311730325222015 0.6 [0 3] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1409372240304947 0.6 [ 6 94] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1527685970067978 0.6 [ 25 114] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14110787212848663 0.6 [42 78] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14237675070762634 0.6 [38 78] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13373909890651703 0.6 [42 78] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12804004549980164 0.6 [ 7 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10719892382621765 0.6 [42 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10855437815189362 0.6 [ 6 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.07458675652742386 0.6 [2 0] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 55] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.28612199425697327 0.6 [ 12 138] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  4.206366062164307 0.6 [ 6 91] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.0980452448129654 0.6 [38 50] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09851584583520889 0.6 [42 43] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.09473441541194916 0.6 [42 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1452893763780594 0.6 [ 0 43] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14658911526203156 0.6 [ 0 43] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13579605519771576 0.6 [42 24] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10826201736927032 0.6 [36 98] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10394759476184845 0.6 [  0 116] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1077665463089943 0.6 [42 48] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08075743168592453 0.6 [42 71] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.08502919971942902 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 160, 'y': 240}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.08936312049627304 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [{'type': 'tap', 'x': 480, 'y': 130}, {'type': 'tap', 'x': 365, 'y': 130}, {'type': 'tap', 'x': 370, 'y': 5}, {'type': 'tap', 'x': 370, 'y': 5}]
-checking neighbor states
-6 ->  0.08836696296930313 0.6 [ 0 59] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1567763388156891 0.6 [25 24] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  [60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-[60 80]
-['b2', 'b1', 'r1', 'b3', 'r1']
-['z', '1', '2']
-[{'type': 'tap', 'x': 170, 'y': 80}, {'type': 'tap', 'x': 60, 'y': 220}, {'type': 'tap', 'x': 160, 'y': 220}]
-checking neighbor states
-6 ->  0.10065075755119324 0.6 [ 37 116] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1275983601808548 0.6 [ 42 155] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1304348111152649 0.6 [22 40] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1287815421819687 0.6 [ 37 129] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1716579645872116 0.6 [ 11 177] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.07728056609630585 0.6 [ 26 178] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15965671837329865 0.6 [  8 128] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.17781174182891846 0.6 [  8 130] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14941109716892242 0.6 [  0 125] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12656453251838684 0.6 [ 42 116] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051102329045534134 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051079124212265015 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.051079124212265015 0.6 [42  1] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11524179577827454 0.6 [36 26] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.11182516813278198 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10845441371202469 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10798086225986481 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14209531247615814 0.6 [ 2 57] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15043367445468903 0.6 [ 1 60] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1268562376499176 0.6 [42 57] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1413346529006958 0.6 [24 86] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1263202726840973 0.6 [ 42 142] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13080734014511108 0.6 [33 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14085151255130768 0.6 [20 84] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1163095086812973 0.6 [ 4 85] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.10115306824445724 0.6 [ 6 42] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14314718544483185 0.6 [11 73] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13320322334766388 0.6 [ 7 84] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15697035193443298 0.6 [16 91] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13192160427570343 0.6 [ 3 84] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14190879464149475 0.6 [ 1 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.15424512326717377 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14194567501544952 0.6 [ 0 82] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13517430424690247 0.6 [ 0 83] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1356128603219986 0.6 [34 71] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.14239977300167084 0.6 [33 72] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.1414453685283661 0.6 [33 71] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12170939892530441 0.6 [26 97] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.13488520681858063 0.6 [29 98] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12586410343647003 0.6 [25 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12586410343647003 0.6 [25 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.12586410343647003 0.6 [25 96] and (288, 512, 3) (110, 470, 3)
-checking current state
-5 ->  checking neighbor states
-6 ->  0.7962830662727356 0.6 [20 87] and (288, 512, 3) (110, 470, 3)
-checking current state
-6 ->  checking neighbor states
-7 ->  0.9603263735771179 0.7 [ 55 211] and (288, 512, 3) (55, 405, 3)
-finished1/1
-totally finished
-simulatorIndexGet->simulatorIndex: 3
+simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384

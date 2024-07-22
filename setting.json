@@ -2,58 +2,13 @@
   "changable": {
     "strategy": [
       {
-        "name": "\u7ea2\u5361 \u5251\u5446",
-        "skill1": "110 120 130 321 331 231 221 410",
-        "order1": "a/1/2",
-        "skill2": "211 311 530 310 110",
-        "order2": "a/1/2",
-        "skill3": "130 120 321 331",
-        "order3": "a/1/2"
-      },
-      {
-        "name": "\u7ea2\u5361 \u5f13\u51db",
-        "skill1": "110 120 130 231 331",
-        "order1": "a/1/2",
-        "skill2": "211 130 311 321 110 530 310 221 410",
-        "order2": "a/1/2",
-        "skill3": "120 321 331",
-        "order3": "a/1/2"
-      },
-      {
-        "name": "\u7ea2\u5361 \u9b54\u603b\u53f8",
-        "skill1": "110 120 231 331 321 410",
-        "order1": "a/1/2",
-        "skill2": "130 211 311 221",
-        "order2": "a/1/2",
-        "skill3": "530 110 120 130 310 321 331",
-        "order3": "a/1/2"
-      },
-      {
-        "name": "\u7ea2\u5361 \u516c\u4e3b",
-        "skill1": "120 231 331 321",
-        "order1": "a/1/2",
-        "skill2": "110 130 211 311",
-        "order2": "a/1/2",
-        "skill3": "431 221 110 120 130",
-        "order3": "a/1/2"
-      },
-      {
-        "name": "\u84dd\u5361 \u5927\u516c",
-        "skill1": "120 130 231 331 321 221 310 210",
-        "order1": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
-        "skill2": "530 110 310 321 331 410",
-        "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
-        "skill3": "110",
-        "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
-      },
-      {
-        "name": "order only",
-        "skill1": "110",
-        "order1": "b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "name": "\u7ea2\u5361 \u91d1\u77f3 1t",
+        "skill1": "110 120 231 221 211 331 321 310 530 410 310 321 331",
+        "order1": "z/1/2",
         "skill2": "110",
-        "order2": "b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "order2": "z/1/2",
         "skill3": "110",
-        "order3": "b2 r2 g2/b2 r2 g2/b2 r2 g2"
+        "order3": "z/1/2"
       },
       {
         "name": "\u84dd\u5361 \u6c34\u4f0a\u5439",
@@ -62,20 +17,46 @@
         "skill2": "310",
         "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
         "skill3": "210 410",
-        "order3": "z/b2 r2 g2/b2 r2 g2"
+        "order3": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2"
+      },
+      {
+        "name": "\u84dd\u5361 \u6c34\u4f0a\u5439xhd90++",
+        "skill1": "110 121 231 331 321 221",
+        "order1": "z/b1 r1 g1/b1 r1 g1",
+        "skill2": "310 130",
+        "order2": "z/b1 r1 g1/b1 r1 g1",
+        "skill3": "210 530 321 331 410 310",
+        "order3": "x/z/b1 r1 g1 b3 r3 g3"
       }
     ],
-    "currentStrategyIndex": 6,
+    "strategyAssistChoose": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "currentStrategyIndex": 1,
     "isCloth": false,
     "again": {
-      "appleIndex": 2,
+      "appleIndex": 4,
       "fightCount": 1,
       "isAgain": true
     },
-    "fightCurrentCount": 1,
+    "fightCurrentCount": 0,
     "assistIndex": 3,
     "isCheckServantIconFirstTime": true,
-    "simulatorIndex": 3,
+    "simulatorIndex": 2,
     "simulator": [
       {
         "name": "mumu6",
@@ -102,69 +83,9 @@
         ]
       },
       {
-        "name": "mumu12ARKNIGHTS",
-        "ip": "127.0.0.1:16448",
-        "captureMethod": 1,
-        "windowsTitle": "BGO\u3001BA",
-        "captureRect": [
-          65,
-          45,
-          1145,
-          640
-        ]
-      },
-      {
         "name": "mumu12BGO\u3001BA",
         "ip": "127.0.0.1:16384",
-        "captureMethod": 1,
-        "windowsTitle": "BGO\u3001BA",
-        "captureRect": [
-          65,
-          45,
-          1145,
-          640
-        ]
-      },
-      {
-        "name": "mumu1",
-        "ip": "127.0.0.1:88143288",
-        "captureMethod": 1,
-        "windowsTitle": "BGO\u3001BA",
-        "captureRect": [
-          65,
-          45,
-          1145,
-          640
-        ]
-      },
-      {
-        "name": "mumu666",
-        "ip": "127.0.0.1:88143288",
-        "captureMethod": 1,
-        "windowsTitle": "BGO\u3001BA",
-        "captureRect": [
-          65,
-          45,
-          1145,
-          640
-        ]
-      },
-      {
-        "name": "mumu11",
-        "ip": "127.0.0.1:88143288",
-        "captureMethod": 1,
-        "windowsTitle": "BGO\u3001BA",
-        "captureRect": [
-          65,
-          45,
-          1145,
-          640
-        ]
-      },
-      {
-        "name": "mumu1145",
-        "ip": "127.0.0.1:88143288",
-        "captureMethod": 1,
+        "captureMethod": 2,
         "windowsTitle": "BGO\u3001BA",
         "captureRect": [
           65,
@@ -488,7 +409,7 @@
                 110,
                 470
               ],
-              "confidenceThreshold": 0.6,
+              "confidenceThreshold": 0.55,
               "featureImagePath": "mask/6resultMask.png",
               "maskImgPath": "mask/6resultMask.png"
             }

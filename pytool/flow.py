@@ -2,9 +2,8 @@ from pytool.basicFunction import *
 from pytool.basicFunction import np
 from pytool.log import *
 
-import cv2
+from cv2 import imread,imwrite,resize
 import time
-
 
 class State():
     def __init__(self):
@@ -37,8 +36,8 @@ class State_General(State):
         self.actionMethod:str=self.parameter['actionMethod']
 
         for featureInfo in self.featureInfo_lst:
-            featureImg=cv2.imread(featureInfo['featureImagePath'])
-            maskImg=cv2.imread(featureInfo['maskImgPath'])
+            featureImg=imread(featureInfo['featureImagePath'])
+            maskImg=imread(featureInfo['maskImgPath'])
             mask=maskMake(maskImg)
             featureInfo['featureImg']=featureImg
             featureInfo['mask']=mask
@@ -107,7 +106,7 @@ class Flow_General(Flow):
         def act(self):
             self.la_log.log_add('before')
             self.simulatorOperator.actionByDictList(self.action_lst[0],self.pause)
-            time.sleep(2)
+            time.sleep(4)
 
     class State_Drug(State_General):
         def __init__(self):
@@ -121,7 +120,7 @@ class Flow_General(Flow):
         def act(self):
             self.la_log.log_add('drug: '+self.appleName_lst[self.appleIdx])
             self.simulatorOperator.actionByDictList(self.action_lst[self.appleIdx],self.pause)
-            time.sleep(3)
+            time.sleep(4)
 
     class State_AssistChoose(State_General):
         def __init__(self):
@@ -170,7 +169,7 @@ class Flow_General(Flow):
                 self.simulatorOperator.actionByDictList(self.action_lst[0])
             else:
                 self.simulatorOperator.actionByDictList(self.action_lst[1])
-            time.sleep(2)
+            time.sleep(4)
     
     def __init__(self):
         self.state0_init=Flow_General.State_Init()
@@ -197,9 +196,6 @@ class Flow_General(Flow):
         self.state_idx=0
 
     def run(self):
-        # cv2.imshow(',',self.currentImg)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()
         state=self.state_lst[self.state_idx]
         print('checking neighbor states')
         for neighborStateI in state.neighborState:
@@ -242,6 +238,8 @@ class Flow_Assist(Flow):
     def __init__(self, ):
         state_lst=[]
 
+        self.strategyIdx=settingRead(['changable','currentStrategyIndex'])
+        self.strategyAssistChooseLst=settingRead(['changable','strategyAssistChoose',self.strategyIdx])
         self.failNum=0
         self.refreshNum=0
         self.isConcernCloth=settingRead(['changable','isCloth'])
@@ -250,10 +248,14 @@ class Flow_Assist(Flow):
         self.parameter:dict=fixedSettingRead(['fixed','parameters','assist'])
         self.assistServantFeatureInfo_lst:list[dict]=self.parameter['assistServantFeatureInfoList']
         self.assistClothFeatureInfo_lst:list[dict]=self.parameter['assistClothFeatureInfoList']
-        for assistServantFeatureInfo in self.assistServantFeatureInfo_lst:
-            assistServantFeatureInfo['featureImg']=cv2.imread(assistServantFeatureInfo['featureImagePath'])
-        for assistClothFeatureInfo in self.assistClothFeatureInfo_lst:
-            assistClothFeatureInfo['featureImg']=cv2.imread(assistClothFeatureInfo['featureImagePath'])
+        for assistServantFeatureInfoI in range(len(self.assistServantFeatureInfo_lst)):
+            assistServantFeatureInfo=self.assistServantFeatureInfo_lst[assistServantFeatureInfoI]
+            assistClothFeatureInfo=self.assistClothFeatureInfo_lst[assistServantFeatureInfoI]
+            assistServantFeatureInfo['featureImagePath']=assistServantFeatureInfo['featureImagePath'][:-5]+str(self.strategyAssistChooseLst[assistServantFeatureInfoI]+1)+assistServantFeatureInfo['featureImagePath'][-4:]
+            assistClothFeatureInfo['featureImagePath']=assistClothFeatureInfo['featureImagePath'][:-5]+str(self.strategyAssistChooseLst[assistServantFeatureInfoI]+1)+assistClothFeatureInfo['featureImagePath'][-4:]
+            assistServantFeatureInfo['featureImg']=imread(assistServantFeatureInfo['featureImagePath'])
+            assistClothFeatureInfo['featureImg']=imread(assistClothFeatureInfo['featureImagePath'])
+        print([assistServantFeatureInfo['featureImagePath'] for assistServantFeatureInfo in self.assistServantFeatureInfo_lst])
         
         self.failAction_lst:list[list[dict]]=self.parameter['failActionList']
 
@@ -300,7 +302,7 @@ class Flow_Assist(Flow):
     def run(self):
         point=self.findTargetServant()
         if point!=None:
-            action={"type": "tap","x": point[0],"y": point[1]}
+            action=[0,point[0],point[1]]
             self.simulatorOperator.actionByDict(action)
             self.la_log.log_add(f'success in {str(self.refreshNum)}-{str(self.failNum)} times',min(1,self.failNum+self.refreshNum))
             self.isRunning=False
@@ -309,12 +311,13 @@ class Flow_Assist(Flow):
                 self.simulatorOperator.actionByDictList(self.failAction_lst[0])
                 self.failNum+=1
                 self.la_log.log_add(f'fail {str(self.refreshNum)}-{str(self.failNum)} times',min(1,self.failNum+self.refreshNum))
+                time.sleep(2)
             else:
                 self.simulatorOperator.actionByDictList(self.failAction_lst[1],self.pause)
                 self.failNum=0
                 self.refreshNum+=1
                 self.la_log.log_add(f'fail {str(self.refreshNum)}-{str(self.failNum)} times',1)
-        time.sleep(1)
+                time.sleep(2)
            
 class Flow_Fight(Flow):
 
@@ -327,18 +330,18 @@ class Flow_Fight(Flow):
             step=150
             self.loc_lst=[np.array((50+step*i,175))for i in range(3)]
             pos_lst:dict[str,list[list[int]]]=fixedSettingRead(['fixed','skill_pas'])
-            self.quitAction={"type": "tap","x": pos_lst['0'][0][0],"y": pos_lst['0'][0][1]}
+            self.quitAction=[0,pos_lst['0'][0][0],pos_lst['0'][0][1]]
 
             self.checkAble=False
 
-            self.greatMask=cv2.imread('mask/greatMask.png',0)
+            self.greatMask=imread('mask/greatMask.png',0)
             self.maskwh=whOfImg(self.greatMask)
             
         def imgSave(self):
             img=cutImg(self.currentImg,np.array((100,53)),np.array((63,63*80//60)))
-            imgre=cv2.resize(img,(60,80))
+            imgre=resize(img,(60,80))
             imgmskd=np.array([[(0,0,255) if self.greatMask[yi,xi]==0 else imgre[yi,xi] for xi in range(self.maskwh[0])]for yi in range(self.maskwh[1])],np.uint8)
-            cv2.imwrite(f'fgoMaterial/preServant{str(self.progress//2+1)}.png',imgmskd)
+            imwrite(f'fgoMaterial/preServant{str(self.progress//2+1)}.png',imgmskd)
 
         def pause(self):
             time.sleep(0.2)
@@ -346,14 +349,12 @@ class Flow_Fight(Flow):
         def act(self):
             if self.progress<self.roleNum:
                 if not self.checkAble:
-                    self.simulatorOperator.actionByDict({"type": "tap","x": self.loc_lst[self.progress//2][0],"y": self.loc_lst[self.progress//2][1]})
+                    self.simulatorOperator.actionByDict([0,self.loc_lst[self.progress//2][0],self.loc_lst[self.progress//2][1]])
                     time.sleep(0.2)
-                    self.simulatorOperator.actionByDict({"type": "tap","x": 95,"y": 30})
-                    time.sleep(0.2)
+                    self.simulatorOperator.actionByDict([0,95,30])
                     self.checkAble=True
                 else:
                     self.imgSave()
-                    self.la_log.log_add('role checked')
                     self.simulatorOperator.actionByDict(self.quitAction)
                     time.sleep(0.4)
                     self.checkAble=False
@@ -362,7 +363,6 @@ class Flow_Fight(Flow):
                 self.progress=0
                 self.isFinished=True
             
-
     class State_Skill(State_InFight):
         def __init__(self,idx:int,strategy:str):
             super(Flow_Fight.State_Skill,self).__init__()
@@ -377,9 +377,9 @@ class Flow_Fight(Flow):
             for singleAction in self.strategySpilted:
                 action=[]
                 str1=f'{singleAction[0]}_{singleAction[1]}'
-                action+=[{"type": "tap","x": pos[0],"y": pos[1]} for pos in pos_lst[str1]]
-                action+=[{"type": "tap","x": pos[0],"y": pos[1]} for pos in pos_lst[singleAction[2]]]
-                action+=[{"type": "tap","x": pos_lst['0'][0][0],"y": pos_lst['0'][0][1]}]
+                action+=[[0,pos[0],pos[1]] for pos in pos_lst[str1]]
+                action+=[[0,pos[0],pos[1]] for pos in pos_lst[singleAction[2]]]
+                action+=[[0,pos_lst['0'][0][0],pos_lst['0'][0][1]]]
                 self.action_lst.append(action)
                 self.strategyNum_lst.append(len(self.action_lst)-1)
 
@@ -411,7 +411,7 @@ class Flow_Fight(Flow):
             self.yMin=140
 
             self.colorImgFn_lst:list[str]=fixedSettingRead(['fixed','parameters','fight','order','colorImgPathList'])
-            self.colorImg_lst=[cv2.imread(fn) for fn in self.colorImgFn_lst]
+            self.colorImg_lst=[imread(fn) for fn in self.colorImgFn_lst]
             self.color_lst=['r','g','b']
 
             self.servantImgFn_lst:list[str]=fixedSettingRead(['fixed','parameters','fight','order','servantImgPathList'])
@@ -419,16 +419,16 @@ class Flow_Fight(Flow):
             self.roleImgListLoad()
 
             self.pos_lst:dict[str,list[list[int]]]=fixedSettingRead(['fixed','order_pas'])
-            self.action:list[dict]=[{"type": "tap","x": self.pos_lst['i'][0],"y": self.pos_lst['i'][1]}]
+            self.action:list[dict]=[[0,self.pos_lst['i'][0],self.pos_lst['i'][1]]]
             self.orderAction:list[dict]=[]
             self.orderIndex_lst=['uc']*self.wNum
 
         def roleImgListLoad(self):
-            self.servantImg_lst=[cv2.imread(fn) for fn in self.servantImgFn_lst]
+            self.servantImg_lst=[imread(fn) for fn in self.servantImgFn_lst]
 
         def orderCardRecognize(self):
             crdImg_lst=[]
-            gtMask=cv2.imread('mask/greatMask.png',0).astype(np.float32)
+            gtMask=imread('mask/greatMask.png',0).astype(np.float32)
 
             clrRes=[0]*5
             rleRes=[0]*5
@@ -491,7 +491,7 @@ class Flow_Fight(Flow):
                                 self.orderIndex_lst[idx]='uc'
                                 break
             for singleAction in self.originalStrategy:
-                self.orderAction+=[{"type": "tap","x": self.pos_lst[singleAction][0],"y": self.pos_lst[singleAction][1]}]
+                self.orderAction+=[[0,self.pos_lst[singleAction][0],self.pos_lst[singleAction][1]]]
 
         def pause(self):
             time.sleep(0.3)
@@ -503,6 +503,8 @@ class Flow_Fight(Flow):
                 self.progress=1
                 time.sleep(1)
             elif self.progress==1:
+                self.progress=2
+            elif self.progress==2:
                 self.orderCardRecognize()
                 print(self.orderIndex_lst)
                 self.la_log.log_add(f'orderCard: {list2str(self.orderIndex_lst)}')

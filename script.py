@@ -1,6 +1,5 @@
 from pytool.myQWidget import TabWidgt_Total
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QApplication
 import sys
 from qt_material import apply_stylesheet   
 

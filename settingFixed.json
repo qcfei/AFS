@@ -13,10 +13,10 @@
       "\u4e0d\u5403\u82f9\u679c"
     ],
     "WindowGeometry": [
-      1289,
-      730,
-      1278,
-      651
+      137,
+      159,
+      1221,
+      600
     ],
     "parameters": {
       "general": {
@@ -125,11 +125,11 @@
           ],
           "actionList": [
             [
-              {
-                "type": "tap",
-                "x": 390,
-                "y": 100
-              }
+              [
+                0,
+                390,
+                100
+              ]
             ]
           ],
           "actionMethod": "unrepeatable"
@@ -156,68 +156,68 @@
           ],
           "actionList": [
             [
-              {
-                "type": "tap",
-                "x": 290,
-                "y": 130
-              },
-              {
-                "type": "tap",
-                "x": 350,
-                "y": 230
-              }
+              [
+                0,
+                290,
+                130
+              ],
+              [
+                0,
+                350,
+                230
+              ]
             ],
             [
-              {
-                "type": "tap",
-                "x": 290,
-                "y": 190
-              },
-              {
-                "type": "tap",
-                "x": 350,
-                "y": 230
-              }
+              [
+                0,
+                290,
+                190
+              ],
+              [
+                0,
+                350,
+                230
+              ]
             ],
             [
-              {
-                "type": "swipe",
-                "x0": 221,
-                "y0": 183,
-                "x1": 221,
-                "y1": 33,
-                "duration": 100
-              },
-              {
-                "type": "tap",
-                "x": 290,
-                "y": 130
-              },
-              {
-                "type": "tap",
-                "x": 350,
-                "y": 230
-              }
+              [
+                1,
+                221,
+                183,
+                221,
+                33,
+                100
+              ],
+              [
+                0,
+                290,
+                130
+              ],
+              [
+                0,
+                350,
+                230
+              ]
             ],
             [
-              {
-                "type": "swipe",
-                "x0": 221,
-                "y0": 183,
-                "x1": 221,
-                "y1": 33,
-                "duration": 100
-              },
-              {
-                "type": "tap",
-                "x": 290,
-                "y": 190
-              },
-              {
-                "type": "tap",
-                "x": 350,
-                "y": 230
-              }
+              [
+                1,
+                221,
+                183,
+                221,
+                33,
+                100
+              ],
+              [
+                0,
+                290,
+                190
+              ],
+              [
+                0,
+                350,
+                230
+              ]
             ]
           ],
           "actionMethod": "unrepeatable"
@@ -237,7 +237,7 @@
                 70,
                 510
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.65,
               "featureImagePath": "mask/3assistChooseMask.png",
               "maskImgPath": "mask/3assistChooseMask.png"
             }
@@ -260,18 +260,18 @@
                 90,
                 510
               ],
-              "confidenceThreshold": 0.65,
+              "confidenceThreshold": 0.55,
               "featureImagePath": "mask/4prepareMask.png",
               "maskImgPath": "mask/4prepareMask.png"
             }
           ],
           "actionList": [
             [
-              {
-                "type": "tap",
-                "x": 460,
-                "y": 270
-              }
+              [
+                0,
+                460,
+                270
+              ]
             ]
           ],
           "actionMethod": "unrepeatable"
@@ -312,18 +312,18 @@
                 110,
                 470
               ],
-              "confidenceThreshold": 0.6,
+              "confidenceThreshold": 0.57,
               "featureImagePath": "mask/6resultMask.png",
               "maskImgPath": "mask/6resultMask.png"
             }
           ],
           "actionList": [
             [
-              {
-                "type": "tap",
-                "x": 460,
-                "y": 270
-              }
+              [
+                0,
+                460,
+                270
+              ]
             ]
           ],
           "actionMethod": "unrepeatable"
@@ -351,18 +351,18 @@
           ],
           "actionList": [
             [
-              {
-                "type": "tap",
-                "x": 350,
-                "y": 230
-              }
+              [
+                0,
+                350,
+                230
+              ]
             ],
             [
-              {
-                "type": "tap",
-                "x": 40,
-                "y": 20
-              }
+              [
+                0,
+                40,
+                20
+              ]
             ]
           ],
           "actionMethod": "unrepeatable"
@@ -377,7 +377,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistServant_1.png"
           },
           {
@@ -387,7 +387,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistServant_2.png"
           },
           {
@@ -397,7 +397,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistServant_3.png"
           }
         ],
@@ -409,7 +409,7 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistCloth_1.png"
           },
           {
@@ -419,7 +419,7 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistCloth_2.png"
           },
           {
@@ -429,32 +429,30 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.7,
+            "confidenceThreshold": 0.65,
             "featureImagePath": "fgoMaterial/assistCloth_3.png"
           }
         ],
         "failActionList": [
           [
-            {
-              "type": "swipe",
-              "x0": 213,
-              "y0": 251,
-              "x1": 213,
-              "y1": 107,
-              "duration": 100
-            }
-          ],
-          [
-            {
-              "type": "tap",
-              "x": 380,
-              "y": 60
-            },
-            {
-              "type": "tap",
-              "x": 350,
-              "y": 230
-            }
+            [
+              1,
+              213,
+              251,
+              213,
+              107,
+              100
+            ],
+            [
+              0,
+              380,
+              60
+            ],
+            [
+              0,
+              350,
+              230
+            ]
           ]
         ]
       },

@@ -1,0 +1,17 @@
+connected to 127.0.0.1:16384
+2024-07-14 18:13:51.437 | INFO     | pyminitouch.utils:is_device_connected:56 - device V2218A online
+2024-07-14 18:13:51.439 | INFO     | pyminitouch.connection:__init__:86 - searching a usable port ...
+2024-07-14 18:13:53.441 | INFO     | pyminitouch.connection:__init__:88 - device 127.0.0.1:16384 bind to port 20327
+2024-07-14 18:13:53.518 | INFO     | pyminitouch.connection:get_abi:34 - device 127.0.0.1:16384 is x86_64
+2024-07-14 18:13:53.602 | INFO     | pyminitouch.connection:__init__:26 - minitouch already existed in 127.0.0.1:16384
+2024-07-14 18:13:53.618 | DEBUG    | pyminitouch.connection:_forward_port:127 - forward command: adb -s 127.0.0.1:16384 forward tcp:20327 localabstract:minitouch
+2024-07-14 18:13:53.662 | DEBUG    | pyminitouch.connection:_forward_port:129 - output: b'20327\r\n'
+2024-07-14 18:13:53.664 | INFO     | pyminitouch.connection:_start_mnt:140 - start minitouch: adb -s 127.0.0.1:16384 shell /data/local/tmp/minitouch
+Note: device /dev/input/mouse0 is not supported by libevdev
+Note: device /dev/input/mice is not supported by libevdev
+Type B touch device nemuVM Virtual Input (1080x1920 with 32 contacts) detected on /dev/input/event4 (score 22471)
+Note: hard-limiting maximum number of contacts to 10
+Connection established
+2024-07-14 18:13:54.717 | INFO     | pyminitouch.connection:__init__:182 - minitouch running on port: 20327, pid: 20056
+2024-07-14 18:13:54.719 | INFO     | pyminitouch.connection:__init__:185 - max_contact: 10; max_x: 1080; max_y: 1920; max_pressure: 0
+
