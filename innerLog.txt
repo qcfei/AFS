@@ -1,13 +1,11 @@
 TabWidgt_Total initializing
 Widget_run initializing
-['fgoMaterial/assistServant_1.png', 'fgoMaterial/assistServant_2.png', 'fgoMaterial/assistServant_3.png']
+['fgoMaterial/assistServant_1.png', 'fgoMaterial/assistServant_2.png', 'fgoMaterial/assistServant_4.png']
 simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
 Widget_run initializied
 Widget_set initializing
 Widget_set initializied
 TabWidgt_Total initializied
-6 <PyQt5.QtWidgets.QWidgetItem object at 0x0000010F974749D0>
-5 <PyQt5.QtWidgets.QWidgetItem object at 0x0000010F974745E0>
 simulatorIndexGet->simulatorIndex: 2
-ipGet->simulatorInfo: mumu12BGO、BA 127.0.0.1:16384
+ipGet->simulatorInfo: mumu12 127.0.0.1:16384

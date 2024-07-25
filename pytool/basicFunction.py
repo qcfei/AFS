@@ -258,13 +258,11 @@ class SimulatorOperator():
             self.actionByDict(dictionary)
             pause()
          
-def miniInstall(struc:str,sdk:str,ip:str):
-    minicapso_pn=r'minicap\minicap-shared\aosp\libs\android-{}\{}\minicap.so'.format(sdk,struc)
-    minicap_pn=r'minicap\{}\minicap'.format(struc)
+def miniInstall(struc:str,ip:str):
     minitouch_pn=r'minitouch\{}\minitouch'.format(struc)
-    pn_lst=[minitouch_pn,minicap_pn,minicapso_pn]
-    minicapso_fn,minicap_fn,minitouch_fn='minicap.so','minicap','minitouch'
-    fn_lst=[minitouch_fn,minicap_fn,minicapso_fn]
+    pn_lst=[minitouch_pn]
+    minitouch_fn='minitouch'
+    fn_lst=[minitouch_fn]
     adbInfo=subprocess.getoutput('platform-tools_r33.0.3-windows\platform-tools\\adb.exe shell ls -all data/local/tmp')
     errorText=''
     f=True

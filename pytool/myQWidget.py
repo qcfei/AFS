@@ -38,6 +38,8 @@ class TabWidgt_Total(QTabWidget):
         cbStrategy1.indexChanged.connect(cbStrategy2.setCurrentIndex)
         cbStrategy2.indexChanged.connect(cbStrategy1.setCurrentIndex)
         gbStrategy2.btn21_add.clicked.connect(self.lastVbDetailConnect)
+        self.wi2_setting.scrollArea_setting.gb2_assist.btn21_add.pressed.connect(self.wi2_setting.scrollArea_setting.gb1_strategy.assistAdd)
+        self.wi2_setting.scrollArea_setting.gb2_assist.btn22_remove.pressed.connect(self.wi2_setting.scrollArea_setting.gb1_strategy.assistRemove)
 
         laSimulatorSelect=self.wi1_run.la11_simulator
         cbSimulatorSelect=self.wi2_setting.scrollArea_setting.gb5_simulator.cbb12_simulatorChoose
@@ -533,6 +535,14 @@ class GroupBox_Strategy(QGroupBox):
         self.btn22_remove.clicked.connect(self.cpbListRemove)
         self.btn22_remove.clicked.connect(self.cb11_strategyChoose.itemRemove)
 
+    def assistAdd(self):
+        for stI in range(len(self.cpb3_detail_lst)):
+            self.vb31_detail_lst[stI].assistAdd()
+            
+    def assistRemove(self):
+        for stI in range(len(self.cpb3_detail_lst)):
+            self.vb31_detail_lst[stI].assistRemove()
+
     def cpbListAdd(self):
         strategy_lst:list=settingRead(self.strategyPath_lst)
         strategy_lst.append(strategy_lst[-1])
@@ -810,13 +820,13 @@ class GroupBox_Simulator(QGroupBox):
         simulator_lst:list=settingRead(['changable','simulator'])
         simulator_lst.append(newSimulatorInfo)
         settingWrite(simulator_lst,['changable','simulator'])
-        self.la43_simulatorAddResult.setText('success add '+self.le42_simulatorInfo.text().split(' ')[0])
+        self.la43_simulatorAddResult.setText(+self.le42_simulatorInfo.text().split(' ')[0]+' added')
 
     def btn51_simulatorRemoveAction(self):
         simulator_lst:list=settingRead(['changable','simulator'])
         simulator_lst.remove(simulator_lst[self.cbb52_simulatorName.currentIndex()])
         settingWrite(simulator_lst,['changable','simulator'])
-        self.la53_simulatorRemoveResult.setText('success delete '+self.cbb52_simulatorName.currentText())
+        self.la53_simulatorRemoveResult.setText(+self.cbb52_simulatorName.currentText()+' deleted')
 
     def btn611_miniInstallAction(self):
         simulatorIndex=self.cbb12_simulatorChoose.currentIndex()
@@ -824,12 +834,11 @@ class GroupBox_Simulator(QGroupBox):
         ip=simulator_lst[simulatorIndex]['ip']
         sysInput('adb connect '+ip)
         struc=subprocess.getoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
-        sdk=subprocess.getoutput(f'adb -s {ip} shell getprop ro.build.version.sdk')
-        f,errorText=miniInstall(struc,sdk,ip)
+        f,errorText=miniInstall(struc,ip)
         adbInfo=subprocess.getoutput('adb shell ls -all data/local/tmp')
-        text='success install minicap&minitouch\nstruc: '+struc+'   sdk:'+sdk+'\nfiles in data/local/tmp:\t'+ adbInfo
+        text='success install minitouch\nstruc: '+struc+'\nfiles in data/local/tmp:\t'+ adbInfo
         text=f'<font color="white">{text}</font>'
-        for keyText in ['minicap','minitouch']:
+        for keyText in ['minitouch']:
             text=text.replace(keyText,f'</font><font color="yellow">{keyText}</font><font color="white">')
         if not f:
             text=f'<font color="red">{errorText}\n</font>'+text
@@ -841,11 +850,10 @@ class GroupBox_Simulator(QGroupBox):
         ip=ipGet()
         sysInput('adb connect '+ip)
         struc=subprocess.getoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
-        sdk=subprocess.getoutput(f'adb -s {ip} shell getprop ro.build.version.sdk')
         adbInfo=subprocess.getoutput(f'adb -s {ip} shell ls -all data/local/tmp')
-        text='struc: '+struc+'   sdk:'+sdk+'\nfiles in data/local/tmp:\t'+ adbInfo
+        text='struc: '+struc+'\nfiles in data/local/tmp:\t'+ adbInfo
         text=f'<font color="white">{text}</font>'
-        for keyText in ['minicap','minitouch','sdk','struc']:
+        for keyText in ['minitouch','struc']:
             text=text.replace(keyText,f'</font><font color="yellow">{keyText}</font><font color="white">')
         text=text.replace('\n','<br/>')
         self.la63_miniInstallResult.setText(text)

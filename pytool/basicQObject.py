@@ -87,6 +87,19 @@ class VBoxLayout_Strategy(QVBoxLayout):
                     }
             settingWrite(strategy_dict,['changable','strategy',self.idx])
 
+    def assistAdd(self):
+        time.sleep(0.1)
+        count=self.hb_3strategyAssist.vbStrategy_lst[0].cbb_assistChoose.count()
+        [self.hb_3strategyAssist.vbStrategy_lst[i].cbb_assistChoose.addItem(str(count+1)) for i in range(3)]
+
+    def assistRemove(self):
+        time.sleep(0.1)
+        count=self.hb_3strategyAssist.vbStrategy_lst[0].cbb_assistChoose.count()
+        if self.hb_3strategyAssist.vbStrategy_lst[0].cbb_assistChoose.count()>0:
+            [self.hb_3strategyAssist.vbStrategy_lst[i].cbb_assistChoose.setCurrentIndex(min(count-2,self.hb_3strategyAssist.vbStrategy_lst[i].cbb_assistChoose.currentIndex())) for i in range(3)]
+            [self.hb_3strategyAssist.vbStrategy_lst[i].cbb_assistChoose.removeItem(count-1) for i in range(3)]
+
+
 class HBoxLayout_AssistChoose(QHBoxLayout):
     def __init__(self,idx:int):
         super(HBoxLayout_AssistChoose,self).__init__()
@@ -184,13 +197,10 @@ class Vbox_StrategyAssistChoose(QVBoxLayout):
 class Hbox_3StrategyAssist(QHBoxLayout):
     def __init__(self,sidx:int) -> None:
         super().__init__()
-        self.vb1_strategy=Vbox_StrategyAssistChoose(sidx,0)
-        self.vb2_strategy=Vbox_StrategyAssistChoose(sidx,1)
-        self.vb3_strategy=Vbox_StrategyAssistChoose(sidx,2)
+        self.vbStrategy_lst:list[Vbox_StrategyAssistChoose]=[]
         self.addStretch(1)
-        self.addLayout(self.vb1_strategy)
-        self.addStretch(1)
-        self.addLayout(self.vb2_strategy)
-        self.addStretch(1)
-        self.addLayout(self.vb3_strategy)
+        for i in range(3):
+            self.vbStrategy_lst.append(Vbox_StrategyAssistChoose(sidx,i))
+            self.addLayout(self.vbStrategy_lst[i])
+            self.addStretch(1)
         self.addStretch(1)

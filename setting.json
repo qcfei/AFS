@@ -33,24 +33,24 @@
       [
         0,
         1,
-        2
+        3
       ],
       [
         0,
         1,
-        2
+        1
       ],
       [
         0,
         1,
-        2
+        1
       ]
     ],
-    "currentStrategyIndex": 1,
+    "currentStrategyIndex": 0,
     "isCloth": false,
     "again": {
-      "appleIndex": 4,
-      "fightCount": 1,
+      "appleIndex": 3,
+      "fightCount": 3,
       "isAgain": true
     },
     "fightCurrentCount": 0,
@@ -83,7 +83,7 @@
         ]
       },
       {
-        "name": "mumu12BGO\u3001BA",
+        "name": "mumu12",
         "ip": "127.0.0.1:16384",
         "captureMethod": 2,
         "windowsTitle": "BGO\u3001BA",
