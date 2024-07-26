@@ -94,7 +94,7 @@ class TabWidgt_Total(QTabWidget):
         super().closeEvent(a0)
         ip=ipGet()
         sysInput(f'adb disconnect {ip}')
-        devicesInfo=subprocess.getoutput('adb devices')
+        devicesInfo=myGetoutput('adb devices')
         if re.findall(r'\d+',devicesInfo)==[]:
             sysInput('adb kill-server')
 #1
@@ -798,11 +798,12 @@ class GroupBox_Simulator(QGroupBox):
         self.la63_miniInstallResult=QLabel('')
         self.hb6_miniInstall.addLayout(self.vb61_miniInstall)
         self.hb6_miniInstall.addWidget(self.la63_miniInstallResult)
-        self.hb6_miniInstall.addStretch(1)
         self.la63_miniInstallResult.setWordWrap(True)
         
         self.btn611_miniInstall=QPushButton('安装mini')
         self.btn612_miniCheck=QPushButton('查看mini安装情况')
+        self.btn611_miniInstall.setFixedWidth(300)
+        self.btn612_miniCheck.setFixedWidth(300)
         self.vb61_miniInstall.addWidget(self.btn611_miniInstall)
         self.vb61_miniInstall.addWidget(self.btn612_miniCheck)
         self.vb61_miniInstall.addStretch(1)
@@ -833,9 +834,9 @@ class GroupBox_Simulator(QGroupBox):
         simulator_lst:list=settingRead(['changable','simulator'])
         ip=simulator_lst[simulatorIndex]['ip']
         sysInput('adb connect '+ip)
-        struc=subprocess.getoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
+        struc=myGetoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
         f,errorText=miniInstall(struc,ip)
-        adbInfo=subprocess.getoutput('adb shell ls -all data/local/tmp')
+        adbInfo=myGetoutput('adb shell ls -all data/local/tmp')
         text='success install minitouch\nstruc: '+struc+'\nfiles in data/local/tmp:\t'+ adbInfo
         text=f'<font color="white">{text}</font>'
         for keyText in ['minitouch']:
@@ -844,20 +845,23 @@ class GroupBox_Simulator(QGroupBox):
             text=f'<font color="red">{errorText}\n</font>'+text
         text=text.replace('\n','<br/>')
         self.la63_miniInstallResult.setText(text)
-        sysInput('adb disconnect '+ip)
 
     def btn612_miniCheckAction(self):
         ip=ipGet()
         sysInput('adb connect '+ip)
-        struc=subprocess.getoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
-        adbInfo=subprocess.getoutput(f'adb -s {ip} shell ls -all data/local/tmp')
+        struc=myGetoutput(f'adb -s {ip} shell getprop ro.product.cpu.abi')
+        adbInfo=myGetoutput(f'adb -s {ip} shell ls -all data/local/tmp')
         text='struc: '+struc+'\nfiles in data/local/tmp:\t'+ adbInfo
+        text_lst=text.split('\n')
+        for texti in range(len(text_lst)-1,1,-1):
+            if not 'minitouch' in text_lst[texti]:
+                text_lst.pop(texti)
+        text='\n'.join(text_lst)
         text=f'<font color="white">{text}</font>'
         for keyText in ['minitouch','struc']:
             text=text.replace(keyText,f'</font><font color="yellow">{keyText}</font><font color="white">')
         text=text.replace('\n','<br/>')
         self.la63_miniInstallResult.setText(text)
-        sysInput('adb disconnect '+ip)
 
 #2 5
 class GroupBox_ClothExperienceFeeding(QGroupBox):

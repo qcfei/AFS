@@ -186,10 +186,11 @@ def ipGet()->str:
 def bsGet()->float:
     bs=3.75
     ip=ipGet()
-    devicesInfo=subprocess.getoutput('platform-tools_r33.0.3-windows\platform-tools\\adb.exe devices')
+    devicesInfo=myGetoutput('adb devices')
     if ip not in devicesInfo:
         sysInput(f'adb connect {ip}')
-    dpi=subprocess.getoutput(f'platform-tools_r33.0.3-windows\platform-tools\\adb.exe -s {ip} shell wm size')
+    dpi=myGetoutput(f'adb -s {ip} shell wm size')
+    print(dpi)
     if not ('notfound' in dpi):
         dpiY,dpiX=[int(dpii) for dpii in re.findall(r'\d+',dpi)]
         bs=max(dpiX,dpiY)/outputX
@@ -207,6 +208,11 @@ def sysInput(text:str):
     if 'adb' in text:
         text=text.replace('adb',r'platform-tools_r33.0.3-windows\platform-tools\adb.exe')
     subprocess.run(text,shell=True)
+
+def myGetoutput(text:str):
+    if 'adb' in text:
+        text=text.replace('adb',r'platform-tools_r33.0.3-windows\platform-tools\adb.exe')
+    return subprocess.getoutput(text)
 
 def pause():
     pass
@@ -263,7 +269,7 @@ def miniInstall(struc:str,ip:str):
     pn_lst=[minitouch_pn]
     minitouch_fn='minitouch'
     fn_lst=[minitouch_fn]
-    adbInfo=subprocess.getoutput('platform-tools_r33.0.3-windows\platform-tools\\adb.exe shell ls -all data/local/tmp')
+    adbInfo=myGetoutput('adb shell ls -all data/local/tmp')
     errorText=''
     f=True
     for fni in range(len(fn_lst)):
