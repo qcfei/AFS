@@ -222,9 +222,11 @@ class SimulatorOperator():
     def __init__(self):
         self.bs=bsGet()
         self.device:MNTDevice=None
+        self.device_size=[0,0]
 
     def deviceBind(self,device:MNTDevice):
         self.device=device
+        self.device_size=[device.connection.max_x,device.connection.max_y]
     
     def simulatorTap(self,x:int,y:int,bs:float=1):
         self.device.tap([(int(x*bs),int(y*bs))])
@@ -249,14 +251,16 @@ class SimulatorOperator():
         self.device.swipe(pos_lst,duration=duration)
 
     def actionByDict(self,dictionary:list[int]):
-        if dictionary[0]==0:
-            self.simulatorTap(outputY-dictionary[2],dictionary[1],self.bs)
-        elif dictionary[0]==1:
-            self.simulatorSwipe(outputY-dictionary[2],dictionary[1],outputY-dictionary[4],dictionary[3],dictionary[5],self.bs)
-        # if dictionary['type']=='tap':
-        #     self.simulatorTap(dictionary['x'],dictionary['y'],self.bs)
-        # elif dictionary['type']=='swipe':
-        #     self.simulatorSwipe(dictionary['x0'],dictionary['y0'],dictionary['x1'],dictionary['y1'],dictionary['duration'],self.bs)
+        if self.device_size[0]<self.device_size[1]:
+            if dictionary[0]==0:
+                self.simulatorTap(outputY-dictionary[2],dictionary[1],self.bs)
+            elif dictionary[0]==1:
+                self.simulatorSwipe(outputY-dictionary[2],dictionary[1],outputY-dictionary[4],dictionary[3],dictionary[5],self.bs)
+        if self.device_size[0]<self.device_size[1]:
+            if dictionary[0]==0:
+                self.simulatorTap(dictionary[1],dictionary[2],self.bs)
+            elif dictionary[0]==1:
+                self.simulatorSwipe(dictionary[1],dictionary[2],dictionary[3],dictionary[4],dictionary[5],self.bs)
 
     def actionByDictList(self,dictionary_lst:list[list[int]],pause=pause):
         print(dictionary_lst,sep='\n')
