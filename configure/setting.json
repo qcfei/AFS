@@ -61,7 +61,7 @@
       ]
     ],
     "deleteStrategyIdx": 5,
-    "deleteAssistIdx": 6,
+    "deleteAssistIdx": 7,
     "currentStrategyIndex": 3,
     "isCloth": false,
     "again": {
@@ -70,7 +70,7 @@
       "isAgain": true
     },
     "fightCurrentCount": 0,
-    "assistIndex": 7,
+    "assistIndex": 6,
     "isCheckServantIconFirstTime": true,
     "simulatorIndex": 2,
     "simulator": [
