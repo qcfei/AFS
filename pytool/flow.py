@@ -207,17 +207,6 @@ class Flow_General(Flow):
                 state=self.state_lst[self.state_idx]
                 break
             
-        if self.state_idx==7 and not self.isLock:
-            self.fightCurrentCount+=1
-            print('finished'+str(self.fightCurrentCount)+'/'+str(self.fightCount))
-            settingWrite(self.fightCurrentCount,['changable','fightCurrentCount'])
-            self.isLock=True
-            if self.fightCurrentCount>=self.fightCount:
-                self.isRunning=False
-                self.isQuit=True
-        elif self.state_idx!=7:
-            self.isLock=False
-        
         if not self.isQuit:
             print('checking current state')
             print(str(self.state_idx)+' -> ',end=' ')
@@ -228,6 +217,18 @@ class Flow_General(Flow):
 
         if self.state_idx==6:   
             self.state5_fight.flow_fight.refresh()
+
+        if self.state_idx==6 and not self.isLock:
+            self.fightCurrentCount+=1
+            print('finished'+str(self.fightCurrentCount)+'/'+str(self.fightCount))
+            settingWrite(self.fightCurrentCount,['changable','fightCurrentCount'])
+            self.isLock=True
+            if self.fightCurrentCount>=self.fightCount:
+                self.isRunning=False
+                self.isQuit=True
+                
+        elif self.state_idx!=7:
+            self.isLock=False
 
         time.sleep(0.2)
 
@@ -257,7 +258,7 @@ class Flow_Assist(Flow):
             assistClothFeatureInfo['featureImg']=imread(assistClothFeatureInfo['featureImagePath'])
         print([assistServantFeatureInfo['featureImagePath'] for assistServantFeatureInfo in self.assistServantFeatureInfo_lst])
         
-        self.failAction_lst:list[list[dict]]=self.parameter['failActionList']
+        self.failAction_lst:list[list[list[int]]]=self.parameter['failActionList']
 
     def findTargetServant(self)->list[int]:
         servantX_lst:list[int]=[]
@@ -265,9 +266,7 @@ class Flow_Assist(Flow):
         h,w=self.assistServantFeatureInfo_lst[0]['Rect'][2:4]
         print('assist servant')
         for assistServantFeatureInfo in self.assistServantFeatureInfo_lst:
-            print('single step',end=' ')
             servant_lst=findWhereMatched(assistServantFeatureInfo,self.currentImg)
-            print('')
             servantY_lst+=servant_lst[0]
             servantX_lst+=servant_lst[1]
         if self.isConcernCloth:
@@ -275,9 +274,7 @@ class Flow_Assist(Flow):
             clothY_lst:list[int]=[]
             print('assist cloth')
             for assistClothFeatureInfo in self.assistClothFeatureInfo_lst:
-                print('single step',end=' ')
                 cloth_lst=findWhereMatched(assistClothFeatureInfo,self.currentImg)
-                print('')
                 clothY_lst+=cloth_lst[0]
                 clothX_lst+=cloth_lst[1]
             radio=6
@@ -301,6 +298,7 @@ class Flow_Assist(Flow):
 
     def run(self):
         point=self.findTargetServant()
+        print(self.parameter['failActionList'][0],'!!!')
         if point!=None:
             action=[0,point[0],point[1]]
             self.simulatorOperator.actionByDict(action)

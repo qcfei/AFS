@@ -1,34 +1,11 @@
 TabWidgt_Total initializing
 Widget_run initializing
-['fgoMaterial/assistServant_6.png', 'fgoMaterial/assistServant_5.png', 'fgoMaterial/assistServant_4.png']
+['fgoMaterial/assistServant_1.png', 'fgoMaterial/assistServant_2.png', 'fgoMaterial/assistServant_3.png']
 simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12 127.0.0.1:16384
 Widget_run initializied
 Widget_set initializing
 Widget_set initializied
 TabWidgt_Total initializied
-starting script
 simulatorIndexGet->simulatorIndex: 2
-ipGet->simulatorInfo: mumu12 127.0.0.1:16384
-['fgoMaterial/assistServant_6.png', 'fgoMaterial/assistServant_5.png', 'fgoMaterial/assistServant_4.png']
-simulatorIndexGet->simulatorIndex: 2
-ipGet->simulatorInfo: mumu12 127.0.0.1:16384
-Physical size: 1080x1920
-simulatorIndexGet->simulatorIndex: 2
-ipGet->simulatorInfo: mumu12 127.0.0.1:16384
-checking neighbor states
-1 ->  0.16911932826042175 0.7 [147 190] or (288, 512, 3) (93, 145, 3)
-0.15395478904247284 0.7 [367   4] or (288, 512, 3) (93, 145, 3)
-0.18215517699718475 0.7 [100 189] or (288, 512, 3) (93, 145, 3)
-0.2957315742969513 0.7 [179 159] or (288, 512, 3) (93, 145, 3)
-0.29597994685173035 0.7 [113 102] or (288, 512, 3) (93, 145, 3)
-0.31069672107696533 0.7 [367  11] or (288, 512, 3) (93, 145, 3)
-2 ->  0.18014980852603912 0.7 [ 0 30] and (288, 512, 3) (255, 400, 3)
-3 ->  0.27037540078163147 0.65 [  1 199] and (288, 512, 3) (70, 510, 3)
-4 ->  0.10675107687711716 0.55 [  0 209] and (288, 512, 3) (78, 510, 3)
-5 ->  0.25075042247772217 0.7 [311 147] and (288, 512, 3) (65, 75, 3)
-6 ->  0.1693599969148636 0.57 [42 53] and (288, 512, 3) (110, 470, 3)
-7 ->  0.35190457105636597 0.7 [ 85 144] and (288, 512, 3) (55, 405, 3)
-checking current state
-0 ->  simulatorIndexGet->simulatorIndex: 2
 ipGet->simulatorInfo: mumu12 127.0.0.1:16384

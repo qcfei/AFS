@@ -33,13 +33,14 @@ class TabWidgt_Total(QTabWidget):
         vbDetail_lst=gbStrategy2.vb31_detail_lst
         for vbDetailI in range(len(vbDetail_lst)):
             self.vbDetailConnect(vbDetailI)
-        gbStrategy2.btn21_add.clicked.connect(cbStrategy1.itemAdd)
-        gbStrategy2.btn22_remove.clicked.connect(cbStrategy1.itemRemove)
+        gbStrategy2.btn21_add.clicked.connect(cbStrategy1.itemUpdate)
+        gbStrategy2.btn22_remove.clicked.connect(cbStrategy1.itemUpdate)
         cbStrategy1.indexChanged.connect(cbStrategy2.setCurrentIndex)
         cbStrategy2.indexChanged.connect(cbStrategy1.setCurrentIndex)
         gbStrategy2.btn21_add.clicked.connect(self.lastVbDetailConnect)
         self.wi2_setting.scrollArea_setting.gb2_assist.btn21_add.pressed.connect(self.wi2_setting.scrollArea_setting.gb1_strategy.assistAdd)
         self.wi2_setting.scrollArea_setting.gb2_assist.btn22_remove.pressed.connect(self.wi2_setting.scrollArea_setting.gb1_strategy.assistRemove)
+        # self.wi2_setting.scrollArea_setting.gb1_strategy.deleteSignal.connect(cbStrategy1.itemUpdate)
 
         laSimulatorSelect=self.wi1_run.la11_simulator
         cbSimulatorSelect=self.wi2_setting.scrollArea_setting.gb5_simulator.cbb12_simulatorChoose
@@ -59,8 +60,8 @@ class TabWidgt_Total(QTabWidget):
         cbStrategy1=self.wi1_run.cb23_strategyChoose
         cbStrategy2=gbStrategy2.cb11_strategyChoose
         vbDetail_lst=gbStrategy2.vb31_detail_lst
-        vbDetail_lst[vbDetailI].objectChanged.connect(cbStrategy1.itemUpdate)
-        vbDetail_lst[vbDetailI].objectChanged.connect(cbStrategy2.itemUpdate)
+        vbDetail_lst[vbDetailI].le2_name.textChanged.connect(cbStrategy1.itemUpdate)
+        vbDetail_lst[vbDetailI].le2_name.textChanged.connect(cbStrategy2.itemUpdate)
 
     def lastVbDetailConnect(self):
         gbStrategy2=self.wi2_setting.scrollArea_setting.gb1_strategy
@@ -234,7 +235,10 @@ class Widget_run(QWidget):
         def btn2ClickedAction(self):
             self.btn2.setEnabled(False)
             self.btn1.setText(self.startName)
-            [thread.stop() for thread in self.thread_lst]
+            for thread in self.thread_lst:
+                if thread._isPause:
+                    thread.resume()
+                thread.stop()
 
         def pause(self):
             [thread.pause() for thread in self.thread_lst]
@@ -476,11 +480,17 @@ class GroupBox_Strategy(QGroupBox):
             self.addItem(str(len(strategy))+' '+strategy[-1]['name'])
 
         def itemRemove(self):
+            idx=settingRead(['changable', 'deleteStrategyIdx'])
+            print(self.currentIndex(),idx,'!!!')
             if self.count()>0:
-                if self.currentIndex()==self.count()-1:
-                    self.setCurrentIndex(self.count()-2)
-                self.removeItem(self.count()-1)
+                if self.currentIndex()>=idx:
+                    self.setCurrentIndex(self.currentIndex()-1)
+                self.removeItem(idx)
                 self.indexWrite()
+            st_lst=settingRead(['changable','strategy'])
+            title_lst=[st['name'] for st in st_lst]
+            for i in range(idx,self.count()):
+                self.setItemText(i, str(i+1)+' '+title_lst[i])
 
         def indexChangedEmit(self):
             self.indexWrite()
@@ -488,15 +498,23 @@ class GroupBox_Strategy(QGroupBox):
     
         def itemUpdate(self):
             currentStrategyIndex:int=settingRead(['changable','currentStrategyIndex'])
-            self.clear()
             strategy:list=settingRead(['changable','strategy'])
-            self.addItems([(str(i+1)+' '+strategy[i]['name']) for i in range(len(strategy))])
+            if self.count()<len(strategy):
+                for i in range(self.count(),len(strategy)):
+                    self.addItem(' ')
+            elif self.count()>len(strategy):
+                if currentStrategyIndex==self.count()-1:
+                    currentStrategyIndex-=1
+                self.removeItem(self.count()-1)
             self.setCurrentIndex(currentStrategyIndex)
             self.indexWrite()
+            for i in range(self.count()):
+                self.setItemText(i,(str(i+1)+' '+strategy[i]['name']))
 
         def indexWrite(self):
             settingWrite(self.currentIndex(),['changable','currentStrategyIndex'])
 
+    deleteSignal=pyqtSignal()
     def __init__(self):
         super(GroupBox_Strategy, self).__init__('策略')
         self.vb_strategy=QVBoxLayout()
@@ -515,8 +533,14 @@ class GroupBox_Strategy(QGroupBox):
 
         self.btn21_add=QPushButton('增添策略')
         self.btn22_remove=QPushButton('删除策略')
+        qspIdx=settingRead(['changable','deleteStrategyIdx'])
+        self.qspb23_idx=QSpinBox()
+        self.qspb23_idx.setMinimum(1)
+        self.qspb23_idx.setValue(qspIdx)
+        self.qspb23_idx.valueChanged.connect(self.qspIdx_change)
         self.hb2_addRemove_btn.addWidget(self.btn21_add)
         self.hb2_addRemove_btn.addWidget(self.btn22_remove)
+        self.hb2_addRemove_btn.addWidget(self.qspb23_idx)
         self.hb2_addRemove_btn.addStretch(1)
 
         self.cpb3_detail_lst:list[CollapsibleBox_Strategy]=[]
@@ -531,9 +555,10 @@ class GroupBox_Strategy(QGroupBox):
             self.cpb3_detail_lst[i].setContentLayout(self.vb31_detail_lst[i])
             self.vb31_detail_lst[i].objectChanged.connect(self.cpb3_detail_lst[i].nameUpdate)
         self.btn21_add.clicked.connect(self.cpbListAdd)
-        self.btn21_add.clicked.connect(self.cb11_strategyChoose.itemAdd)
         self.btn22_remove.clicked.connect(self.cpbListRemove)
-        self.btn22_remove.clicked.connect(self.cb11_strategyChoose.itemRemove)
+
+    def qspIdx_change(self):
+        settingWrite(self.qspb23_idx.value(),['changable','deleteStrategyIdx'])
 
     def assistAdd(self):
         for stI in range(len(self.cpb3_detail_lst)):
@@ -547,21 +572,38 @@ class GroupBox_Strategy(QGroupBox):
         strategy_lst:list=settingRead(self.strategyPath_lst)
         strategy_lst.append(strategy_lst[-1])
         settingWrite(strategy_lst,self.strategyPath_lst)
+        assist_lst:list=settingRead(['changable','strategyAssistChoose'])
+        assist_lst.append(assist_lst[-1])
+        settingWrite(assist_lst,['changable','strategyAssistChoose'])
         self.cpb3_detail_lst.append(CollapsibleBox_Strategy(len(self.cpb3_detail_lst)))
         self.vb_strategy.addWidget(self.cpb3_detail_lst[-1])
         self.vb31_detail_lst.append(VBoxLayout_Strategy(len(self.cpb3_detail_lst)-1))
         self.cpb3_detail_lst[-1].setContentLayout(self.vb31_detail_lst[-1])
-        self.vb31_detail_lst[-1].objectChanged.connect(self.cpb3_detail_lst[-1].nameUpdate)
+        self.vb31_detail_lst[-1].le2_name.textChanged.connect(self.cpb3_detail_lst[-1].nameUpdate)
+        self.cb11_strategyChoose.itemUpdate()
 
     def cpbListRemove(self):
-        if len(self.cpb3_detail_lst)>0:
-            self.cpb3_detail_lst[-1].deleteLater()
-            self.vb31_detail_lst[-1].deleteLater()
-            del self.vb31_detail_lst[-1]
-            del self.cpb3_detail_lst[-1]
+        delIdx=self.qspb23_idx.value()-1
+        if delIdx<len(self.cpb3_detail_lst):
+            self.cpb3_detail_lst[delIdx].deleteLater()
+            self.vb31_detail_lst[delIdx].deleteLater()
+            del self.vb31_detail_lst[delIdx]
+            del self.cpb3_detail_lst[delIdx]
             strategy_lst:list=settingRead(self.strategyPath_lst)
-            strategy_lst.pop()
+            strategy_lst.pop(delIdx)
             settingWrite(strategy_lst,self.strategyPath_lst)
+            assist_lst:list=settingRead(['changable','strategyAssistChoose'])
+            assist_lst.pop(delIdx)
+            settingWrite(assist_lst,['changable','strategyAssistChoose'])
+            for i in range(delIdx,len(self.cpb3_detail_lst)):
+                title=settingRead(['changable','strategy',i,'name'])
+                self.vb31_detail_lst[i].idx=i
+                for j in range(3):
+                    self.vb31_detail_lst[i].hb_3strategyAssist.vbStrategy_lst[j].idx=i
+                self.cpb3_detail_lst[i].idx=i
+                self.cpb3_detail_lst[i].toggle_button.setText(str(i+1)+' '+title)
+            self.cb11_strategyChoose.itemUpdate()
+            self.deleteSignal.emit()
 
 # #2 2
 # class GroupBox_Assist(QGroupBox):
@@ -601,8 +643,14 @@ class GroupBox_Assist(QGroupBox):
 
         self.btn21_add=QPushButton('增添助战')
         self.btn22_remove=QPushButton('删除助战')
+        qspIdx=settingRead(['changable','deleteAssistIdx'])
+        self.qspb23_idx=QSpinBox()
+        self.qspb23_idx.setMinimum(1)
+        self.qspb23_idx.setValue(qspIdx)
+        self.qspb23_idx.valueChanged.connect(self.qspIdx_change)
         self.hb2_addRemove_btn.addWidget(self.btn21_add)
         self.hb2_addRemove_btn.addWidget(self.btn22_remove)
+        self.hb2_addRemove_btn.addWidget(self.qspb23_idx)
         self.hb2_addRemove_btn.addStretch(1)
         self.btn21_add.clicked.connect(self.cpbListAdd)
         self.btn22_remove.clicked.connect(self.cpbListRemove)
@@ -613,6 +661,9 @@ class GroupBox_Assist(QGroupBox):
         for i in range(self.count):
             self.hb2_assistChoose_lst.append(HBoxLayout_AssistChoose(i+1))
             self.vb_assist.addLayout(self.hb2_assistChoose_lst[i])
+
+    def qspIdx_change(self):
+        settingWrite(self.qspb23_idx.value(),['changable','deleteAssistIdx'])
 
     def isClothChangeEmit(self):
         settingWrite(self.cb1_isCloth.isChecked(),['changable','isCloth'])
@@ -626,16 +677,19 @@ class GroupBox_Assist(QGroupBox):
         settingWrite(len(self.hb2_assistChoose_lst),['changable','assistIndex'])
         
     def cpbListRemove(self):
-        print(self.vb_assist.count(),self.vb_assist.itemAt(0))
-        if len(self.hb2_assistChoose_lst)>0:
-            self.hb2_assistChoose_lst[-1].clear()
-            self.vb_assist.removeItem(self.hb2_assistChoose_lst[-1])
-            del self.hb2_assistChoose_lst[-1]
+        delIdx=self.qspb23_idx.value()-1
+        if delIdx<len(self.hb2_assistChoose_lst):
+            self.hb2_assistChoose_lst[delIdx].clear()
+            self.vb_assist.removeItem(self.hb2_assistChoose_lst[delIdx])
+            del self.hb2_assistChoose_lst[delIdx]
             settingWrite(len(self.hb2_assistChoose_lst),['changable','assistIndex'])
-            os.remove(f'fgoMaterial/assistServant_{self.count}.png')
-            os.remove(f'fgoMaterial/assistCloth_{self.count}.png')
+            os.remove(f'fgoMaterial/assistServant_{delIdx+1}.png')
+            os.remove(f'fgoMaterial/assistCloth_{delIdx+1}.png')
+            for i in range(delIdx+1,self.count):
+                os.rename(f'fgoMaterial/assistServant_{str(i+1)}.png',f'fgoMaterial/assistServant_{str(i)}.png')
+                os.rename(f'fgoMaterial/assistCloth_{str(i+1)}.png',f'fgoMaterial/assistCloth_{str(i)}.png')
+                self.hb2_assistChoose_lst[i-1].la1_name.setText('助战选择'+str(i))
             self.count-=1
-        print(self.vb_assist.count(),self.vb_assist.itemAt(0))
 
 #2 3
 class GroupBox_Repeat(QGroupBox):
@@ -821,13 +875,13 @@ class GroupBox_Simulator(QGroupBox):
         simulator_lst:list=settingRead(['changable','simulator'])
         simulator_lst.append(newSimulatorInfo)
         settingWrite(simulator_lst,['changable','simulator'])
-        self.la43_simulatorAddResult.setText(+self.le42_simulatorInfo.text().split(' ')[0]+' added')
+        self.la43_simulatorAddResult.setText(self.le42_simulatorInfo.text().split(' ')[0]+' added')
 
     def btn51_simulatorRemoveAction(self):
         simulator_lst:list=settingRead(['changable','simulator'])
         simulator_lst.remove(simulator_lst[self.cbb52_simulatorName.currentIndex()])
         settingWrite(simulator_lst,['changable','simulator'])
-        self.la53_simulatorRemoveResult.setText(+self.cbb52_simulatorName.currentText()+' deleted')
+        self.la53_simulatorRemoveResult.setText(self.cbb52_simulatorName.currentText()+' deleted')
 
     def btn611_miniInstallAction(self):
         simulatorIndex=self.cbb12_simulatorChoose.currentIndex()

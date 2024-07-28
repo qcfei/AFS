@@ -1,4 +1,93 @@
 {
+  "changable": {
+    "strategy": [
+      {
+        "name": "\u7ea2\u5361 \u91d1\u77f3 1t",
+        "skill1": "110 120 231 221 211 331 321 310 530 410 310 321 331",
+        "order1": "z/1/2",
+        "skill2": "110",
+        "order2": "z/1/2",
+        "skill3": "110",
+        "order3": "z/1/2"
+      },
+      {
+        "name": "\u84dd\u5361 \u6c34\u4f0a\u5439",
+        "skill1": "110 130 121 231 331 321 221",
+        "order1": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill2": "310",
+        "order2": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2",
+        "skill3": "210 410",
+        "order3": "z/b1 r1 g1 b2 r2 g2/b1 r1 g1 b2 r2 g2"
+      },
+      {
+        "name": "\u84dd\u5361 \u6c34\u4f0a\u5439xhd90++",
+        "skill1": "110 121 231 331 321 221",
+        "order1": "z/b1 r1 g1/b1 r1 g1",
+        "skill2": "310 130",
+        "order2": "z/b1 r1 g1/b1 r1 g1",
+        "skill3": "210 530 321 331 410 310",
+        "order3": "x/z/b1 r1 g1 b3 r3 g3"
+      },
+      {
+        "name": "\u7ea2\u5361 \u68a3 \u5730\u94fa3",
+        "skill1": "110 120 331 321 231 221",
+        "order1": "z/b1 r1 g1/b1 r1 g1",
+        "skill2": "311 211",
+        "order2": "z/b1 r1 g1/b1 r1 g1",
+        "skill3": "130 120 431 110",
+        "order3": "z/b1 r1 g1/b1 r1 g1"
+      }
+    ],
+    "strategyAssistChoose": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        5,
+        4,
+        3
+      ]
+    ],
+    "deleteStrategyIdx": 5,
+    "deleteAssistIdx": 6,
+    "currentStrategyIndex": 3,
+    "isCloth": false,
+    "again": {
+      "appleIndex": 3,
+      "fightCount": 1,
+      "isAgain": true
+    },
+    "fightCurrentCount": 0,
+    "assistIndex": 7,
+    "isCheckServantIconFirstTime": true,
+    "simulatorIndex": 2,
+    "simulator": [
+      {
+        "name": "mumu6",
+        "ip": "127.0.0.1:7555"
+      },
+      {
+        "name": "nox",
+        "ip": "127.0.0.1:62001"
+      },
+      {
+        "name": "mumu12",
+        "ip": "127.0.0.1:16384"
+      }
+    ]
+  },
   "fixed": {
     "candidate": [
       "354-\u4f0a\u5439\u7ae5\u5b50(Berserker)",
@@ -13,10 +102,10 @@
       "\u4e0d\u5403\u82f9\u679c"
     ],
     "WindowGeometry": [
-      842,
-      532,
-      1526,
-      657
+      1289,
+      730,
+      1278,
+      651
     ],
     "parameters": {
       "general": {
@@ -63,7 +152,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before1.png",
               "maskImgPath": "mask/before/mask.png"
             },
@@ -74,7 +163,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before2.png",
               "maskImgPath": "mask/before/mask.png"
             },
@@ -85,7 +174,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before3.png",
               "maskImgPath": "mask/before/mask.png"
             },
@@ -96,7 +185,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before4.png",
               "maskImgPath": "mask/before/mask.png"
             },
@@ -107,7 +196,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before5.png",
               "maskImgPath": "mask/before/mask.png"
             },
@@ -118,7 +207,7 @@
                 105,
                 145
               ],
-              "confidenceThreshold": 0.7,
+              "confidenceThreshold": 0.68,
               "featureImagePath": "mask/before/before6.png",
               "maskImgPath": "mask/before/mask.png"
             }
@@ -237,7 +326,7 @@
                 70,
                 510
               ],
-              "confidenceThreshold": 0.65,
+              "confidenceThreshold": 0.7,
               "featureImagePath": "mask/3assistChooseMask.png",
               "maskImgPath": "mask/3assistChooseMask.png"
             }
@@ -260,7 +349,7 @@
                 90,
                 510
               ],
-              "confidenceThreshold": 0.55,
+              "confidenceThreshold": 0.65,
               "featureImagePath": "mask/4prepareMask.png",
               "maskImgPath": "mask/4prepareMask.png"
             }
@@ -312,7 +401,7 @@
                 110,
                 470
               ],
-              "confidenceThreshold": 0.57,
+              "confidenceThreshold": 0.55,
               "featureImagePath": "mask/6resultMask.png",
               "maskImgPath": "mask/6resultMask.png"
             }
@@ -377,7 +466,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistServant_1.png"
           },
           {
@@ -387,7 +476,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistServant_2.png"
           },
           {
@@ -397,7 +486,7 @@
               55,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistServant_3.png"
           }
         ],
@@ -409,7 +498,7 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistCloth_1.png"
           },
           {
@@ -419,7 +508,7 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistCloth_2.png"
           },
           {
@@ -429,7 +518,7 @@
               30,
               75
             ],
-            "confidenceThreshold": 0.65,
+            "confidenceThreshold": 0.7,
             "featureImagePath": "fgoMaterial/assistCloth_3.png"
           }
         ],
@@ -442,7 +531,9 @@
               213,
               107,
               100
-            ],
+            ]
+          ],
+          [
             [
               0,
               380,

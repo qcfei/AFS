@@ -133,7 +133,7 @@ def cutForLeastMask(temp:np.ndarray,mask:np.ndarray):
 
 def settingWrite(obj,key_lst:list):
     obj_lst=[]
-    obj_lst.append(json.load(open('./setting.json','r',encoding='utf-8')))
+    obj_lst.append(json.load(open('./configure/setting.json','r',encoding='utf-8')))
     for key in key_lst:
         obj_lst.append(obj_lst[-1][key])
     obj_lst[-1]=obj
@@ -142,23 +142,23 @@ def settingWrite(obj,key_lst:list):
     for obji in range(len(obj_lst)-1):
         obj_lst[obji+1][key_lst[obji]]=obj_lst[obji]
     key_lst.reverse()
-    json.dump(obj_lst[-1],open('./setting.json','w',encoding='utf-8'),ensure_ascii=True,indent=2)
+    json.dump(obj_lst[-1],open('./configure/setting.json','w',encoding='utf-8'),ensure_ascii=True,indent=2)
 
 def settingRead(key_lst:list):
-    obj=json.load(open('./setting.json','r',encoding='utf-8'))
+    obj=json.load(open('./configure/setting.json','r',encoding='utf-8'))
     for key in key_lst:
         obj=obj[key]
     return obj
 
 def fixedSettingRead(key_lst:list):
-    obj=json.load(open('settingFixed.json','r',encoding='utf-8'))
+    obj=json.load(open('./configure/settingFixed.json','r',encoding='utf-8'))
     for key in key_lst:
         obj=obj[key]
     return obj
 
 def fixedsettingWrite(obj,key_lst:list):
     obj_lst=[]
-    obj_lst.append(json.load(open('settingFixed.json','r',encoding='utf-8')))
+    obj_lst.append(json.load(open('./configure/settingFixed.json','r',encoding='utf-8')))
     for key in key_lst:
         obj_lst.append(obj_lst[-1][key])
     obj_lst[-1]=obj
@@ -167,7 +167,7 @@ def fixedsettingWrite(obj,key_lst:list):
     for obji in range(len(obj_lst)-1):
         obj_lst[obji+1][key_lst[obji]]=obj_lst[obji]
     key_lst.reverse()
-    json.dump(obj_lst[-1],open('settingFixed.json','w',encoding='utf-8'),ensure_ascii=True,indent=2)
+    json.dump(obj_lst[-1],open('./configure/settingFixed.json','w',encoding='utf-8'),ensure_ascii=True,indent=2)
 
 def maskMake(maskImg:np.ndarray):
     return np.array([[255 if min(pt==[0,0,255])==False else 0 for pt in ptLine]for ptLine in maskImg],np.float32)
@@ -256,7 +256,7 @@ class SimulatorOperator():
                 self.simulatorTap(outputY-dictionary[2],dictionary[1],self.bs)
             elif dictionary[0]==1:
                 self.simulatorSwipe(outputY-dictionary[2],dictionary[1],outputY-dictionary[4],dictionary[3],dictionary[5],self.bs)
-        if self.device_size[0]<self.device_size[1]:
+        else:
             if dictionary[0]==0:
                 self.simulatorTap(dictionary[1],dictionary[2],self.bs)
             elif dictionary[0]==1:
