@@ -19,7 +19,7 @@ class TabWidgt_Total(QTabWidget):
         WindowGeometry=fixedSettingRead(['fixed','WindowGeometry'])
         wx,wy,ww,wh=WindowGeometry
         self.setGeometry(wx,wy,ww,wh)
-        self.setWindowTitle('AFS ver1.0.3')
+        self.setWindowTitle('AFS ver1.2')
         self.setWindowIcon(QIcon('litShk.ico'))
 
         self.wi1_run = Widget_run()
