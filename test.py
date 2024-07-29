@@ -1,8 +1,10 @@
-import pytool.basicFunction
-import pyminitouch
 
-模拟器操作器=pytool.basicFunction.SimulatorOperator()
-device=pyminitouch.MNTDevice('127.0.0.1:16384')
-模拟器操作器.deviceBind(device)
-动作列表=[[1,213,251,213,107,100]]
-模拟器操作器.actionByDictList(动作列表)
+import cv2
+from pytool.basicFunction import *
+
+img=cv2.imread('screen.jpeg')
+mask0=cv2.imread('mask/greatMask.png')
+mask1=cv2.imread('mask/orderBlue.png')
+mask2=cv2.imread('mask/orderGreen.png')
+mask3=cv2.imread('mask/orderRed.png')
+print(mask0.shape)

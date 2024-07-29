@@ -5,7 +5,7 @@ from qt_material import apply_stylesheet
 
 
 with open('innerLog.txt','w',encoding='utf-8') as logFile:
-    sys.stdout=logFile
+    # sys.stdout=logFile
 
     app = QApplication(sys.argv)
     extra = {

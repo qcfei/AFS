@@ -32,9 +32,9 @@
         "name": "\u7ea2\u5361 \u68a3 \u5730\u94fa3",
         "skill1": "110 120 331 321 231 221",
         "order1": "z/b1 r1 g1/b1 r1 g1",
-        "skill2": "311 211",
+        "skill2": "311 211 120",
         "order2": "z/b1 r1 g1/b1 r1 g1",
-        "skill3": "130 120 431 110",
+        "skill3": "130 431 110",
         "order3": "z/b1 r1 g1/b1 r1 g1"
       }
     ],
@@ -66,11 +66,11 @@
     "isCloth": false,
     "again": {
       "appleIndex": 3,
-      "fightCount": 1,
+      "fightCount": 3,
       "isAgain": true
     },
-    "fightCurrentCount": 0,
-    "assistIndex": 6,
+    "fightCurrentCount": 3,
+    "assistIndex": 7,
     "isCheckServantIconFirstTime": true,
     "simulatorIndex": 2,
     "simulator": [

@@ -336,9 +336,8 @@ class Flow_Fight(Flow):
             self.maskwh=whOfImg(self.greatMask)
             
         def imgSave(self):
-            img=cutImg(self.currentImg,np.array((100,53)),np.array((63,63*80//60)))
-            imgre=resize(img,(60,80))
-            imgmskd=np.array([[(0,0,255) if self.greatMask[yi,xi]==0 else imgre[yi,xi] for xi in range(self.maskwh[0])]for yi in range(self.maskwh[1])],np.uint8)
+            img=cutImg(self.currentImg,np.array((100,53)),np.array((63,63*8//6)))
+            imgmskd=np.array([[(0,0,255) if self.greatMask[yi,xi]==0 else img[yi,xi] for xi in range(self.maskwh[0])]for yi in range(self.maskwh[1])],np.uint8)
             imwrite(f'fgoMaterial/preServant{str(self.progress//2+1)}.png',imgmskd)
 
         def pause(self):
@@ -430,30 +429,30 @@ class Flow_Fight(Flow):
 
             clrRes=[0]*5
             rleRes=[0]*5
-            clrInfo_lst=[cutForLeastMask(clrTmp,maskMake(clrTmp))for clrTmp in self.colorImg_lst]
+            clrInfo_lst=[(clrTmp,maskMake(clrTmp)) for clrTmp in self.colorImg_lst]
 
             for cardI in range(self.wNum):
                 cardAreaImg=cutImg(self.currentImg,np.array((self.w_lst[cardI],self.yMin)),np.array((self.w_lst[cardI+1]-self.w_lst[cardI],self.yMin+120)))
-                clrMaxIdx,clrMaxVal,clrMaxLoc=0,0,np.array((0,0))
+                clrMaxIdx,clrMaxVal=0,0
                 for clrTmpI in range(len(self.colorImg_lst)):
-                    clrTmpLm,clrMskLm,clrLocLm,_=clrInfo_lst[clrTmpI]
-                    clrVal,clrLoc=reduceToMatchTemplate(cardAreaImg,clrTmpLm,clrMskLm)
+                    clrTmpLm,clrMskLm=clrInfo_lst[clrTmpI]
+                    clrVal,clrLoc=selfmatchTemplate(cardAreaImg,clrTmpLm,clrMskLm)
                     if clrVal>clrMaxVal:
                         clrMaxVal=clrVal
                         clrMaxIdx=clrTmpI
                         clrMaxLoc=clrLoc
                 clrRes[cardI]=clrMaxIdx
 
-                crdImg=cutImg(cardAreaImg,clrMaxLoc-clrLocLm,whOfImg(self.colorImg_lst[0]))
-                crdImgMskd=np.array([[(0,0,255) if gtMask[yi,xi]==0 or pixCheck(crdImg[yi,xi]) else crdImg[yi,xi] for xi in range(crdImg.shape[1])]for yi in range(crdImg.shape[0])],np.uint8)
+                crdImg=cutImg(cardAreaImg,clrMaxLoc,np.array((clrTmpLm.shape[1],clrTmpLm.shape[0])))
+                crdImgMskd=np.array([[(0,0,255) if gtMask[yi,xi]==0 or pixCheck(crdImg[yi,xi]) else crdImg[yi,xi] for xi in range(crdImg.shape[1])] for yi in range(crdImg.shape[0])],np.uint8)
                 crdImg_lst.append(crdImgMskd)
                 
-                rleTmpLm,rleMskLm,_,_=cutForLeastMask(crdImgMskd,maskMake(crdImgMskd))
+                rleTmpLm,rleMskLm=crdImgMskd,maskMake(crdImgMskd)
 
                 rleMaxIdx,rleMaxVal=0,0
                 for rleImgI in range(len(self.servantImg_lst)):
                     rleImg=self.servantImg_lst[rleImgI]
-                    rleVal,_=reduceToMatchTemplate(rleImg,rleTmpLm,rleMskLm)
+                    rleVal,_=selfmatchTemplate(rleImg,rleTmpLm,rleMskLm)
                     if rleVal>rleMaxVal:
                         rleMaxVal=rleVal
                         rleMaxIdx=rleImgI
