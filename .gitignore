@@ -1,0 +1,75 @@
+# PyInstaller 打包脚本（本地个人脚本，不发布）
+build.bat
+install.bat
+update.bat
+make_release.bat
+
+# PyInstaller 打包结果
+build/
+dist/
+release_build/
+releases/
+*.spec
+
+# 会话历史与审查文档（本地知识库，不发布）
+doc/
+
+# 参考资料（外部仓库克隆，不发布）
+ref/
+
+# ===== 个人数据（发布到 GitHub 前必须排除）=====
+
+# 运行时配置：含个人策略/助战/模拟器信息
+configure/setting.json
+
+# 个人截图素材：助战从者/礼装/出战从者头像/战斗自动截取头像
+fgoMaterial/assistServant_*.png
+fgoMaterial/assistCloth_*.png
+fgoMaterial/preServant*.png
+fgoMaterial/eyeServant*.png
+
+# 日志与杂项
+logs/
+minitouchLog.txt
+pyinstallerPackCmd.txt
+appActivityInfo.txt
+screen.jpeg
+screen copy.jpeg
+screen2_correct_assist.png
+
+# minicap 二进制资产（GPL 协议，随发布包分发而非源码仓库）
+minicap/
+
+# Python 缓存与历史杂物
+__pycache__/
+*.pyc
+thiredtool/
+test.py
+
+# minitouch 构建产物（仅保留各架构二进制）
+minitouch/**/objs/
+minitouch/**/*.o
+minitouch/**/*.a
+minitouch/**/*.o.d
+
+# 本地开发脚本
+_drive_test.py
+_minicap_probe.py
+_bench_screencap.py
+_orient_exp.py
+_orient_probe.py
+_record_only.py
+_sim_*.py
+_test_*.py
+
+# 个人开发约定（AGENTS.md 含本地路径，不发布；GitHub 用 README.md）
+AGENTS.md
+
+# opencode 本地配置与技能（含个人 API 配置，不发布）
+.opencode/
+
+# 发布脚本（本地使用）
+make_release.ps1
+
+# 配置备份（settingMigrate 原子写产生）
+configure/*.bak

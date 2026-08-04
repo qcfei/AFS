@@ -1,0 +1,706 @@
+{
+  "changable": {
+    "strategy": [
+      {
+        "name": "\u793a\u4f8b\u7b56\u7565\uff08\u53ef\u5220\u9664\u6216\u4fee\u6539\uff09",
+        "skill1": "110 120 231",
+        "order1": "z/1/2",
+        "skill2": "110",
+        "order2": "z/1/2",
+        "skill3": "110",
+        "order3": "z/1/2"
+      }
+    ],
+    "strategyAssistChoose": [
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "deleteStrategyIdx": 1,
+    "deleteAssistIdx": 1,
+    "currentStrategyIndex": 0,
+    "isCloth": false,
+    "again": {
+      "appleIndex": 0,
+      "fightCount": 1,
+      "isAgain": true
+    },
+    "fightCurrentCount": 0,
+    "assistIndex": 1,
+    "isCheckServantIconFirstTime": true,
+    "simulatorIndex": 0,
+    "simulator": [
+      {
+        "name": "mumu6",
+        "ip": "127.0.0.1:7555"
+      },
+      {
+        "name": "mumu12",
+        "ip": "127.0.0.1:16384"
+      }
+    ],
+    "useMinicap": false,
+    "useMinicapDirect": false,
+    "mumuPath": "",
+    "mumuIndex": 0
+  },
+  "fixed": {
+    "candidate": [
+      "354-\u4f0a\u5439\u7ae5\u5b50(Berserker)",
+      "283-\u963f\u5c14\u6258\u8389\u96c5\u00b7\u5361\u65af\u7279",
+      "283-\u963f\u5c14\u6258\u8389\u96c5\u00b7\u5361\u65af\u7279"
+    ],
+    "appleNameList": [
+      "\u91d1\u82f9\u679c",
+      "\u94f6\u82f9\u679c",
+      "\u84dd\u82f9\u679c",
+      "\u94dc\u82f9\u679c",
+      "\u4e0d\u5403\u82f9\u679c"
+    ],
+    "WindowGeometry": [
+      100,
+      100,
+      1200,
+      720
+    ],
+    "parameters": {
+      "general": {
+        "init": {
+          "idx": 0,
+          "neighborState": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "confidenceThreshold": 1,
+              "featureImagePath": "mask/0initMask.png",
+              "maskImgPath": "mask/0initMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "before": {
+          "idx": 1,
+          "neighborState": [
+            2,
+            3
+          ],
+          "checkMode": "or",
+          "featureInfoList": [
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before1.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before2.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before3.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before4.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before5.png",
+              "maskImgPath": "mask/before/mask.png"
+            },
+            {
+              "Rect": [
+                195,
+                0,
+                105,
+                145
+              ],
+              "confidenceThreshold": 0.68,
+              "featureImagePath": "mask/before/before6.png",
+              "maskImgPath": "mask/before/mask.png"
+            }
+          ],
+          "actionList": [
+            [
+              [
+                0,
+                390,
+                100
+              ]
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "drug": {
+          "idx": 2,
+          "neighborState": [
+            3,
+            4
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                10,
+                55,
+                255,
+                400
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/2drugMask.png",
+              "maskImgPath": "mask/2drugMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              [
+                0,
+                290,
+                130
+              ],
+              [
+                0,
+                350,
+                230
+              ]
+            ],
+            [
+              [
+                0,
+                290,
+                190
+              ],
+              [
+                0,
+                350,
+                230
+              ]
+            ],
+            [
+              [
+                1,
+                221,
+                183,
+                221,
+                33,
+                100
+              ],
+              [
+                0,
+                290,
+                130
+              ],
+              [
+                0,
+                350,
+                230
+              ]
+            ],
+            [
+              [
+                1,
+                221,
+                183,
+                221,
+                33,
+                100
+              ],
+              [
+                0,
+                290,
+                190
+              ],
+              [
+                0,
+                350,
+                230
+              ]
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "assistChoose": {
+          "idx": 3,
+          "neighborState": [
+            4,
+            5
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                0,
+                0,
+                70,
+                510
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/3assistChooseMask.png",
+              "maskImgPath": "mask/3assistChooseMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "prepare": {
+          "idx": 4,
+          "neighborState": [
+            3,
+            5
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                0,
+                90,
+                510
+              ],
+              "confidenceThreshold": 0.65,
+              "featureImagePath": "mask/4prepareMask.png",
+              "maskImgPath": "mask/4prepareMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              [
+                0,
+                460,
+                270
+              ]
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "fight": {
+          "idx": 5,
+          "neighborState": [
+            6
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                415,
+                65,
+                75
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/5fightMask.png",
+              "maskImgPath": "mask/5fightMask.png"
+            }
+          ],
+          "actionList": [],
+          "actionMethod": "unrepeatable"
+        },
+        "result": {
+          "idx": 6,
+          "neighborState": [
+            7
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                80,
+                20,
+                110,
+                470
+              ],
+              "confidenceThreshold": 0.55,
+              "featureImagePath": "mask/6resultMask.png",
+              "maskImgPath": "mask/6resultMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              [
+                0,
+                460,
+                270
+              ]
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        },
+        "fightAgain": {
+          "idx": 7,
+          "neighborState": [
+            1,
+            2,
+            3
+          ],
+          "checkMode": "and",
+          "featureInfoList": [
+            {
+              "Rect": [
+                210,
+                55,
+                55,
+                405
+              ],
+              "confidenceThreshold": 0.7,
+              "featureImagePath": "mask/7fightAgainMask.png",
+              "maskImgPath": "mask/7fightAgainMask.png"
+            }
+          ],
+          "actionList": [
+            [
+              [
+                0,
+                350,
+                230
+              ]
+            ],
+            [
+              [
+                0,
+                40,
+                20
+              ]
+            ]
+          ],
+          "actionMethod": "unrepeatable"
+        }
+      },
+      "assist": {
+        "assistServantFeatureInfoList": [
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_1.png"
+          },
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_2.png"
+          },
+          {
+            "Rect": [
+              75,
+              15,
+              55,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistServant_3.png"
+          }
+        ],
+        "assistClothFeatureInfoList": [
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_1.png"
+          },
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_2.png"
+          },
+          {
+            "Rect": [
+              125,
+              15,
+              30,
+              75
+            ],
+            "confidenceThreshold": 0.7,
+            "featureImagePath": "fgoMaterial/assistCloth_3.png"
+          }
+        ],
+        "failActionList": [
+          [
+            [
+              1,
+              213,
+              251,
+              213,
+              107,
+              100
+            ]
+          ],
+          [
+            [
+              0,
+              380,
+              60
+            ],
+            [
+              0,
+              350,
+              230
+            ]
+          ]
+        ]
+      },
+      "fight": {
+        "skill": 0,
+        "order": {
+          "colorImgPathList": [
+            "mask/orderRed.png",
+            "mask/orderGreen.png",
+            "mask/orderBlue.png"
+          ],
+          "servantImgPathList": [
+            "fgoMaterial/preServant3.png",
+            "fgoMaterial/preServant2.png",
+            "fgoMaterial/preServant1.png"
+          ]
+        }
+      }
+    },
+    "order_pas": {
+      "i": [
+        420,
+        215
+      ],
+      "z": [
+        170,
+        80
+      ],
+      "x": [
+        260,
+        80
+      ],
+      "c": [
+        350,
+        80
+      ],
+      "1": [
+        60,
+        220
+      ],
+      "2": [
+        160,
+        220
+      ],
+      "3": [
+        260,
+        220
+      ],
+      "4": [
+        360,
+        220
+      ],
+      "5": [
+        460,
+        220
+      ]
+    },
+    "skill_pas": {
+      "1_1": [
+        [
+          30,
+          240
+        ]
+      ],
+      "1_2": [
+        [
+          70,
+          240
+        ]
+      ],
+      "1_3": [
+        [
+          100,
+          240
+        ]
+      ],
+      "2_1": [
+        [
+          160,
+          240
+        ]
+      ],
+      "2_2": [
+        [
+          200,
+          240
+        ]
+      ],
+      "2_3": [
+        [
+          230,
+          240
+        ]
+      ],
+      "3_1": [
+        [
+          290,
+          240
+        ]
+      ],
+      "3_2": [
+        [
+          320,
+          240
+        ]
+      ],
+      "3_3": [
+        [
+          360,
+          240
+        ]
+      ],
+      "4_1": [
+        [
+          480,
+          130
+        ],
+        [
+          365,
+          130
+        ]
+      ],
+      "4_2": [
+        [
+          480,
+          130
+        ],
+        [
+          400,
+          130
+        ]
+      ],
+      "4_3": [
+        [
+          480,
+          130
+        ],
+        [
+          440,
+          130
+        ]
+      ],
+      "5_3": [
+        [
+          480,
+          130
+        ],
+        [
+          440,
+          130
+        ],
+        [
+          220,
+          150
+        ],
+        [
+          310,
+          150
+        ],
+        [
+          260,
+          250
+        ],
+        [
+          370,
+          30
+        ],
+        [
+          370,
+          30
+        ]
+      ],
+      "0": [
+        [
+          370,
+          5
+        ]
+      ],
+      "1": [
+        [
+          140,
+          180
+        ]
+      ],
+      "2": [
+        [
+          260,
+          180
+        ]
+      ],
+      "3": [
+        [
+          390,
+          180
+        ]
+      ]
+    },
+    "update": {
+      "repo": ""
+    }
+  }
+}

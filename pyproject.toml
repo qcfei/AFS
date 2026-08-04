@@ -1,0 +1,15 @@
+[project]
+name = "afs"
+version = "1.2.2"
+description = "AFS — Auto Fight Script for FGO (Fate/Grand Order)"
+requires-python = ">=3.10"
+dependencies = [
+    "PyQt5>=5.15",
+    "qt-material>=2.14",
+    "pyminitouch",
+    "opencv-python",
+    "numpy>=1.24",
+]
+
+[project.scripts]
+afs = "pytool.myQWidget:main"

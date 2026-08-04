@@ -1,0 +1,5 @@
+PyQt5>=5.15
+qt-material==2.8.19
+pyminitouch
+opencv-python
+numpy>=1.24
