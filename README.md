@@ -115,6 +115,11 @@ minicap/        流式截图二进制（GPL 协议，见 THIRD_PARTY_NOTICES.md�
 platform-tools/ 谷歌 adb 工具
 ```
 
+## 致谢
+
+- [MaaFramework](https://github.com/MaaXYZ/MaaFramework)（MIT）：多通道截图（ScreencapAgent）、模拟器专线（mumu/雷电/夜神）与增量更新机制的设计参考
+- [DeepSeek](https://www.deepseek.com/)：本项目的 AI 辅助开发伙伴——从状态机重构、高速截图通道到发布流程，大量代码与调试由 DeepSeek 协助完成
+
 ## 协议
 
 本项目源码以 MIT 协议发布（见 LICENSE）；随包分发的第三方二进制与参考实现见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
