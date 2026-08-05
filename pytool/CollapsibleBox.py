@@ -68,7 +68,7 @@ class CollapsibleBox(QtWidgets.QWidget):
     def setContentLayout(self, layout):
         """设置内容区域的布局，并计算展开动画的起始/结束高度"""
         self.content_area.setLayout(layout)
-        collapsed_height=40  # 收起时面板高度
+        collapsed_height=self.toggle_button.sizeHint().height()  # 收起高度=标题按钮实际高度（不写死，防止文字被裁切）
         content_height = layout.sizeHint().height()+30
         for i in range(self.toggle_animation.animationCount()):
             animation = self.toggle_animation.animationAt(i)

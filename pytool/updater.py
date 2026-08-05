@@ -10,7 +10,7 @@
                          "files": {"相对路径": "md5", ...}}
 - 应用策略（两阶段，避开运行中 exe/dll 占用）：
     1) check/download/校验/解压到 `update_pending/` + 生成 `apply_update.bat`
-    2) 提示用户关闭程序 → bat 把新文件覆盖到程序根（跳过个人数据）→ 重新启动 AFS.exe
+    2) 程序自动关闭 → bat 等 AFS.exe 退出后把新文件覆盖到程序根（跳过个人数据）→ 重新启动 AFS.exe
 - 个人数据保护：setting.json / 助战素材 / 出战头像 / logs / screen.jpeg 一律不覆盖
 
 网络与镜像（国内裸连 GitHub 可能失败）：
@@ -222,7 +222,7 @@ class Updater:
                     f'robocopy "{_PENDING_DIR}" "." /E /MOV /XF setting.json screen.jpeg "screen copy.jpeg" assistServant*.png assistCloth*.png preServant*.png eyeServant*.png /XD logs >nul\r\n'
                     + del_lines +
                     'rd /s /q "' + _PENDING_DIR + '" 2>nul\r\n'
-                    'start "" "AFS.exe"\r\n'
+                    'if exist "AFS.exe" start "" "AFS.exe"\r\n'
                     'del "%~f0"\r\n')
         return kind
 

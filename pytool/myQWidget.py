@@ -2,7 +2,7 @@
 
 TabWidgt_Total   : 主窗口（双页：运行 / 设置），负责跨页信号联动与关闭清理
 Widget_run       : 运行页——模拟器/次数/状态显示、策略快捷选择、开始/暂停/恢复/停止、屏幕预览+日志
-Widget_set       : 设置页——策略、助战、多次战斗、模拟器、搓丸子(占位) 管理
+Widget_set       : 设置页——策略、助战、多次战斗、模拟器、关于、搓丸子(占位) 管理
 ScrollArea_setting / GroupBox_* : 设置页各分组面板
 """
 # 原生库
@@ -31,8 +31,15 @@ class TabWidgt_Total(QTabWidget):
         print('TabWidgt_Total initializing')
         super(QTabWidget,self).__init__()
         self.setStyleSheet('font-size: 13pt;style=line-height:200%;color:white;')
-        # 恢复上次窗口位置与尺寸（来自 settingFixed.json）
-        WindowGeometry=fixedSettingRead(['fixed','WindowGeometry']  )
+        # 恢复上次窗口位置与尺寸：存 setting.json（个人数据，更新时不覆盖）；
+        # 旧版存 settingFixed.json（更新会被覆盖导致位置丢失），读到则沿用一次，关闭时写入新位置
+        try:
+            WindowGeometry=settingRead(['changable','windowGeometry'])
+        except Exception:
+            try:
+                WindowGeometry=fixedSettingRead(['fixed','WindowGeometry'])
+            except Exception:
+                WindowGeometry=[100,100,1200,720]
         wx,wy,ww,wh=WindowGeometry
         self.setGeometry(wx,wy,ww,wh)
         self.setWindowTitle('AFS ver'+Updater.localVersion())
@@ -122,7 +129,10 @@ class TabWidgt_Total(QTabWidget):
         ww=self.geometry().width()
         wh=self.geometry().height()
         WindowGeometry=[wx,wy,ww,wh]
-        fixedsettingWrite(WindowGeometry,['fixed','WindowGeometry'])
+        try:
+            settingWrite(WindowGeometry,['changable','windowGeometry'])
+        except Exception as e:
+            print(f'window geometry save failed: {e}')
         if self.wi1_run.th_operate.device is not None:
             try:
                 self.wi1_run.th_operate.device.stop()
@@ -503,31 +513,42 @@ class Widget_set(QWidget):
         self.scrollArea_setting=ScrollArea_setting()
         self.hbox.addLayout(self.vb_titleLst)
         self.hbox.addWidget(self.scrollArea_setting)
-        
+
+        # 左侧大模块导航：战斗/模拟器 带子模块；关于/搓丸子 无子模块（点标题直接跳到对应面板）
+        self.nmCp_lst:list[str]=['战斗','模拟器','关于','搓丸子']
+        self.nmLaList_lst:list[list[str]]=[['策略','助战','多次战斗'],['模拟器'],[],[]]
+        self.nmGbIdx_lst:list[int]=[0,3,4,5]   # 各模块对应右侧分组框索引（与 gb_lst 顺序一致）
         self.laList_lst:list[list[Widget_set.setLabel]] =[]
         self.vbNm_lst:list[QVBoxLayout]=[]
-        self.nmLaList_lst:list[str]=[['策略','助战','多次战斗'],['模拟器'],['搓丸子','关于']]
         count=0
-        for nmLa_lstI in range(len(self.nmLaList_lst)):
-            nmLa_lst=self.nmLaList_lst[nmLa_lstI]
+        for nmLaListI in range(len(self.nmLaList_lst)):
+            nmLa_lst=self.nmLaList_lst[nmLaListI]
             la_lst:list[Widget_set.setLabel]=[]
             self.vbNm_lst.append(QVBoxLayout())
-            self.vbNm_lst[nmLa_lstI].setSpacing(10)
+            self.vbNm_lst[nmLaListI].setSpacing(10)
             for nmLa in nmLa_lst:
                 la_lst.append(Widget_set.setLabel(count,nmLa))
-                self.vbNm_lst[nmLa_lstI].addWidget(la_lst[-1])
+                self.vbNm_lst[nmLaListI].addWidget(la_lst[-1])
                 count+=1
             self.laList_lst.append(la_lst)
 
         self.cp_lst     :list[CollapsibleBox] =[]
-        self.nmCp_lst:list[str]=['战斗','模拟器','搓丸子']
         for nmCpI in range(len(self.nmCp_lst)):
-            self.cp_lst.append(CollapsibleBox(self.nmCp_lst[nmCpI]))
-            self.vb_titleLst.addWidget(self.cp_lst[nmCpI])
-            self.cp_lst[nmCpI].setContentLayout(self.vbNm_lst[nmCpI])
-            self.cp_lst[nmCpI].setFixedWidth(200)
-            self.cp_lst[nmCpI].setFixedHeight(40)
-            self.cp_lst[nmCpI].on_pressed()
+            cp=CollapsibleBox(self.nmCp_lst[nmCpI])
+            self.vb_titleLst.addWidget(cp)
+            if self.nmLaList_lst[nmCpI]:
+                cp.setContentLayout(self.vbNm_lst[nmCpI])
+            else:
+                # 无子模块大模块：隐藏箭头，点标题跳到对应面板，滚动联动高亮
+                cp.toggle_button.setArrowType(Qt.NoArrow)
+                cp.toggle_button.clicked.connect(
+                    lambda _, idx=self.nmGbIdx_lst[nmCpI]: self.scrollArea_setting.setScrollBarValue(idx))
+                self.scrollArea_setting.scrolled.connect(
+                    lambda idx,y, cp=cp, gbIdx=self.nmGbIdx_lst[nmCpI]: self._bigModuleSelect(cp, idx==gbIdx))
+            self.cp_lst.append(cp)
+            cp.setFixedWidth(240)
+            if self.nmLaList_lst[nmCpI]:
+                cp.on_pressed()
 
         self.vb_titleLst.addStretch(1)
         self.laList_lst[0][0].setStyleSheet("background-color:#888888;")
@@ -537,8 +558,17 @@ class Widget_set(QWidget):
             for la in la_lst:
                 la.labelClicked.connect(self.scrollArea_setting.setScrollBarValue)
                 self.scrollArea_setting.scrolled.connect(la.select_change)
-                
+
         print('Widget_set initializied')
+
+    def _bigModuleSelect(self, cp:CollapsibleBox, selected:bool):
+        """无子模块大模块的选中高亮：滚动到对应面板时点亮标题"""
+        cp.toggle_button.setChecked(selected)
+        cp.toggle_button.setArrowType(Qt.NoArrow)  # 抑制 on_pressed 的箭头副作用（无子模块不显示箭头）
+        if selected:
+            cp.toggle_button.setStyleSheet("QToolButton { border:none; background-color:#888888; }")
+        else:
+            cp.toggle_button.setStyleSheet("QToolButton { border: none; }")
 
 class ScrollArea_setting(QScrollArea):
     scrolled=pyqtSignal(int,int)
@@ -550,7 +580,6 @@ class ScrollArea_setting(QScrollArea):
         self.setWidget(self.wid)
         self.vb=QVBoxLayout()
         self.wid.setLayout(self.vb)
-
         self.gb_lst:list[QGroupBox]=[]
         self.gb1_strategy=GroupBox_Strategy()
         self.gb2_assist=GroupBox_Assist()
@@ -562,8 +591,8 @@ class ScrollArea_setting(QScrollArea):
         self.gb_lst.append(self.gb2_assist)
         self.gb_lst.append(self.gb3_repeat)
         self.gb_lst.append(self.gb5_simulator)
+        self.gb_lst.append(self.gb8_about)  # 关于 在 搓丸子 前（与左侧导航顺序一致）
         self.gb_lst.append(self.gb7_clothExperienceFeeding)
-        self.gb_lst.append(self.gb8_about)
         for gbi in range(len(self.gb_lst)):
             self.vb.addWidget(self.gb_lst[gbi])
 
@@ -574,6 +603,8 @@ class ScrollArea_setting(QScrollArea):
             self.y_lst.append(sum)
             sum+=h
 
+        self._jumpIdx=None  # 导航点击强制高亮目标模块（滚动被视口钳制到不了目标顶时也按目标高亮）
+        self._jumpY=None
         self.verticalScrollBar().valueChanged.connect(self.scroll_emit)
 
     def y_lst_update(self):
@@ -586,12 +617,27 @@ class ScrollArea_setting(QScrollArea):
         
     def setScrollBarValue(self,idx:int):
         self.y_lst_update()
-        self.verticalScrollBar().setValue(self.y_lst[idx])
+        sb=self.verticalScrollBar()
+        target=min(self.y_lst[idx], sb.maximum())
+        self._jumpIdx=idx
+        self._jumpY=target
+        sb.setValue(target)
+        if self._jumpY is not None:
+            # setValue 未改变值（已在底部/值相同）→ 不触发 valueChanged，手动补发高亮
+            self._jumpIdx=None
+            self._jumpY=None
+            self.scrolled.emit(idx,target)
 
     def scroll_emit(self):
         self.y_lst_update()
         y=self.verticalScrollBar().value()
-        self.scrolled.emit(self.y2idx(y),y)
+        if self._jumpY is not None and y==self._jumpY:
+            idx=self._jumpIdx
+            self._jumpIdx=None
+            self._jumpY=None
+        else:
+            idx=self.y2idx(y)
+        self.scrolled.emit(idx,y)
 
     def y2idx(self,y:int):
         self.y_lst_update()
@@ -1353,8 +1399,8 @@ class GroupBox_About(QGroupBox):
         self.la64_updateResult=QLabel('')
         self.la64_updateResult.setWordWrap(True)
         self.btn616_feedback=QPushButton('反馈问题')
-        self.btn614_updateCheck.setFixedWidth(300)
-        self.btn616_feedback.setFixedWidth(300)
+        self.btn614_updateCheck.setFixedSize(480,48)  # 加大：文字在真实字体下需要更宽（原 300 会截断）
+        self.btn616_feedback.setFixedSize(480,48)
         self.vb_about.addWidget(self.la_aboutVersion)
         self.vb_about.addWidget(self.btn614_updateCheck)
         self.vb_about.addWidget(self.la64_updateResult)
@@ -1398,7 +1444,7 @@ class GroupBox_About(QGroupBox):
             self.la64_updateResult.setText(f'已是最新版本 v{current}（仓库 v{latest}）')
             return
         ret=QMessageBox.question(self,f'发现新版本 v{latest}（当前 v{current}）',
-                                 '是否下载增量更新包？下载完成后请关闭程序，将自动完成更新并重启。',
+                                 '是否下载增量更新包？下载完成后将自动关闭本程序，完成更新并自动重启。',
                                  QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
         if ret!=QMessageBox.Yes:
             return
@@ -1419,10 +1465,18 @@ class GroupBox_About(QGroupBox):
             self.updateLog.emit(f'<font color="red">update failed: {type(e).__name__}: {e}</font>')
 
     def updateAppliedSlot(self,version:str):
-        """更新包已就绪（GUI 线程）：启动落地脚本并提示"""
+        """更新包已就绪（GUI 线程）：启动落地脚本，3 秒后自动关闭本程序
+        （apply_update.bat 等待 AFS.exe 退出后覆盖文件并自动重启）"""
         os.startfile(os.path.join(appRootGet(),'apply_update.bat'))
         QMessageBox.information(self,'更新已就绪',
-                                f'v{version} 更新包已下载并校验完成。\n关闭本程序后会自动完成更新并重新启动。')
+                                f'v{version} 更新包已下载并校验完成。\n本程序将在 3 秒后自动关闭，更新完成后自动重新启动。')
+        QTimer.singleShot(3000,self._autoCloseForUpdate)
+
+    def _autoCloseForUpdate(self):
+        """自动关闭窗口：closeEvent 会保存窗口几何/停线程/断 adb，随后 bat 接管更新与重启"""
+        win=self.window()
+        if win is not None:
+            win.close()
 
     # ------------------------------------------------------------------ 反馈问题
 
