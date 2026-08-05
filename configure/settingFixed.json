@@ -653,7 +653,8 @@
       ]
     },
     "update": {
-      "repo": ""
+      "repo": "",
+      "mirror": ""
     }
   }
 }

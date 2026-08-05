@@ -94,6 +94,9 @@ class Flow():
 
         self.currentImg:np.ndarray=None
 
+        self.grabFrame=None  # 截图回调（调用方绑定）：返回最新一帧 BGR 原分辨率；None=未绑定
+        self.onFrame=None    # 帧刷新回调（调用方绑定）：识别用帧刷新后通知 GUI 预览
+
     def simulatorOperatorBind(self,simulatorOperator:SimulatorOperator):
         """绑定模拟器操作器并广播给所有状态"""
         self.simulatorOperator=simulatorOperator
@@ -105,6 +108,32 @@ class Flow():
         self.la_log=la_log
         for state in self.state_lst:
             state.logBind(la_log)
+
+    def frameBind(self,grabFrame,onFrame=None):
+        """绑定截图回调（grabFrame：取一帧；onFrame：识别用帧已刷新，通知 GUI 预览）"""
+        self.grabFrame=grabFrame
+        self.onFrame=onFrame
+
+    def _refreshFrame(self):
+        """识别前取最新一帧（随用随调）：刷新降采样 currentImg + 原始帧，并通知 GUI
+
+        截图在需要识图时进行，不再由调用方每轮预截图。
+        """
+        if not self.grabFrame:
+            return
+        try:
+            frame=self.grabFrame()
+        except Exception:
+            return
+        if frame is None:
+            return
+        self.currentImgBind(imgResize2512(frame))
+        self.originalFrameBind(frame)
+        if self.onFrame:
+            try:
+                self.onFrame(frame)
+            except Exception:
+                pass
 
     def currentImgBind(self,img:np.ndarray):
         """绑定最新截图帧"""
@@ -239,10 +268,12 @@ class Flow_General(Flow):
 
     def run(self):
         """推进一帧：
-        1) 检测邻状态是否出现，出现则跳转
-        2) 检测当前状态特征，命中则执行该状态动作
-        3) 结算状态时累计战斗次数，达上限则停止
+        1) 取最新帧（随用随调）
+        2) 检测邻状态是否出现，出现则跳转
+        3) 检测当前状态特征，命中则执行该状态动作
+        4) 结算状态时累计战斗次数，达上限则停止
         """
+        self._refreshFrame()
         state=self.state_lst[self.state_idx]
         print('checking neighbor states')
         for neighborStateI in state.neighborState:
@@ -281,6 +312,12 @@ class Flow_General(Flow):
 
     def currentImgBind(self, img: np.ndarray):
         super().currentImgBind(img)
+
+    def frameBind(self, grabFrame, onFrame=None):
+        """绑定截图回调并广播给子流程（助战/战斗）"""
+        super().frameBind(grabFrame, onFrame)
+        self.state3_assistChoose.flow_assist.frameBind(grabFrame, onFrame)
+        self.state5_fight.flow_fight.frameBind(grabFrame, onFrame)
 
 class Flow_Assist(Flow):
     """助战选择子流程
@@ -356,7 +393,8 @@ class Flow_Assist(Flow):
         time.sleep(0.6)
 
     def run(self):
-        """推进一帧：查找目标→点击；失败则滚动/刷新重试"""
+        """推进一帧：取最新帧 → 查找目标→点击；失败则滚动/刷新重试"""
+        self._refreshFrame()
         point=self.findTargetServant()
         if point!=None:
             action=[0,point[0],point[1]]
@@ -654,7 +692,8 @@ class Flow_Fight(Flow):
             state.strategyText=''
 
     def run(self):
-        """推进一帧：执行当前状态动作，完成后切换到下一状态"""
+        """推进一帧：取最新帧 → 执行当前状态动作，完成后切换到下一状态"""
+        self._refreshFrame()
         self.state_lst[self.state_idx].act()
         if self.state_lst[self.state_idx].isFinished:
             self.state_idx+=1

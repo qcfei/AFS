@@ -38,6 +38,7 @@ from pytool.basicFunction import PLATFORM_TOOLS_DIR, settingRead
 from pytool.minicapScreen import (_BIN_NAME, displayOrientationGet,
                                   minicapPushBinary, minicapSelectBinary)
 from pytool.mumuExtras import MuMuScreencap
+from pytool.ldExtras import LDScreencap
 
 _CMD_TIMEOUT = 10.0        # 单条 adb 命令超时（秒）
 _DISABLE_THRESHOLD = 3     # 连续失败次数达到该值后禁用该通道（本会话）
@@ -133,12 +134,67 @@ class MinicapDirectScreencap:
         return self._last_err
 
 
+class NoxScreencap:
+    """夜神等模拟器虚拟显示专线（参考 MaaFramework AndrowsExtras）
+
+    `screencap -d {display_id} -p`：按虚拟显示 ID 截图（夜神多屏/虚拟显示场景，
+    普通 screencap 只截主显示）。display_id 从 dumpsys 探测，失败退回 0（等价普通截图）。
+
+    ⚠️ 未实测（作者未安装夜神）：报错请连同日志反馈 GitHub issue。
+    """
+
+    def __init__(self, ip: str):
+        self.ip = ip
+        self._display_id = '0'
+        self._w = 0
+        self._h = 0
+        self._ready = False
+        self._last_err = ''
+
+    def init(self) -> bool:
+        """探测虚拟显示 ID + 分辨率（wm size -d）；失败退回默认显示 0"""
+        # 优先按包定位失败后取第二个显示（对齐 Maa：dumpsys display 的第二个 mDisplayId）
+        out = _adb(['-s', self.ip, 'shell',
+                    "dumpsys display | grep -o 'mDisplayId=[0-9]*' | head -2 | tail -1"]).decode(errors='ignore')
+        ids = re.findall(r'\d+', out)
+        self._display_id = ids[0] if ids else '0'
+        # 分辨率：wm size -d N（失败退回普通 wm size）
+        wm = _adb(['-s', self.ip, 'shell', f'wm size -d {self._display_id}']).decode(errors='ignore')
+        nums = re.findall(r'\d+', wm)
+        if len(nums) >= 2:
+            self._w, self._h = int(nums[0]), int(nums[1])
+        else:
+            wm = _adb(['-s', self.ip, 'shell', 'wm size']).decode(errors='ignore')
+            nums = re.findall(r'\d+', wm)
+            if len(nums) < 2:
+                self._last_err = f'wm size parse failed: {wm}'
+                return False
+            self._w, self._h = int(nums[0]), int(nums[1])
+        self._ready = True
+        return True
+
+    def grab(self) -> np.ndarray:
+        if not self._ready:
+            return None
+        data = _adb(['-s', self.ip, 'exec-out', f'screencap -d {self._display_id} -p'])
+        return imdecode(np.frombuffer(data, np.uint8), IMREAD_COLOR)
+
+    def lastErr(self) -> str:
+        return self._last_err
+
+
 class AdbScreencap:
     """adb 多通道截图器：启动测速排序，运行期失败自动降级"""
 
-    def __init__(self, ip: str, pullPath: str = 'screen.jpeg'):
+    def __init__(self, ip: str, pullPath: str = 'screen.jpeg', method: str = 'auto'):
+        """method 截图方式（设置页 changable.screencapMethod）：
+        'auto'=全通道测速（含专线）；'mumu'=仅 mumu 专线+Pull；'ld'=仅雷电专线+Pull；
+        'nox'=仅夜神虚拟显示+Pull；'adb'=仅 adb 通道（Raw/Netcat/RawGzip/Encode/Minicap/Pull）；
+        'minicap' 由调用方走流式，不适用
+        """
         self.ip = ip
         self.pullPath = pullPath      # Pull 通道落地文件（由调用方传程序根路径）
+        self.method = method
         self.gzipOk = False           # 设备端 gzip 是否可用
         self.tiers = []             # [(名称, 抓取函数)]，按启动测速排序
         self._disabled = set()      # 本会话已禁用的通道名
@@ -149,6 +205,8 @@ class AdbScreencap:
         self._nc_addr = ''          # RawByNetcat 目标地址（ARP 表第一个邻居 IP）
         self.mumu = None            # mumu 专线截图器（仅 Windows，dll 可用时）
         self.minicap = None         # minicap 单帧截图器（二进制就绪时）
+        self.ld = None              # 雷电专线截图器（仅 Windows，ldopengl64 可用时）
+        self.nox = None             # 夜神虚拟显示截图器（screencap -d）
 
     # ------------------------------------------------------------------ 初始化
 
@@ -158,17 +216,25 @@ class AdbScreencap:
         out = _adb(['-s', self.ip, 'shell', 'which gzip']).decode(errors='ignore').strip()
         self.gzipOk = 'gzip' in out
 
-        # 新通道就绪探测（各自失败自动剔除，不影响其他通道）
-        self._nc_addr = self._netcat_address()
-        self.mumu = self._mumu_init()
-        self.minicap = self._minicap_init()
+        # 按 method 决定参与通道；专线通道各自失败自动剔除，不影响其他通道
+        useMumu = self.method in ('auto', 'mumu')
+        useLd = self.method in ('auto', 'ld')
+        useNox = self.method in ('auto', 'nox')
+        useAdb = self.method in ('auto', 'adb')
+        self._nc_addr = self._netcat_address() if useAdb else ''
+        self.mumu = self._mumu_init() if useMumu else None
+        self.minicap = self._minicap_init() if useAdb else None
+        self.ld = self._ld_init() if useLd else None
+        self.nox = self._nox_init() if useNox else None
 
-        raw_t = self._timeit('Raw')
-        gzip_t = self._timeit('RawGzip') if self.gzipOk else None
-        png_t = self._timeit('Encode')
-        nc_t = self._timeit('Netcat') if self._nc_addr else None
+        raw_t = self._timeit('Raw') if useAdb else None
+        gzip_t = self._timeit('RawGzip') if (useAdb and self.gzipOk) else None
+        png_t = self._timeit('Encode') if useAdb else None
+        nc_t = self._timeit('Netcat') if (useAdb and self._nc_addr) else None
         mumu_t = self._timeit('MuMu') if self.mumu else None
         mcd_t = self._timeit('Minicap') if self.minicap else None
+        ld_t = self._timeit('LD') if self.ld else None
+        nox_t = self._timeit('Nox') if self.nox else None
 
         order = []
         if raw_t is not None:
@@ -183,6 +249,10 @@ class AdbScreencap:
             order.append(('MuMu', self._grab_mumu, mumu_t))
         if mcd_t is not None:
             order.append(('Minicap', self._grab_minicap, mcd_t))
+        if ld_t is not None:
+            order.append(('LD', self._grab_ld, ld_t))
+        if nox_t is not None:
+            order.append(('Nox', self._grab_nox, nox_t))
         order.append(('Pull', self._grab_pull, 9999.0))  # 兜底通道永远在最后
         order.sort(key=lambda x: x[2])
         self.tiers = [(name, fn) for name, fn, _ in order]
@@ -240,11 +310,46 @@ class AdbScreencap:
         print(f'minicap direct unavailable: {mc.lastErr()}')
         return None
 
+    def _ld_init(self):
+        """雷电专线初始化（仅 Windows；ldPath/ldIndex 配置，缺失字段容错；未实测）"""
+        if platform.system() != 'Windows':
+            return None
+        try:
+            path = settingRead(['changable', 'ldPath'])
+        except Exception:
+            path = ''
+        try:
+            index = settingRead(['changable', 'ldIndex'])
+        except Exception:
+            index = 0
+        ld = LDScreencap(path, index)
+        if ld.init():
+            # 分辨率来自设备 wm size（cap 数据 = w*h*3 BGR）
+            wm = _adb(['-s', self.ip, 'shell', 'wm size']).decode(errors='ignore')
+            nums = re.findall(r'\d+', wm)
+            if len(nums) >= 2:
+                ld.setSize(int(nums[0]), int(nums[1]))
+                print(f'ld extras ready: path={ld.path} index={ld.index}')
+                return ld
+            ld._last_err = f'wm size parse failed: {wm}'
+            ld.stop()  # 释放已创建的抓屏实例（C++ 侧需 release()）
+        print(f'ld extras unavailable: {ld.lastErr()}')
+        return None
+
+    def _nox_init(self):
+        """夜神虚拟显示专线初始化（screencap -d；未实测）"""
+        nx = NoxScreencap(self.ip)
+        if nx.init():
+            return nx
+        print(f'nox extras unavailable: {nx.lastErr()}')
+        return None
+
     def _timeit(self, method: str):
         """单通道采样耗时（ms）；失败返回 None"""
         grab = {'Raw': self._grab_raw, 'RawGzip': self._grab_gzip,
                 'Encode': self._grab_png, 'Netcat': self._grab_netcat,
-                'MuMu': self._grab_mumu, 'Minicap': self._grab_minicap}[method]
+                'MuMu': self._grab_mumu, 'Minicap': self._grab_minicap,
+                'LD': self._grab_ld, 'Nox': self._grab_nox}[method]
         ts = []
         for _ in range(_INIT_SAMPLE):
             t0 = time.perf_counter()
@@ -354,6 +459,16 @@ class AdbScreencap:
             return None
         return self.mumu.grab()
 
+    def _grab_ld(self) -> np.ndarray:
+        if self.ld is None:
+            return None
+        return self.ld.grab()
+
+    def _grab_nox(self) -> np.ndarray:
+        if self.nox is None:
+            return None
+        return self.nox.grab()
+
     def _grab_minicap(self) -> np.ndarray:
         if self.minicap is None:
             return None
@@ -377,10 +492,13 @@ class AdbScreencap:
         return self.frame_count, self.ms_total
 
     def stop(self):
-        """释放长期连接（mumu nemu_disconnect）；由调用方在结束/停止时调用"""
+        """释放长期连接（mumu/雷电专线句柄）；由调用方在结束/停止时调用"""
         if self.mumu:
             self.mumu.stop()
             self.mumu = None
+        if self.ld:
+            self.ld.stop()
+            self.ld = None
 
     def channelInfo(self) -> str:
         """当前通道排序说明（GUI 日志用）"""

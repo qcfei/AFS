@@ -43,8 +43,12 @@
     ],
     "useMinicap": false,
     "useMinicapDirect": false,
+    "screencapMethod": "adb",
+    "simulatorType": "",
     "mumuPath": "",
-    "mumuIndex": 0
+    "mumuIndex": 0,
+    "ldPath": "",
+    "ldIndex": 0
   },
   "fixed": {
     "candidate": [
@@ -700,7 +704,8 @@
       ]
     },
     "update": {
-      "repo": ""
+      "repo": "",
+      "mirror": ""
     }
   }
 }

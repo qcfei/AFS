@@ -13,7 +13,10 @@
     2) 提示用户关闭程序 → bat 把新文件覆盖到程序根（跳过个人数据）→ 重新启动 AFS.exe
 - 个人数据保护：setting.json / 助战素材 / 出战头像 / logs / screen.jpeg 一律不覆盖
 
-更新仓库地址配置：settingFixed.json `fixed.update.repo`（格式 owner/name，空=禁用）。
+网络与镜像（国内裸连 GitHub 可能失败）：
+- 候选顺序：配置镜像（fixed.update.mirror，如 https://ghproxy.net/）→ 直连 → 内置镜像
+- 任一候选成功即用；全部失败抛异常
+- 更新仓库地址配置：settingFixed.json `fixed.update.repo`（格式 owner/name，空=禁用）
 """
 import hashlib
 import json
@@ -24,7 +27,7 @@ import urllib.request
 import urllib.error
 import zipfile
 
-from pytool.basicFunction import appRootGet
+from pytool.basicFunction import appRootGet, fixedSettingRead
 
 _TIMEOUT = 15           # 网络请求超时（秒）
 _PERSONAL_FILENAMES = ('setting.json', 'screen.jpeg', 'screen copy.jpeg')
@@ -32,6 +35,10 @@ _PERSONAL_PREFIXES = ('fgoMaterial/assist', 'fgoMaterial/preServant', 'fgoMateri
 _PENDING_DIR = 'update_pending'
 _APPLY_BAT = 'apply_update.bat'
 _DELETED_FLAG = 'DELETED'   # 增量清单中"旧版有、新版已删除"的标记（make_release 生成）
+_DEFAULT_MIRRORS = (        # 内置镜像（整站代理，前缀拼完整 github URL）
+    'https://ghproxy.net/',
+    'https://gh-proxy.com/',
+)
 
 
 def compareVersion(a: str, b: str) -> int:
@@ -66,17 +73,42 @@ class Updater:
         self.repo = repo.strip('/')
         self.base = (base or 'https://github.com/' + self.repo).rstrip('/')
         self.check_base = (check_base or f'https://raw.githubusercontent.com/{self.repo}/main').rstrip('/')
+        # 配置镜像（fixed.update.mirror，空=不用）；缺失字段容错
+        try:
+            self.mirror = (fixedSettingRead(['fixed', 'update', 'mirror']) or '').strip().rstrip('/')
+        except Exception:
+            self.mirror = ''
+
+    def _candidate_urls(self, url: str) -> list:
+        """候选下载地址：配置镜像 → 直连 → 内置镜像（任一成功即用）"""
+        urls = [url]
+        for m in _DEFAULT_MIRRORS:
+            urls.append(self._join_mirror(m, url))
+        if self.mirror:
+            urls.insert(0, self._join_mirror(self.mirror, url))
+        return urls
+
+    @staticmethod
+    def _join_mirror(mirror: str, url: str) -> str:
+        """镜像前缀拼接：保证两者间恰好一个斜杠（mirror 可能配置为 ghproxy.net 无尾斜杠）"""
+        return mirror.rstrip('/') + '/' + url.lstrip('/')
 
     # ------------------------------------------------------------------ 检查
 
     def check(self) -> dict:
-        """查询仓库最新 version.json；失败抛异常"""
+        """查询仓库最新 version.json；全部候选失败抛最后异常"""
         url = f'{self.check_base}/version.json'
-        with urllib.request.urlopen(url, timeout=_TIMEOUT) as r:
-            data = json.loads(r.read().decode('utf-8'))
-        if 'version' not in data:
-            raise ValueError(f'bad version.json: {data}')
-        return data
+        last_err = None
+        for u in self._candidate_urls(url):
+            try:
+                with urllib.request.urlopen(u, timeout=_TIMEOUT) as r:
+                    data = json.loads(r.read().decode('utf-8'))
+                if 'version' not in data:
+                    raise ValueError(f'bad version.json: {data}')
+                return data
+            except Exception as e:
+                last_err = e
+        raise last_err or ValueError('check update failed')
 
     @staticmethod
     def localVersion() -> str:
@@ -106,15 +138,20 @@ class Updater:
                         on_progress(done, total)
 
     def downloadPackage(self, version: str, dest: str, on_progress=None) -> str:
-        """下载增量包；404 时回退全量包。返回实际文件名（'update' 或 'full'）"""
+        """下载增量包；404 时回退全量包。返回实际文件名（'update' 或 'full'）
+
+        每类包遍历候选地址（配置镜像→直连→内置镜像）；全部 404 才换下一类。
+        """
         for kind in ('update', 'full'):
             url = f'{self.base}/releases/download/v{version}/AFS_{kind}_{version}.zip'
-            try:
-                self._download(url, dest, on_progress)
-                return kind
-            except urllib.error.HTTPError as e:
-                if e.code != 404:
-                    raise
+            for u in self._candidate_urls(url):
+                try:
+                    self._download(u, dest, on_progress)
+                    return kind
+                except urllib.error.HTTPError:
+                    continue  # 404 或其他 HTTP 错误（500/503/403）：试下一候选/换包类型
+                except Exception:
+                    continue  # 连接/超时等：试下一候选
         raise FileNotFoundError(f'no package for v{version}')
 
     # ------------------------------------------------------------------ 应用

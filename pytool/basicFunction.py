@@ -450,6 +450,66 @@ def ipGet()->str:
     print('ipGet->simulatorInfo: '+simulator['name']+' '+simulator['ip'])
     return simulator['ip']
 
+# 模拟器自动发现（常见 adb 端口表 + 进程名表）
+_COMMON_SIMULATOR_PORTS=[
+    ('mumu12','127.0.0.1:16384'),
+    ('mumu6','127.0.0.1:7555'),
+    ('nox','127.0.0.1:62001'),
+    ('ldplayer','127.0.0.1:5555'),
+    ('xiaoyao','127.0.0.1:21503'),
+]
+_SIMULATOR_PROCESS_KEYS=[
+    ('MuMuVMMHeadless','mumu12'),('MuMuNxMain','mumu12'),('MuMuPlayer','mumu12'),
+    ('NemuHeadless','mumu6'),('NemuPlayer','mumu6'),
+    ('HD-Player','ldplayer'),('LdVBox','ldplayer'),
+    ('NoxVMHandle','nox'),('NoxPlayer','nox'),
+    ('dnplayer','xiaoyao'),
+]
+
+def discoverSimulators()->tuple[list[dict],list[str]]:
+    """自动发现模拟器：adb 已连接设备 + 常见端口 adb connect 探测 + 进程名识别
+
+    返回 (found, process_names)：found=[{'name','ip'}] 新发现的模拟器（含已连接设备），
+    process_names=检测到的模拟器进程名列表（提示用，不含 ip 时需用户手动补）。
+    """
+    import subprocess
+    adb=os.path.join(PLATFORM_TOOLS_DIR,'adb.exe')
+    found:list[dict]=[]; ip_set=set()
+    # 1) adb 已连接设备
+    out=myGetoutput('adb devices')
+    for line in out.splitlines()[1:]:
+        parts=line.split()
+        if len(parts)>=2 and parts[1]=='device':
+            ip=parts[0]
+            if ip not in ip_set:
+                ip_set.add(ip)
+                found.append({'name':'auto-'+ip.replace(':','_'),'ip':ip})
+    # 2) 常见端口探测（3s 超时逐个 adb connect，防挂起）
+    for name,ip in _COMMON_SIMULATOR_PORTS:
+        if ip in ip_set:
+            continue
+        try:
+            r=subprocess.run([adb,'connect',ip],capture_output=True,timeout=3,
+                             creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            out=(r.stdout or b'').decode(errors='ignore')
+        except Exception:
+            out=''
+        if 'connected' in out or 'already connected' in out:
+            ip_set.add(ip)
+            found.append({'name':name,'ip':ip})
+    # 3) 进程名识别（psutil 遍历；依赖在打包清单内）
+    procs:list[str]=[]
+    try:
+        import psutil
+        for proc in psutil.process_iter(['name']):
+            pname=(proc.info.get('name') or '')
+            for key,simName in _SIMULATOR_PROCESS_KEYS:
+                if key.lower() in pname.lower() and simName not in procs:
+                    procs.append(simName)
+    except Exception:
+        pass
+    return found,procs
+
 def bsGet()->float:
     """计算坐标缩放系数：真实屏幕宽度 / 512（将 512×288 坐标系映射到设备分辨率）
 
