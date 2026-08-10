@@ -562,6 +562,20 @@ class Flow_Fight(Flow):
             # 宝具卡模板：详情面板固定位置截取（State_Check.imgSave 保存），与指令卡立绘同源
             # 蒙版匹配方案用（9 色号反向蒙版 + 去均值相关），缺失时从者识别退化为 uc
             self.baojuImg_lst=[imread(f'fgoMaterial/baojuServant{i}.png') for i in range(1,4)]
+            # 2026-08-10：同一从者重复出场时宝具卡模板像素完全相同（如 lineup05 从者2/3）——
+            # 匹配分数必然相同（gap=0 误判 uc）。加载时按像素完全相同去重，判定后映射回原从者编号
+            self.baojuUniq:list[np.ndarray]=[]
+            self.baojuUniqMap:list[int]=[]
+            for i,img in enumerate(self.baojuImg_lst):
+                if img is None:
+                    continue
+                # 近似去重：差异像素比例 <0.5%（同从者两次截图间立绘动画/特效有微差，实测 22px/13725）
+                idx=next((j for j,u in enumerate(self.baojuUniq)
+                          if u.shape==img.shape and
+                          (np.abs(u.astype(np.int32)-img.astype(np.int32)).sum(axis=2)>20).mean()<0.005),None)
+                if idx is None:
+                    self.baojuUniq.append(img)
+                    self.baojuUniqMap.append(i)
 
         def locateCards(self)->list[tuple[int,int]]:
             """金边搜索定位 5 张指令卡（512 坐标系，蒙版匹配方案用）
@@ -595,8 +609,7 @@ class Flow_Fight(Flow):
                         if j-xx+1<=2 and abs(xx-21)<=10:
                             left=xx
                             break
-                if left is None and any(colcnt[xx]>=8 for xx in range(len(colcnt))):
-                    left=None  # 窗口内无窄强线 → 先验兜底
+                # 窗口内无窄强线 → left 保持 None，由偏移先验兜底
                 toplefts.append((None if left is None else x0+left,top))
             # 偏移先验补缺失 left（5 等分起点 + 偏移均值 ~21）
             offs=[v[0]-self.w_lst[i] for i,v in enumerate(toplefts) if v[0] is not None]
@@ -612,7 +625,7 @@ class Flow_Fight(Flow):
             gtMask=imread('mask/greatMask.png',0).astype(np.float32)
 
             clrRes=[0]*5
-            rleRes=[0]*5
+            rleRes=['uc']*5  # 初始 'uc' 兜底：任何漏赋值的卡按未识别处理
             clrInfo_lst=[(clrTmp,maskMake(clrTmp)) for clrTmp in self.colorImg_lst]
             cards=self.locateCards()
 
@@ -644,17 +657,19 @@ class Flow_Fight(Flow):
                 lx,ly=cards[cardI]
                 tpl=cutImg(self.currentImg,np.array((lx+3,ly+12)),np.array((49,16)))
                 tplMsk=build9Mask(tpl)
-                for baoju in self.baojuImg_lst:
-                    if baoju is None:
-                        rleScores.append(0.0)
-                        continue
+                # 用去重后的宝具卡模板匹配（同一从者重复出场合并为一个候选）
+                for baoju in self.baojuUniq:
                     rleScores.append(maskedCCOEFF(baoju,tpl,tplMsk))
+                # 宝具卡模板缺失（baojuUniq 空）时从者识别退化为 uc
+                if not rleScores:
+                    rleRes[cardI]='uc'
+                    continue
                 # 不确定标记：分数低于阈值 或 最高与次高差距过小 → 'uc'（由策略退化逻辑兜底）
                 best1=sorted(rleScores,reverse=True)
                 if best1[0]<0.30 or (len(best1)>1 and best1[0]-best1[1]<0.05):
                     rleRes[cardI]='uc'
                 else:
-                    rleRes[cardI]=rleScores.index(best1[0])
+                    rleRes[cardI]=self.baojuUniqMap[rleScores.index(best1[0])]
 
             # 汇总为 "颜色+从者" 标签（如 b1 / r2 / g3）；识别不确定的卡标 'uc'
             self.orderIndex_lst=[]
