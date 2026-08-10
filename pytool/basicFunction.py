@@ -19,7 +19,7 @@ from PyQt5.QtGui import QImage,QPixmap
 import os
 import numpy as np
 from pyminitouch import MNTDevice
-from cv2 import imshow,waitKey,destroyAllWindows,matchTemplate,TM_CCOEFF_NORMED,minMaxLoc,resize,imdecode,imencode
+from cv2 import imshow,waitKey,destroyAllWindows,matchTemplate,TM_CCOEFF_NORMED,TM_CCORR,minMaxLoc,resize,imdecode,imencode
 from pytool.pauseableThread import *
 
 # ---------------------------------------------------------------------------
@@ -102,6 +102,53 @@ def selfmatchTemplate(img:np.ndarray,template:np.ndarray,mask:np.ndarray=None):
     res=matchTemplate(img,template,TM_CCOEFF_NORMED,mask=mask)
     _,max_val,_,max_loc=minMaxLoc(res)
     return max_val,max_loc
+
+# 指令卡背景板 9 色号（BGR：红绿蓝 × 3 档亮暗，用户截图确认），反向蒙版用（见 build9Mask）
+CARD9_COLORS:list[tuple[int,int,int]]=[
+    (20,20,134),(23,23,159),(12,12,88),    # 红
+    (159,65,22),(132,52,17),(79,31,9),     # 蓝
+    (16,116,33),(14,101,30),(9,65,18),     # 绿
+]
+
+def build9Mask(img:np.ndarray,tol:int=15)->np.ndarray:
+    """9 色号反向蒙版：背景板色命中像素置 0（透明），其余 255。TOL=15 实测最优。"""
+    m=np.ones(img.shape[:2],np.uint8)*255
+    for (b,g,r) in CARD9_COLORS:
+        hit=(np.abs(img[:,:,0].astype(np.int16)-b)<tol)& \
+            (np.abs(img[:,:,1].astype(np.int16)-g)<tol)& \
+            (np.abs(img[:,:,2].astype(np.int16)-r)<tol)
+        m[hit]=0
+    return m
+
+def maskedCCOEFF(roi:np.ndarray,tpl:np.ndarray,mask:np.ndarray)->float:
+    """带蒙版去均值相关（CCOEFF 语义，区分度大，默认方法）
+
+    OpenCV 5 不支持 CCOEFF+mask，手动向量化：
+    num = Σts - mean_s·Σt；den = sqrt(t_var · (Σs² - Σs²/N3))
+    Σts/Σs/Σs² 用 cv2.matchTemplate(TM_CCORR) 批量滑动窗口和。
+    返回最大相关分数。
+    """
+    th,tw=tpl.shape[:2]
+    m2=(mask>0).astype(np.float32)
+    t_masked=tpl.astype(np.float32)*m2[:,:,None]
+    t_vec=tpl[m2>0].astype(np.float32)
+    N3=t_vec.size
+    sum_t=t_vec.sum()
+    t_var=((t_vec-t_vec.mean())**2).sum()
+    roi_f=roi.astype(np.float32)
+    roi2=(roi_f**2).sum(axis=2)
+    num_ts=np.zeros((roi.shape[0]-th+1,roi.shape[1]-tw+1),np.float32)
+    sum_s=np.zeros_like(num_ts)
+    for c in range(3):
+        num_ts+=matchTemplate(roi_f[:,:,c],t_masked[:,:,c],TM_CCORR)
+        sum_s+=matchTemplate(roi_f[:,:,c],m2,TM_CCORR)
+    sum_s2=matchTemplate(roi2,m2,TM_CCORR)
+    mean_s=sum_s/N3
+    num=num_ts-mean_s*sum_t
+    var_s=np.maximum(sum_s2-sum_s*sum_s/N3,0)
+    den=np.sqrt(t_var*var_s+1e-9)
+    corr=num/den
+    return float(corr.max())
 
 def resizedReduceMatch(scene:np.ndarray,temp:np.ndarray,mask:np.ndarray=None,w_min:int=40,w_max:int=90,step:int=5):
     """多宽度模板匹配：将模板缩放到多个宽度尝试匹配，取相似度最高的结果

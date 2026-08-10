@@ -73,3 +73,12 @@ make_release.ps1
 
 # 配置备份（settingMigrate 原子写产生）
 configure/*.bak
+
+# 本地驱动/分析脚本
+_card_drive.py
+_sim_*.py
+
+
+# 分支研究项目（阵容样本库）
+branch/
+

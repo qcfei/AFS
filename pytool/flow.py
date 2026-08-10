@@ -445,8 +445,16 @@ class Flow_Fight(Flow):
             imwrite(f'fgoMaterial/preServant{str(self.progress//2+1)}.png',imgmskd)
             # 眼睛区模板：详情面板固定位置 (512 坐标 114,86 起 29x12)，供指令卡从者识别
             # 跨"详情面板/指令卡"同源且无遮挡；保持 512 分辨率（高分辨率会暴露立绘细节差异）
-            eyeImg=cutImg(self.currentImg,np.array((114,86)),np.array((29,12)))
-            imwrite(f'fgoMaterial/eyeServant{str(self.progress//2+1)}.png',eyeImg)
+            # 2026-08-09：多 y 带保存（80/86/92）——不同从者立绘眼睛位置不同（实测 59~103），
+            # 固定单带只对部分从者有效；多带匹配取 max 提升判别力（详见 wiki/vision.md）
+            for eyeY0 in (80,86,92):
+                eyeImg=cutImg(self.currentImg,np.array((114,eyeY0)),np.array((29,12)))
+                imwrite(f'fgoMaterial/eyeServant{str(self.progress//2+1)}.png' if eyeY0==86
+                        else f'fgoMaterial/eyeServant{str(self.progress//2+1)}_{eyeY0}.png',eyeImg)
+            # 宝具卡图：详情面板固定位置 (512 坐标 100,71 起 61x75，1080 (377,265) 230x281 缩放)，
+            # 供指令卡从者识别（蒙版匹配方案，见 State_Order.orderCardRecognize）
+            baojuImg=cutImg(self.currentImg,np.array((100,71)),np.array((61,75)))
+            imwrite(f'fgoMaterial/baojuServant{str(self.progress//2+1)}.png',baojuImg)
 
         def pause(self):
             time.sleep(0.4)
@@ -545,16 +553,68 @@ class Flow_Fight(Flow):
             """加载出战从者头像（用于指令卡从者匹配）"""
             self.servantImg_lst=[imread(fn) for fn in self.servantImgFn_lst]
             # 眼睛区模板：详情面板固定位置截取（State_Check.imgSave 保存），跨详情面板/指令卡同源
-            self.eyeImg_lst=[imread(fn) for fn in [f'fgoMaterial/eyeServant{i}.png' for i in range(1,4)]]
+            # 多 y 带（80/86/92）：不同从者立绘眼睛位置不同，匹配时多带取 max
+            self.eyeImg_lst=[]
+            for i in range(1,4):
+                bands=[imread(f'fgoMaterial/eyeServant{i}.png')]
+                bands+=[imread(f'fgoMaterial/eyeServant{i}_{y0}.png') for y0 in (80,92)]
+                self.eyeImg_lst.append([b for b in bands if b is not None])
+            # 宝具卡模板：详情面板固定位置截取（State_Check.imgSave 保存），与指令卡立绘同源
+            # 蒙版匹配方案用（9 色号反向蒙版 + 去均值相关），缺失时从者识别退化为 uc
+            self.baojuImg_lst=[imread(f'fgoMaterial/baojuServant{i}.png') for i in range(1,4)]
+
+        def locateCards(self)->list[tuple[int,int]]:
+            """金边搜索定位 5 张指令卡（512 坐标系，蒙版匹配方案用）
+
+            5 等分初筛 + 列窄强线（金色 RGB(243,238,133) 容差 30，宽≤2 且 n≥8 的最左带）定 left，
+            行方向 y140-200 范围第一条 n≥8 强带定 top；left 缺失时用偏移先验补（实测 ~21px）。
+            返回 [(left,top),...]（卡片固定尺寸 61x75）。
+            """
+            gold=((np.abs(self.currentImg[:,:,0].astype(np.int16)-133)<30)&
+                  (np.abs(self.currentImg[:,:,1].astype(np.int16)-238)<30)&
+                  (np.abs(self.currentImg[:,:,2].astype(np.int16)-243)<30))
+            toplefts:list[tuple[int|None,int|None]]=[]
+            for ci in range(self.wNum):
+                x0,x1=self.w_lst[ci],self.w_lst[ci+1]
+                seg=gold[self.yMin:self.yMin+100,x0:x1]
+                rowcnt=seg.sum(axis=1)
+                top=None
+                for yy in range(len(rowcnt)):
+                    if rowcnt[yy]>=8 and yy+self.yMin>=140 and yy+self.yMin<=200:
+                        top=yy+self.yMin
+                        break
+                colcnt=seg.sum(axis=0)
+                left=None
+                # 偏移先验窗口（5 等分起点 + 21±10）：左金框线只在此范围找，
+                # 排除卡内立绘金色线干扰（实测 c1 左框线被立绘盖住时卡内 x48/64 有金线）
+                for xx in range(len(colcnt)):
+                    if colcnt[xx]>=8:
+                        j=xx
+                        while j+1<len(colcnt) and colcnt[j+1]>=8:
+                            j+=1
+                        if j-xx+1<=2 and abs(xx-21)<=10:
+                            left=xx
+                            break
+                if left is None and any(colcnt[xx]>=8 for xx in range(len(colcnt))):
+                    left=None  # 窗口内无窄强线 → 先验兜底
+                toplefts.append((None if left is None else x0+left,top))
+            # 偏移先验补缺失 left（5 等分起点 + 偏移均值 ~21）
+            offs=[v[0]-self.w_lst[i] for i,v in enumerate(toplefts) if v[0] is not None]
+            off=round(sum(offs)/len(offs)) if offs else 21
+            tops=[v[1] for v in toplefts if v[1] is not None]
+            top0=round(sum(tops)/len(tops)) if tops else 164
+            return [(self.w_lst[i]+off if lx is None else lx,
+                     top0 if ty is None else ty) for i,(lx,ty) in enumerate(toplefts)]
 
         def orderCardRecognize(self):
-            """识别 5 张指令卡：先匹配颜色（红/绿/蓝），再匹配从者头像"""
+            """识别 5 张指令卡：先匹配颜色（红/绿/蓝），再匹配从者（蒙版匹配方案）"""
             crdImg_lst=[]
             gtMask=imread('mask/greatMask.png',0).astype(np.float32)
 
             clrRes=[0]*5
             rleRes=[0]*5
             clrInfo_lst=[(clrTmp,maskMake(clrTmp)) for clrTmp in self.colorImg_lst]
+            cards=self.locateCards()
 
             for cardI in range(self.wNum):
                 # 裁剪单张指令卡区域
@@ -575,22 +635,23 @@ class Flow_Fight(Flow):
                 crdImgMskd=np.array([[(0,0,255) if gtMask[yi,xi]==0 or pixCheck(crdImg[yi,xi]) else crdImg[yi,xi] for xi in range(crdImg.shape[1])] for yi in range(crdImg.shape[0])],np.uint8)
                 crdImg_lst.append(crdImgMskd)
                 
-                # 从者识别：眼睛区模板对卡面立绘眼部区域匹配（详情面板眼部与指令卡立绘同源）
-                # 注意：保持 512 分辨率匹配——高分辨率会暴露"详情面板立绘 vs 指令卡立绘"的
-                # 细节差异（实测 1080 匹配 0.45 vs 512 匹配 0.88），低分辨率模糊恰好鲁棒
+                # 从者识别（蒙版匹配方案 2026-08-10 落地，替换多 y 带眼睛模板）：
+                # 模板 = 卡片内 (3,12) 起 49x16 头部条带（上缩 1/5 右缩 1/8，避开助战文章干扰）
+                #       + 9 色号反向蒙版（TOL=15，排除背景板色）；
+                # 与 3 个宝具卡模板（State_Check.imgSave 截取）去均值相关匹配（maskedCCOEFF，
+                # 区分度 gap 0.2-0.7，默认方法）。实测 lineup05 512 分辨率 5/5。
                 rleScores:list[float]=[]
-                face=cutImg(cardAreaImg,np.array((0,0)),np.array((cardAreaImg.shape[1],100)))
-                w_low,w_high=15,45
-                for rleImgI in range(len(self.eyeImg_lst)):
-                    rleImg=self.eyeImg_lst[rleImgI]
-                    if rleImg is None:
+                lx,ly=cards[cardI]
+                tpl=cutImg(self.currentImg,np.array((lx+3,ly+12)),np.array((49,16)))
+                tplMsk=build9Mask(tpl)
+                for baoju in self.baojuImg_lst:
+                    if baoju is None:
                         rleScores.append(0.0)
                         continue
-                    rleVal,_,_=resizedReduceMatch(face,rleImg,w_min=w_low,w_max=w_high,step=3)
-                    rleScores.append(rleVal)
+                    rleScores.append(maskedCCOEFF(baoju,tpl,tplMsk))
                 # 不确定标记：分数低于阈值 或 最高与次高差距过小 → 'uc'（由策略退化逻辑兜底）
                 best1=sorted(rleScores,reverse=True)
-                if best1[0]<0.75 or (len(best1)>1 and best1[0]-best1[1]<0.05):
+                if best1[0]<0.30 or (len(best1)>1 and best1[0]-best1[1]<0.05):
                     rleRes[cardI]='uc'
                 else:
                     rleRes[cardI]=rleScores.index(best1[0])
